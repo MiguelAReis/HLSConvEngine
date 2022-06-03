@@ -73,9 +73,25 @@ int main()
 
 
 
-	for (int i=0; i<(tbFilterN*tbInputMapSize*tbInputMapSize); i++) {
-		tmp.data=(ap_int<32>)inputMap[i];
-		str_in.write(tmp);
+	for (int y =0 ;y<tbFilterN*tbInputMapSize*tbInputMapSize; y+=tbInputMapSize*tbInputMapSize) {
+		for(int i=0; i<(tbInputMapSize*(tbInputMapSize>MapMaxYSize? MapMaxYSize : tbInputMapSize )); i++){
+			tmp.data=(ap_int<32>)inputMap[y+i];
+			if(i+y == tbFilterN*tbInputMapSize*tbInputMapSize-1) tmp.last=1;
+			else tmp.last=0;
+			str_in.write(tmp);
+		}
+
+	}
+
+	printf("Finished Sending Partial Map\n");
+	for (int i = tbInputMapSize*(tbInputMapSize>MapMaxYSize? MapMaxYSize : tbInputMapSize ); i <tbInputMapSize*tbInputMapSize;i++){
+		for(int y =0 ;y<tbFilterN*tbInputMapSize*tbInputMapSize; y+=tbInputMapSize*tbInputMapSize){
+			tmp.data=(ap_int<32>)inputMap[y+i];
+			if(i+y == tbFilterN*tbInputMapSize*tbInputMapSize-1) tmp.last=1;
+			else tmp.last=0;
+			str_in.write(tmp);
+		}
+
 	}
 	printf("Sent whole Input Map\n");
 

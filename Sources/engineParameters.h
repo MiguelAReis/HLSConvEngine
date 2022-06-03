@@ -5,6 +5,6 @@
 #define KernelMaxN 32
 #define KernelMaxSize 5
 
-#define MapMaxXSize 10
-#define MapMaxYSize 10
+#define MapMaxXSize 100
+#define MapMaxYSize 100
 #define MapMaxN KernelMaxN

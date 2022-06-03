@@ -5,6 +5,8 @@
 
 //#define DEBUG
 
+#define DONTCARE 999
+
 
 typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
@@ -12,16 +14,16 @@ typedef ap_int<AWidth> actDataType;
 
 typedef ap_axis<32, 0, 0, 0> axisStream;
 
-void shiftOnce(filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize], int kernelN){
+void shiftOnce(filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize], filterDataType incoming[MapMaxN], int kernelN){
 
 	for(int i=0; i<kernelN; i++){
 		for(int y=0; y<MapMaxYSize; y++){
 			for(int x=0; x<MapMaxXSize; x++){
 				if(x == MapMaxXSize-1){
 					if(y == MapMaxYSize-1){
-						featureMap[i][y][x] = 0;
+						featureMap[i][y][x] = incoming[i];
 					}else{
-						featureMap[i][y][x] =featureMap[i][y+1][0];
+						featureMap[i][y][x] = featureMap[i][y+1][0];
 					}
 				}else{
 					featureMap[i][y][x] = featureMap[i][y][x+1];
@@ -30,9 +32,9 @@ void shiftOnce(filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize], int
 			}
 		}
 	}
-
-
 }
+
+
 
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
@@ -50,6 +52,9 @@ void conv(hls::stream<axisStream> &strm_in,
 	actDataType accum;
 	filterDataType filter[KernelMaxN][KernelMaxSize][KernelMaxSize];
 	filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize];
+	filterDataType incomingMap[MapMaxN];
+
+
 	axisStream tmp,tmpo;
 
 	tmp = strm_in.read(); //Save Bias
@@ -83,7 +88,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		for(int y=0;y<MapMaxYSize;y++){
 			for(int x=0;x<MapMaxXSize;x++){
 				#pragma HLS PIPELINE
-				if(x>mapSizeX-1 || y >mapSizeY-1) featureMap[n][y][x] = 0;
+				if(x>mapSizeX-1 || y >mapSizeY-1 || tmp.last) featureMap[n][y][x] = DONTCARE;
 				else{
 					tmp = strm_in.read();
 					featureMap[n][y][x] = tmp.data;
@@ -93,6 +98,7 @@ void conv(hls::stream<axisStream> &strm_in,
 	}
 
 #ifdef DEBUG
+	printf("*** Receive Map with dimension %d * %d * %d\n",(int)kernelN,(int)mapSizeX,(int)MapMaxYSize);
 	printf("*** First Input Map Value Received is %d\n",(int)featureMap[0][0][0]);
 	printf("*** Last Input Map Value Received is %d\n",(int)featureMap[kernelN-1][mapSizeY-1][mapSizeX-1]);
 #endif
@@ -110,8 +116,8 @@ void conv(hls::stream<axisStream> &strm_in,
 						#pragma HLS unroll
 						accum+=featureMap[kn][ky][kx]*filter[kn][ky][kx];
 #ifdef DEBUG
-	printf("*** Filter %d %d %d  Input Map %d %d %d accum = %d\n",kn,ky,kx,kn,y+ky,x+kx,(int)accum-32);
-	printf("*** %d*%d \n",(int)filter[kn][ky][kx],(int)featureMap[kn][y+ky][x+kx]);
+	//printf("*** Filter %d %d %d  Input Map %d %d %d accum = %d\n",kn,ky,kx,kn,y+ky,x+kx,(int)accum-32);
+	//printf("*** %d*%d \n",(int)filter[kn][ky][kx],(int)featureMap[kn][y+ky][x+kx]);
 #endif
 					}
 				}
@@ -126,11 +132,40 @@ void conv(hls::stream<axisStream> &strm_in,
 			if(!(y<outMapYSize) && !(x<outMapXSize)) tmpo.last = 1;
 			else tmpo.last = 0;
 			strm_out.write(tmpo);
+			for(int i=0;i<kernelN;i++){
+				#pragma HLS PIPELINE
+				if(tmp.last) incomingMap[i] = DONTCARE;
+				else{
+					tmp = strm_in.read();
+					incomingMap[i] = tmp.data;
+#ifdef DEBUG
+	printf("*** Received Value %d for channel %d\n",(int)incomingMap[i],(int)i);
 
-			shiftOnce(featureMap,kernelN);
+#endif
+				}
+
+			}
+			shiftOnce(featureMap,incomingMap,kernelN);
+
 		}
 		for(int i= 1; i<kernelSize+(MapMaxXSize-mapSizeX); i++){
-			shiftOnce(featureMap,kernelN);
+			if(i<=(mapSizeX-kernelSize)){
+				for(int i=0;i<kernelN;i++){
+					#pragma HLS PIPELINE
+					if(tmp.last) incomingMap[i] = DONTCARE;
+					else{
+						tmp = strm_in.read();
+						incomingMap[i] = tmp.data;
+					}
+				}
+			}else {
+				for(int i=0;i<kernelN;i++){
+					#pragma HLS PIPELINE
+					incomingMap[i] = DONTCARE;
+				}
+			}
+
+			shiftOnce(featureMap,incomingMap,kernelN);
 		}
 	}
 
