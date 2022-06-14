@@ -39,29 +39,61 @@ void print_mat(int *x, int rows, int cols)
 	printf("\n");
 }
 
+void print_inputMat(actDataType *x, int rows, int cols, int channels){
+	int i;
+	for(int c=0;c<channels;c++){
+		for (i=0; i<rows; i++) {
+			for (int j=0; j<cols; j++) {
+				printf("%5d ", (int)x[3*(i*rows+j)+c]);
+			}
+			printf("\n");
+		}
+		printf("\n\n\n");
+	}
+}
+
+void print_outputMat(int *x, int rows, int cols, int channels){
+	int i;
+	for(int c=0;c<channels;c++){
+		for (i=0; i<rows; i++) {
+			for (int j=0; j<cols; j++) {
+				printf("%5d ", (int)x[3*(i*rows+j)+c]);
+			}
+			printf("\n");
+		}
+		printf("\n\n\n");
+	}
+}
+
 void initVectors(){
 
-	for (int i=0; i<(tbFilterN*tbInputMapSize*tbInputMapSize); i++) {
-		inputMap[i] = i;
-		//inputMap[i] = i&0x01;
+
+	for (int i=0; i<(tbInputMapSize*tbInputMapSize); i++) {
+		for(int y=0;y<tbFilterN;y++){
+			inputMap[3*i+y] = (tbInputMapSize*tbInputMapSize)*y+i;
+			//printf("%d - %d\n",3*i+y, (tbInputMapSize*tbInputMapSize)*y+i);
+			//inputMap[i] = i&0x01;
+		}
 	}
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize); i++) {
 		filter[i] = i;
 
 	}
+
 }
 
 int main()
 {
 
-	hls::stream<axisStream> str_in; //("sinp");
-	hls::stream<axisStream> str_out; //("sout");
+	hls::stream<axisStream> str_in("inputStream"); //("sinp");
+	hls::stream<axisStream> str_out("outputStream"); //("sout");
 	axisStream tmp, tmpa;
 
 	printf("Beginning testbench\n");
 
 	initVectors();
-	tmp.data=(ap_int<32>)32;
+
+	tmp.data=(ap_int<32>)0;
 	str_in.write(tmp);
 	printf("Sent Bias\n");
 
@@ -98,13 +130,13 @@ int main()
 	conv(str_in, str_out,tbFilterN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
 
 
-	for (int i=0; i<tbOutputMapSize*tbOutputMapSize; i++) {
+	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*tbFilterN; i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((int)tmpa.data);
 	}
 
 	printf("Output is: \n");
-	print_mat(outputMap, tbOutputMapSize, tbOutputMapSize);
+	print_outputMat(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN);
 
 	return 0;
 }
