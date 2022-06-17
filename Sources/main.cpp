@@ -16,27 +16,41 @@ typedef ap_int<AWidth+WWidth> accDataType;
 typedef ap_axis<32, 0, 0, 0> axisStream;
 
 
-void shiftOnce(filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize], filterDataType incoming[MapMaxN], int kernelN){
+void shiftOnce(filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize], filterDataType incoming, int kernelN){
 
-	for(int i=0; i<kernelN; i++){
-		for(int y=0; y<MapMaxYSize; y++){
-			for(int x=0; x<MapMaxXSize; x++){
-				if(x == MapMaxXSize-1){
-					if(y == MapMaxYSize-1){
-						featureMap[i][y][x] = incoming[i];
-					}else{
-						featureMap[i][y][x] = featureMap[i][y+1][0];
-					}
+
+
+	Shift1LineLoop:for(int y=0; y<MapMaxYSize; y++){
+		#pragma HLS unroll
+		Shift1ValueLoop:for(int x=0; x<MapMaxXSize; x++){
+			#pragma HLS unroll
+			if(x == MapMaxXSize-1){
+				if(y == MapMaxYSize-1){
+					featureMap[kernelN][y][x] = incoming;
 				}else{
-					featureMap[i][y][x] = featureMap[i][y][x+1];
+					featureMap[kernelN][y][x] = featureMap[kernelN][y+1][0];
 				}
-
+			}else{
+				featureMap[kernelN][y][x] = featureMap[kernelN][y][x+1];
 			}
+
 		}
 	}
+
 }
-
-
+/*
+void print_mat(actDataType x[MapMaxYSize][MapMaxXSize], int rows, int cols)
+{
+	int i;
+	for (i=0; i<rows; i++) {
+		for (int j=0; j<cols; j++) {
+			printf("%5d ", (int)x[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+*/
 
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
@@ -44,6 +58,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
+		int PWFilters,
 		bool relu){
 
 	#pragma HLS INTERFACE ap_ctrl_none port=return
@@ -52,20 +67,26 @@ void conv(hls::stream<axisStream> &strm_in,
 
 	actDataType bias;
 	filterDataType filter[KernelMaxN][KernelMaxSize][KernelMaxSize];
-	filterDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize];
-	filterDataType incomingMap[MapMaxN];
+	//#pragma HLS array_partition variable=filter complete
+	actDataType featureMap[MapMaxN][MapMaxYSize][MapMaxXSize];
+	actDataType OutputMap[MapMaxN];
+	actDataType incomingMap[MapMaxN];
 	accDataType accum[KernelMaxN];
-
+	accDataType PWaccum;
+	filterDataType PWKernel[PWMaxFilters][KernelMaxN];
 
 	axisStream tmp,tmpo;
+
+	hls::stream<actDataType> interStream;
+	#pragma HLS STREAM variable=interStream depth=100
 
 	tmp = strm_in.read(); //Save Bias
 	bias = tmp.data;
 
 
-	SaveKernelNLOOP:for(int n=0;n<kernelN;n++){ // Save Filter
-		SaveKernelYLOOP:for(int y=0;y<KernelMaxSize;y++){
-			SaveKernelXLOOP:for(int x=0;x<KernelMaxSize;x++){
+	SaveDWKernelNLOOP:for(int n=0;n<kernelN;n++){ // Save Filter
+		SaveDWKernelYLOOP:for(int y=0;y<KernelMaxSize;y++){
+			SaveDWKernelXLOOP:for(int x=0;x<KernelMaxSize;x++){
 				#pragma HLS PIPELINE
 				if( !(x<kernelSize) || !(y<kernelSize)) filter[n][y][x] = 0;
 				else{
@@ -76,6 +97,15 @@ void conv(hls::stream<axisStream> &strm_in,
 		}
 	}
 
+	SavePWKernelNLOOP:for(int n=0;n<PWFilters;n++){ // Save Filter
+		SavePWKernelXLOOP:for(int x=0;x<kernelN;x++){
+			#pragma HLS PIPELINE
+			tmp = strm_in.read();
+			PWKernel[n][x] = tmp.data;
+		}
+	}
+
+
 
 	SaveMapYLOOP:for(int y=0;y<MapMaxYSize;y++){ // Save Map
 		SaveMapXLOOP:for(int x=0;x<MapMaxXSize;x++){
@@ -85,6 +115,7 @@ void conv(hls::stream<axisStream> &strm_in,
 				else{
 					tmp = strm_in.read();
 					featureMap[n][y][x] = tmp.data;
+					//printf(" n %d y %d x %d - %d\n",n,y,x,(int)featureMap[n][y][x]);
 				}
 			}
 		}
@@ -94,60 +125,70 @@ void conv(hls::stream<axisStream> &strm_in,
 	int outMapYSize = mapSizeY-kernelSize+1;
 	int outMapXSize = mapSizeX-kernelSize+1;
 
-	DWChannelLOOP:for(int y=0;y<outMapYSize;y++){
-		DWOutYLOOP:for(int x=0;x<outMapXSize;x++){
-			DWOutXLOOP: for(int kn=0; kn<kernelN; kn++){
-				#pragma HLS unroll factor=2
-				accum[kn] = bias;
+	DWOutYLOOP:for(int y=0;y<outMapYSize;y++){
+		DWOutXLOOP:for(int x=0;x<outMapXSize;x++){
+			DWChannelLOOP:for(int kn=0; kn<kernelN; kn++){
+				#pragma HLS unroll factor=1
 				DWKernelYLOOP:for(int ky=0; ky<KernelMaxSize; ky++){
-					#pragma HLS unroll
 					DWKernelXLOOP: for(int kx=0; kx<KernelMaxSize; kx++){
-						#pragma HLS unroll
+						#pragma HLS pipeline
+						if(ky==0 && kx==0  ) accum[kn] = bias;
 						accum[kn]+=featureMap[kn][ky][kx]*filter[kn][ky][kx];
 
+						if(ky==KernelMaxSize-1 && kx==KernelMaxSize-1){
+							if(relu && (accum[kn] < 0)) accum[kn] =0;
+							interStream.write(accum[kn]);
+
+							if(tmp.last) shiftOnce(featureMap,DONTCARE,kn);
+							else{
+								tmp = strm_in.read();
+								shiftOnce(featureMap,tmp.data,kn);
+							}
+							if(x==outMapXSize-1 && kn==kernelN-1){
+								DWGetNextLineOfValuesLOOP:for(int i= 1; i<kernelSize+(MapMaxXSize-mapSizeX); i++){
+									for(int j=0;j<kernelN;j++){
+										if(i<=(mapSizeX-kernelSize)){
+											if(tmp.last) shiftOnce(featureMap,DONTCARE,j);
+											else{
+												tmp = strm_in.read();
+												shiftOnce(featureMap,tmp.data,j);
+											}
+										}else {
+											shiftOnce(featureMap,DONTCARE,j);
+										}
+
+									}
+
+								}
+							}
+						}
 					}
 				}
-				if(relu && (accum[kn] < 0)) accum[kn] =0;
-				tmpo.data=accum[kn];
-				tmpo.keep =0xF;
-				tmpo.strb = 0xF;
-				if(!(y<outMapYSize) && !(x<outMapXSize)) tmpo.last = 1;
-				else tmpo.last = 0;
-				strm_out.write(tmpo);
 			}
-
-			for(int i=0;i<kernelN;i++){
-				#pragma HLS PIPELINE
-				if(tmp.last) incomingMap[i] = DONTCARE;
-				else{
-					tmp = strm_in.read();
-					incomingMap[i] = tmp.data;
-				}
-			}
-			shiftOnce(featureMap,incomingMap,kernelN);
-
 		}
-		for(int i= 1; i<kernelSize+(MapMaxXSize-mapSizeX); i++){
-			if(i<=(mapSizeX-kernelSize)){
-				for(int i=0;i<kernelN;i++){
-					#pragma HLS PIPELINE
-					if(tmp.last) incomingMap[i] = DONTCARE;
-					else{
-						tmp = strm_in.read();
-						incomingMap[i] = tmp.data;
-					}
-				}
-			}else {
-				for(int i=0;i<kernelN;i++){
-					#pragma HLS PIPELINE
-					incomingMap[i] = DONTCARE;
-				}
-			}
 
-			shiftOnce(featureMap,incomingMap,kernelN);
-		}
 	}
 
-
+	PWYLOOP:for(int y=0; y<outMapYSize;y++){
+		PWXLOOP:for(int x=0; x<outMapXSize;x++){
+			PWChannelLOOP:for(int j=0; j<PWFilters;j++){
+				PWZLOOP:for(int k=0; k<kernelN;k++){
+					#pragma HLS pipeline
+					if(j==0){
+						OutputMap[k] = interStream.read();
+					}
+					if(k==0) PWaccum=0;
+					PWaccum+=OutputMap[k]*PWKernel[j][k];
+					if(k==kernelN-1){
+						tmpo.data=PWaccum;
+						tmpo.keep =0xF;
+						tmpo.strb = 0xF;
+						tmpo.last = (!(y<outMapYSize) && !(x<outMapXSize));
+						strm_out.write(tmpo);
+					}
+				}
+			}
+		}
+	}
 
 }

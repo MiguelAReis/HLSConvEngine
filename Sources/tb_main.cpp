@@ -10,11 +10,14 @@
 #define tbInputMapSize 5
 #define tbOutputMapSize (tbInputMapSize - tbFilterSize + 1)
 
+#define tbPWFilterN 5
+
 typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
 typedef ap_axis<32, 0, 0, 0> axisStream;
 
 static filterDataType filter[tbFilterN*tbFilterSize*tbFilterSize];
+static filterDataType PWfilter[tbFilterN*tbFilterSize*tbFilterSize];
 static actDataType inputMap[tbFilterN*tbInputMapSize*tbInputMapSize];
 int outputMap[tbOutputMapSize*tbOutputMapSize];
 
@@ -24,6 +27,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
+		int PWFilters,
 		bool relu);
 
 
@@ -57,7 +61,7 @@ void print_outputMat(int *x, int rows, int cols, int channels){
 	for(int c=0;c<channels;c++){
 		for (i=0; i<rows; i++) {
 			for (int j=0; j<cols; j++) {
-				printf("%5d ", (int)x[3*(i*rows+j)+c]);
+				printf("%d ", (int)x[channels*(i*rows+j)+c]);
 			}
 			printf("\n");
 		}
@@ -70,14 +74,17 @@ void initVectors(){
 
 	for (int i=0; i<(tbInputMapSize*tbInputMapSize); i++) {
 		for(int y=0;y<tbFilterN;y++){
-			inputMap[3*i+y] = (tbInputMapSize*tbInputMapSize)*y+i;
+			inputMap[tbFilterN*i+y] = (tbInputMapSize*tbInputMapSize)*y+i;
 			//printf("%d - %d\n",3*i+y, (tbInputMapSize*tbInputMapSize)*y+i);
 			//inputMap[i] = i&0x01;
 		}
 	}
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize); i++) {
 		filter[i] = i;
+	}
 
+	for (int i=0; i<(tbFilterN*tbPWFilterN); i++) {
+		PWfilter[i] = i;
 	}
 
 }
@@ -101,22 +108,24 @@ int main()
 		tmp.data=(ap_int<32>)filter[i];
 		str_in.write(tmp);
 	}
+
+	for (int i=0; i<(tbFilterN*tbPWFilterN); i++) {
+		tmp.data=(ap_int<32>)PWfilter[i];
+		str_in.write(tmp);
+	}
 	printf("Sent whole Filter\n");
 
 
 
-	for (int y =0 ;y<tbFilterN*tbInputMapSize*tbInputMapSize; y+=tbInputMapSize*tbInputMapSize) {
-		for(int i=0; i<(tbInputMapSize*(tbInputMapSize>MapMaxYSize? MapMaxYSize : tbInputMapSize )); i++){
-			tmp.data=(ap_int<32>)inputMap[y+i];
-			if(i+y == tbFilterN*tbInputMapSize*tbInputMapSize-1) tmp.last=1;
-			else tmp.last=0;
-			str_in.write(tmp);
-		}
-
+	for (int y =0 ;y<tbFilterN*tbInputMapSize*tbInputMapSize; y++) {
+		tmp.data=(ap_int<32>)inputMap[y];
+		if(y == tbFilterN*tbInputMapSize*tbInputMapSize-1) tmp.last=1;
+		else tmp.last=0;
+		str_in.write(tmp);
 	}
 
 	printf("Finished Sending Partial Map\n");
-	for (int i = tbInputMapSize*(tbInputMapSize>MapMaxYSize? MapMaxYSize : tbInputMapSize ); i <tbInputMapSize*tbInputMapSize;i++){
+	/*for (int i = tbInputMapSize*(tbInputMapSize>MapMaxYSize? MapMaxYSize : tbInputMapSize ); i <tbInputMapSize*tbInputMapSize;i++){
 		for(int y =0 ;y<tbFilterN*tbInputMapSize*tbInputMapSize; y+=tbInputMapSize*tbInputMapSize){
 			tmp.data=(ap_int<32>)inputMap[y+i];
 			if(i+y == tbFilterN*tbInputMapSize*tbInputMapSize-1) tmp.last=1;
@@ -125,18 +134,19 @@ int main()
 		}
 
 	}
+	*/
 	printf("Sent whole Input Map\n");
 
-	conv(str_in, str_out,tbFilterN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
+	conv(str_in, str_out,tbFilterN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbPWFilterN,0);
 
 
-	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*tbFilterN; i++) {
+	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*tbPWFilterN; i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((int)tmpa.data);
 	}
 
 	printf("Output is: \n");
-	print_outputMat(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN);
+	print_outputMat(outputMap, tbOutputMapSize, tbOutputMapSize,tbPWFilterN);
 
 	return 0;
 }
