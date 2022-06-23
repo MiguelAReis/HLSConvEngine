@@ -1,0 +1,4 @@
+Running: xsim.dir/depthwise/xsimk -simmode gui -wdb depthwise.wdb -simrunnum 0 -socket 40085
+Design successfully loaded
+Design Loading Memory Usage: 34864 KB (Peak: 34864 KB)
+Design Loading CPU Usage: 20 ms

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="depthwiseParameters.h" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/depthwise/depthwiseParameters.h"/>
+    <originFiles name="depthwise.cpp" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/depthwise/depthwise.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="tb_depthwise.cpp" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/depthwise/tb_depthwise.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

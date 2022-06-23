@@ -1,0 +1,14 @@
+depthwise_mul_mul_18s_6ns_18_4_1
+depthwise_mac_muladd_18s_6ns_18ns_18_4_1
+depthwise_mac_muladd_4s_4s_8ns_8_4_1
+depthwise_filter_V
+depthwise_featureMap_V
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise_regslice_both
+depthwise

@@ -1,0 +1,31 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../Sources/depthwise/depthwise.cpp in debug mode
+   Generating csim.exe
+Beginning testbench
+Sent Bias
+Sent whole Filter
+Sent whole Input Map
+Output is: 
+40 -20 -64 
+-52 -64 -60 
+0 20 -88 
+
+
+
+123 96 69 
+-12 -39 -66 
+-3 -30 -57 
+
+
+
+32 -42 -36 
+126 100 106 
+-36 82 -40 
+
+
+
+WARNING: Hls::stream 'outputStream' contains leftover data, which may result in RTL simulation hanging.
+The maximum depth reached by any of the -12 hls::stream() instances in the design is 126
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************
