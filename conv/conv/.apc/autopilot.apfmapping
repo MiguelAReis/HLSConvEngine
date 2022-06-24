@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="convParameters.h" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/conv/convParameters.h"/>
+    <originFiles name="conv.cpp" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/conv/conv.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="tb_conv.cpp" path="/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/Sources/conv/tb_conv.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

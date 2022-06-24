@@ -15,21 +15,24 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux
 INFO: [VRFC 10-311] analyzing module apatb_depthwise_top
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module depthwise
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1_DSP48_0
+INFO: [VRFC 10-311] analyzing module depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_featureMap_V.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module depthwise_featureMap_V_ram
 INFO: [VRFC 10-311] analyzing module depthwise_featureMap_V
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_filter_V.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module depthwise_filter_V_ram
 INFO: [VRFC 10-311] analyzing module depthwise_filter_V
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mac_muladd_18s_6ns_18ns_18_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_18s_6ns_18ns_18_4_1_DSP48_1
-INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_18s_6ns_18ns_18_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mac_muladd_4s_4s_8ns_8_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_2
+INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1
 INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_4s_4s_8ns_8_4_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mul_mul_18s_6ns_18_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module depthwise_mul_mul_18s_6ns_18_4_1_DSP48_0
-INFO: [VRFC 10-311] analyzing module depthwise_mul_mul_18s_6ns_18_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mul_2ns_18s_18_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_mul_2ns_18s_18_1_1_Multiplier_1
+INFO: [VRFC 10-311] analyzing module depthwise_mul_2ns_18s_18_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mul_32s_32s_32_2_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_mul_32s_32s_32_2_1_Multiplier_0
+INFO: [VRFC 10-311] analyzing module depthwise_mul_32s_32s_32_2_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_regslice_both.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module depthwise_regslice_both
 INFO: [VRFC 10-311] analyzing module depthwise_regslice_both_w1
@@ -62,10 +65,12 @@ Compiling module xil_defaultlib.depthwise_filter_V_ram
 Compiling module xil_defaultlib.depthwise_filter_V(DataWidth=4,A...
 Compiling module xil_defaultlib.depthwise_featureMap_V_ram
 Compiling module xil_defaultlib.depthwise_featureMap_V(DataWidth...
-Compiling module xil_defaultlib.depthwise_mul_mul_18s_6ns_18_4_1...
-Compiling module xil_defaultlib.depthwise_mul_mul_18s_6ns_18_4_1...
-Compiling module xil_defaultlib.depthwise_mac_muladd_18s_6ns_18n...
-Compiling module xil_defaultlib.depthwise_mac_muladd_18s_6ns_18n...
+Compiling module xil_defaultlib.depthwise_mul_32s_32s_32_2_1_Mul...
+Compiling module xil_defaultlib.depthwise_mul_32s_32s_32_2_1(ID=...
+Compiling module xil_defaultlib.depthwise_mul_2ns_18s_18_1_1_Mul...
+Compiling module xil_defaultlib.depthwise_mul_2ns_18s_18_1_1(ID=...
+Compiling module xil_defaultlib.depthwise_ama_addmuladd_18ns_2ns...
+Compiling module xil_defaultlib.depthwise_ama_addmuladd_18ns_2ns...
 Compiling module xil_defaultlib.depthwise_mac_muladd_4s_4s_8ns_8...
 Compiling module xil_defaultlib.depthwise_mac_muladd_4s_4s_8ns_8...
 Compiling module xil_defaultlib.depthwise_regslice_both

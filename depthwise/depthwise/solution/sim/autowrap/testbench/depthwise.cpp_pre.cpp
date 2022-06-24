@@ -72833,7 +72833,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
  actDataType bias;
  filterDataType filter[1536][3][3];
 
- actDataType featureMap[1536][3 +1][22];
+ actDataType featureMap[1536*(3 +1)*42];
 
  accDataType accum;
 
@@ -72861,15 +72861,15 @@ void depthwise(hls::stream<axisStream> &strm_in,
 
 
  SaveMapYLOOP:for(int y=0;y<3;y++){
-  SaveMapXLOOP:for(int x=0;x<22;x++){
+  SaveMapXLOOP:for(int x=0;x<42;x++){
 #pragma HLS loop_tripcount min=5 max=5
    SaveMapNLOOP:for(int n=0;n<kernelN;n++){
 #pragma HLS loop_tripcount min=3 max=3
 #pragma HLS PIPELINE
-    if(x>mapSizeX-1) x=22;
+    if(x>mapSizeX-1) x=42;
     else{
      tmp = strm_in.read();
-     featureMap[n][y][x] = tmp.data;
+     featureMap[(n*mapSizeX*mapSizeY)+(y*mapSizeX)+x] = tmp.data;
     }
    }
   }
@@ -72882,7 +72882,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
  DWOutYLOOP:for(int y=0;y<outMapYSize;y++){
 #pragma HLS loop_tripcount min=17 max=17
 
-  DWOutXLOOP:for(int x=0;x<22;x++){
+  DWOutXLOOP:for(int x=0;x<42;x++){
 
 #pragma HLS loop_tripcount min=17 max=17
    DWChannelLOOP:for(int kn=0; kn<1536; kn++){
@@ -72901,14 +72901,14 @@ void depthwise(hls::stream<axisStream> &strm_in,
       if(kn<kernelN){
        if(ky==0 && kx==0 && x < outMapXSize) accum = bias;
        if(x < outMapXSize){
-        accum+=featureMap[kn][(y+ky)&0x03][x+kx]*filter[kn][ky][kx];
+        accum+=featureMap[(kn*mapSizeX*mapSizeY)+(((y+ky)&0x03)*mapSizeX)+(x+kx)]*filter[kn][ky][kx];
        }
 
        if(ky==3 -1 && kx==3 -1 && x < mapSizeX){
         if(y<outMapYSize-1){
 
          tmp = strm_in.read();
-         featureMap[kn][(y+3)&0x03][x]=tmp.data;
+         featureMap[(kn*mapSizeX*mapSizeY)+(((y+3)&0x03)*mapSizeX)+x]=tmp.data;
         }
 
         if(x < outMapXSize){
@@ -72922,7 +72922,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
        }
 
        if(ky==3 -1 && kx==3 -1 && x>=mapSizeX){
-        x=22;
+        x=42;
 
        }
       }else kn=1536;

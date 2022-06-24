@@ -2,8 +2,8 @@
 # xsim v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Thu Jun 23 14:21:01 2022
-# Process ID: 5376
+# Start of session at: Thu Jun 23 14:53:29 2022
+# Process ID: 10076
 # Current directory: /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog
 # Command line: xsim -source {xsim.dir/depthwise/xsim_script.tcl}
 # Log file: /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/xsim.log
@@ -117,6 +117,10 @@ WARNING: [Simtcl 6-197] One or more HDL objects could not be logged because of o
 // RTL Simulation : "Inter-Transaction Progress" ["Intra-Transaction Progress"] @ "Simulation Time"
 ////////////////////////////////////////////////////////////////////////////////////
 // RTL Simulation : 0 / 1 [0.00%] @ "125000"
-// RTL Simulation : 1 / 1 [100.00%] @ "10495000"
+// RTL Simulation : 1 / 1 [100.00%] @ "10145000"
 ////////////////////////////////////////////////////////////////////////////////////
-$finish called at time : 10535 ns : File "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise.autotb.v" Line 604
+$finish called at time : 10185 ns : File "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise.autotb.v" Line 604
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting xsim at Thu Jun 23 14:55:32 2022...

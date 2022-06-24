@@ -7,7 +7,7 @@ module depthwise_featureMap_V_ram (addr0, ce0, d0, we0, q0, addr1, ce1, q1,  clk
 
 parameter DWIDTH = 4;
 parameter AWIDTH = 18;
-parameter MEM_SIZE = 135168;
+parameter MEM_SIZE = 258048;
 
 input[AWIDTH-1:0] addr0;
 input ce0;
@@ -57,7 +57,7 @@ module depthwise_featureMap_V(
     q1);
 
 parameter DataWidth = 32'd4;
-parameter AddressRange = 32'd135168;
+parameter AddressRange = 32'd258048;
 parameter AddressWidth = 32'd18;
 input reset;
 input clk;

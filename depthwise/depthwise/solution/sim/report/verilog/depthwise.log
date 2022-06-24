@@ -1,0 +1,175 @@
+INFO: [COSIM-47] Using XSIM for RTL simulation.
+INFO: [COSIM-14] Instrumenting C test bench ...
+   Build using "/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/tps/lnx64/gcc-6.2.0/bin/g++"
+   Compiling apatb_depthwise.cpp
+   Compiling apatb_depthwise_util.cpp
+   Compiling depthwise.cpp_pre.cpp.tb.cpp
+   Compiling tb_depthwise.cpp_pre.cpp.tb.cpp
+   Compiling apatb_depthwise_ir.ll
+   Generating cosim.tv.exe
+INFO: [COSIM-302] Starting C TB testing ... 
+INFO: [COSIM-333] Generating C post check test bench ...
+INFO: [COSIM-12] Generating RTL test bench ...
+INFO: [COSIM-1] *** C/RTL co-simulation file generation completed. ***
+INFO: [COSIM-323] Starting verilog simulation. 
+INFO: [COSIM-15] Starting XSIM ...
+INFO: [COSIM-316] Starting C post checking ...
+Beginning testbench
+Sent Bias
+Sent whole Filter
+Sent whole Input Map
+Output is: 
+40 -20 -64 
+-52 -64 -60 
+0 20 -88 
+
+
+
+123 96 69 
+-12 -39 -66 
+-3 -30 -57 
+
+
+
+32 -42 -36 
+126 100 106 
+-36 82 -40 
+
+
+
+The maximum depth reached by any of the -12 hls::stream() instances in the design is 126
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: /media/miguel/NewVolume/Linux/Xilinx/Vivado/2020.2/bin/unwrapped/lnx64.o/xelab xil_defaultlib.apatb_depthwise_top glbl -prj depthwise.prj -L smartconnect_v1_0 -L axi_protocol_checker_v1_1_12 -L axi_protocol_checker_v1_1_13 -L axis_protocol_checker_v1_1_11 -L axis_protocol_checker_v1_1_12 -L xil_defaultlib -L unisims_ver -L xpm -L floating_point_v7_0_18 -L floating_point_v7_1_11 --lib ieee_proposed=./ieee_proposed -s depthwise -debug wave 
+Multi-threading is on. Using 14 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by Xilinx, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/glbl.v" into library work
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/AESL_axi_s_strm_in.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_s_strm_in
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/AESL_axi_s_strm_out.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_s_strm_out
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/AESL_fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise.autotb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module apatb_depthwise_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1_DSP48_0
+INFO: [VRFC 10-311] analyzing module depthwise_ama_addmuladd_18ns_2ns_18s_18ns_18_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_featureMap_V.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_featureMap_V_ram
+INFO: [VRFC 10-311] analyzing module depthwise_featureMap_V
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_filter_V.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_filter_V_ram
+INFO: [VRFC 10-311] analyzing module depthwise_filter_V
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mac_muladd_4s_4s_8ns_8_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1
+INFO: [VRFC 10-311] analyzing module depthwise_mac_muladd_4s_4s_8ns_8_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mul_2ns_18s_18_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_mul_2ns_18s_18_1_1_Multiplier_1
+INFO: [VRFC 10-311] analyzing module depthwise_mul_2ns_18s_18_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_mul_32s_32s_32_2_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_mul_32s_32s_32_2_1_Multiplier_0
+INFO: [VRFC 10-311] analyzing module depthwise_mul_32s_32s_32_2_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/depthwise_regslice_both.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module depthwise_regslice_both
+INFO: [VRFC 10-311] analyzing module depthwise_regslice_both_w1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/csv_file_dump.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/dataflow_monitor.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dataflow_monitor
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_fifo_interface.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'df_fifo_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_fifo_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_fifo_monitor.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'df_fifo_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_fifo_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_process_interface.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'df_process_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_process_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_process_monitor.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'df_process_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/df_process_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/dump_file_agent.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/nodf_module_interface.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'nodf_module_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/nodf_module_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/nodf_module_monitor.sv" into library xil_defaultlib
+WARNING: [VRFC 10-3609] overwriting previous definition of interface 'nodf_module_intf' [/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/nodf_module_interface.sv:4]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/sample_agent.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/sample_manager.sv" into library xil_defaultlib
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.$unit_dataflow_monitor_sv
+Compiling module xil_defaultlib.depthwise_filter_V_ram
+Compiling module xil_defaultlib.depthwise_filter_V(DataWidth=4,A...
+Compiling module xil_defaultlib.depthwise_featureMap_V_ram
+Compiling module xil_defaultlib.depthwise_featureMap_V(DataWidth...
+Compiling module xil_defaultlib.depthwise_mul_32s_32s_32_2_1_Mul...
+Compiling module xil_defaultlib.depthwise_mul_32s_32s_32_2_1(ID=...
+Compiling module xil_defaultlib.depthwise_mul_2ns_18s_18_1_1_Mul...
+Compiling module xil_defaultlib.depthwise_mul_2ns_18s_18_1_1(ID=...
+Compiling module xil_defaultlib.depthwise_ama_addmuladd_18ns_2ns...
+Compiling module xil_defaultlib.depthwise_ama_addmuladd_18ns_2ns...
+Compiling module xil_defaultlib.depthwise_mac_muladd_4s_4s_8ns_8...
+Compiling module xil_defaultlib.depthwise_mac_muladd_4s_4s_8ns_8...
+Compiling module xil_defaultlib.depthwise_regslice_both
+Compiling module xil_defaultlib.depthwise_regslice_both(DataWidt...
+Compiling module xil_defaultlib.depthwise_regslice_both(DataWidt...
+Compiling module xil_defaultlib.depthwise
+Compiling module xil_defaultlib.fifo(DEPTH=103,WIDTH=32)
+Compiling module xil_defaultlib.fifo(DEPTH=103,WIDTH=4)
+Compiling module xil_defaultlib.fifo(DEPTH=103,WIDTH=1)
+Compiling module xil_defaultlib.AESL_axi_s_strm_in
+Compiling module xil_defaultlib.fifo(DEPTH=27,WIDTH=32)
+Compiling module xil_defaultlib.fifo(DEPTH=27,WIDTH=4)
+Compiling module xil_defaultlib.fifo(DEPTH=27,WIDTH=1)
+Compiling module xil_defaultlib.AESL_axi_s_strm_out
+Compiling module xil_defaultlib.nodf_module_intf
+Compiling module xil_defaultlib.dataflow_monitor_1
+Compiling module xil_defaultlib.apatb_depthwise_top
+Compiling module work.glbl
+Built simulation snapshot depthwise
+
+****** Webtalk v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/xsim.dir/depthwise/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Thu Jun 23 14:53:28 2022...
+
+****** xsim v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+start_gui
+INFO: [Common 17-206] Exiting xsim at Thu Jun 23 14:55:32 2022...
+Beginning testbench
+Sent Bias
+Sent whole Filter
+Sent whole Input Map
+Output is: 
+40 -20 -64 
+-52 -64 -60 
+0 20 -88 
+
+
+
+123 96 69 
+-12 -39 -66 
+-3 -30 -57 
+
+
+
+32 -42 -36 
+126 100 106 
+-36 82 -40 
+
+
+
+The maximum depth reached by any of the -12 hls::stream() instances in the design is 126
+INFO: [COSIM-1000] *** C/RTL co-simulation finished: PASS ***
+INFO: [COSIM-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.

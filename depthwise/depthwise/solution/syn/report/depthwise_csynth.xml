@@ -18,18 +18,18 @@
 <PipelineType>none</PipelineType>
 <SummaryOfTimingAnalysis>
 <unit>ns</unit>
-<EstimatedClockPeriod>7.098</EstimatedClockPeriod>
+<EstimatedClockPeriod>7.216</EstimatedClockPeriod>
 </SummaryOfTimingAnalysis>
 <SummaryOfOverallLatency>
 <unit>clock cycles</unit>
-<Best-caseLatency>10900</Best-caseLatency>
-<Average-caseLatency>10900</Average-caseLatency>
-<Worst-caseLatency>10900</Worst-caseLatency>
-<Best-caseRealTimeLatency>0.109 ms</Best-caseRealTimeLatency>
-<Average-caseRealTimeLatency>0.109 ms</Average-caseRealTimeLatency>
-<Worst-caseRealTimeLatency>0.109 ms</Worst-caseRealTimeLatency>
-<Interval-min>10901</Interval-min>
-<Interval-max>10901</Interval-max>
+<Best-caseLatency>10597</Best-caseLatency>
+<Average-caseLatency>10597</Average-caseLatency>
+<Worst-caseLatency>10597</Worst-caseLatency>
+<Best-caseRealTimeLatency>0.106 ms</Best-caseRealTimeLatency>
+<Average-caseRealTimeLatency>0.106 ms</Average-caseRealTimeLatency>
+<Worst-caseRealTimeLatency>0.106 ms</Worst-caseRealTimeLatency>
+<Interval-min>10598</Interval-min>
+<Interval-max>10598</Interval-max>
 </SummaryOfOverallLatency>
 <SummaryOfLoopLatency>
 <SaveDWKernelNLOOP_SaveDWKernelYLOOP_SaveDWKernelXLOOP>
@@ -41,39 +41,39 @@
 </SaveDWKernelNLOOP_SaveDWKernelYLOOP_SaveDWKernelXLOOP>
 <SaveMapYLOOP>
 <TripCount>3</TripCount>
-<Latency>141</Latency>
-<AbsoluteTimeLatency>1410</AbsoluteTimeLatency>
-<IterationLatency>47</IterationLatency>
+<Latency>126</Latency>
+<AbsoluteTimeLatency>1260</AbsoluteTimeLatency>
+<IterationLatency>42</IterationLatency>
 <SaveMapXLOOP>
 <TripCount>5</TripCount>
-<Latency>45</Latency>
-<AbsoluteTimeLatency>450</AbsoluteTimeLatency>
-<IterationLatency>9</IterationLatency>
+<Latency>40</Latency>
+<AbsoluteTimeLatency>400</AbsoluteTimeLatency>
+<IterationLatency>8</IterationLatency>
 <SaveMapNLOOP>
 <TripCount>3</TripCount>
-<Latency>6</Latency>
-<AbsoluteTimeLatency>60</AbsoluteTimeLatency>
+<Latency>5</Latency>
+<AbsoluteTimeLatency>50</AbsoluteTimeLatency>
 <PipelineII>1</PipelineII>
-<PipelineDepth>5</PipelineDepth>
+<PipelineDepth>4</PipelineDepth>
 </SaveMapNLOOP>
 </SaveMapXLOOP>
 </SaveMapYLOOP>
 <DWOutYLOOP>
 <TripCount>17</TripCount>
-<Latency>10727</Latency>
-<AbsoluteTimeLatency>107270</AbsoluteTimeLatency>
-<IterationLatency>631</IterationLatency>
+<Latency>10438</Latency>
+<AbsoluteTimeLatency>104380</AbsoluteTimeLatency>
+<IterationLatency>614</IterationLatency>
 <DWOutXLOOP>
 <TripCount>17</TripCount>
-<Latency>629</Latency>
-<AbsoluteTimeLatency>6290</AbsoluteTimeLatency>
-<IterationLatency>37</IterationLatency>
+<Latency>612</Latency>
+<AbsoluteTimeLatency>6120</AbsoluteTimeLatency>
+<IterationLatency>36</IterationLatency>
 <DWChannelLOOP>
 <TripCount>3</TripCount>
-<Latency>34</Latency>
-<AbsoluteTimeLatency>340</AbsoluteTimeLatency>
+<Latency>33</Latency>
+<AbsoluteTimeLatency>330</AbsoluteTimeLatency>
 <PipelineII>9</PipelineII>
-<PipelineDepth>17</PipelineDepth>
+<PipelineDepth>16</PipelineDepth>
 </DWChannelLOOP>
 </DWOutXLOOP>
 </DWOutYLOOP>
@@ -83,9 +83,9 @@
 <AreaEstimates>
 <Resources>
 <BRAM_18K>68</BRAM_18K>
-<DSP>20</DSP>
-<FF>1513</FF>
-<LUT>2613</LUT>
+<DSP>11</DSP>
+<FF>3767</FF>
+<LUT>3493</LUT>
 <URAM>0</URAM>
 </Resources>
 <AvailableResources>

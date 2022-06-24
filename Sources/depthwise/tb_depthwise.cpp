@@ -116,7 +116,7 @@ int main()
 
 	printf("Sent whole Input Map\n");
 
-	depthwise(str_in, str_out,tbFilterN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
+	depthwise(str_in, str_out,tbFilterN,tbFilterSize,tbInputMapSize,tbInputMapSize,1);
 
 
 	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*tbFilterSize; i++) {

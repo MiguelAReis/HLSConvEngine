@@ -11,7 +11,7 @@ entity depthwise_featureMap_V_ram is
     generic(
             DWIDTH     : integer := 4; 
             AWIDTH     : integer := 18; 
-            MEM_SIZE    : integer := 135168
+            MEM_SIZE    : integer := 258048
     ); 
     port (
           addr0     : in std_logic_vector(AWIDTH-1 downto 0); 
@@ -92,7 +92,7 @@ use IEEE.std_logic_1164.all;
 entity depthwise_featureMap_V is
     generic (
         DataWidth : INTEGER := 4;
-        AddressRange : INTEGER := 135168;
+        AddressRange : INTEGER := 258048;
         AddressWidth : INTEGER := 18);
     port (
         reset : IN STD_LOGIC;

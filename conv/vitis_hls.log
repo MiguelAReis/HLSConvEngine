@@ -1,0 +1,49 @@
+INFO: [HLS 200-10] Running '/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'miguel' on host 'Victus' (Linux_x86_64 version 5.11.0-37-generic) on Sat Jun 25 00:05:38 WEST 2022
+INFO: [HLS 200-10] On os Ubuntu 21.04
+INFO: [HLS 200-10] In directory '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv'
+Sourcing Tcl script '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv/solution1/csim.tcl'
+INFO: [HLS 200-1510] Running: open_project conv 
+INFO: [HLS 200-10] Opening project '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv'.
+INFO: [HLS 200-1510] Running: set_top conv 
+INFO: [HLS 200-1510] Running: add_files ../Sources/conv/convParameters.h 
+INFO: [HLS 200-10] Adding design file '../Sources/conv/convParameters.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../Sources/conv/conv.cpp 
+INFO: [HLS 200-10] Adding design file '../Sources/conv/conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb ../Sources/conv/tb_conv.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file '../Sources/conv/tb_conv.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
+INFO: [HLS 200-10] Opening solution '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv/solution1'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: csim_design -quiet 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../Sources/conv/tb_conv.cpp in debug mode
+   Compiling ../../../../../Sources/conv/conv.cpp in debug mode
+   Generating csim.exe
+Beginning testbench
+Sent Bias
+Sent whole Filter
+Sent whole Input Map
+Output is: 
+15219 15570 15921 
+16974 17325 17676 
+18729 19080 19431 
+
+
+
+37818 38898 39978 
+43218 44298 45378 
+48618 49698 50778 
+
+
+
+The maximum depth reached by any of the 2 hls::stream() instances in the design is 130
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 2.34 seconds. CPU system time: 0.35 seconds. Elapsed time: 2.8 seconds; current allocated memory: 191.817 MB.

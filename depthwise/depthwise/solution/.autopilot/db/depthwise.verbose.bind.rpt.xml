@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'depthwise'" level="0">
-<item name = "Date">Thu Jun 23 14:20:11 2022
+<item name = "Date">Thu Jun 23 14:56:41 2022
 </item>
 <item name = "Version">2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)</item>
 <item name = "Project">depthwise</item>
@@ -15,7 +15,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="4">Clock, Target, Estimated, Uncertainty</keys>
-<column name="ap_clk">10.00 ns, 7.098 ns, 2.70 ns</column>
+<column name="ap_clk">10.00 ns, 7.216 ns, 2.70 ns</column>
 </table>
 </item>
 </section>
@@ -24,7 +24,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="8">, min, max, min, max, min, max, Type</keys>
-<column name="">10900, 10900, 0.109 ms, 0.109 ms, 10901, 10901, none</column>
+<column name="">10597, 10597, 0.106 ms, 0.106 ms, 10598, 10598, none</column>
 </table>
 </item>
 <item name = "Detail">
@@ -36,12 +36,12 @@
 <item name = "Loop"><table name="" hasTotal="0">
 <keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
 <column name="- SaveDWKernelNLOOP_SaveDWKernelYLOOP_SaveDWKernelXLOOP">28, 28, 3, 1, 1, 27, yes</column>
-<column name="- SaveMapYLOOP">141, 141, 47, -, -, 3, no</column>
-<column name=" + SaveMapXLOOP">45, 45, 9, -, -, 5, no</column>
-<column name="  ++ SaveMapNLOOP">6, 6, 5, 1, 1, 3, yes</column>
-<column name="- DWOutYLOOP">10727, 10727, 631, -, -, 17, no</column>
-<column name=" + DWOutXLOOP">629, 629, 37, -, -, 17, no</column>
-<column name="  ++ DWChannelLOOP">34, 34, 17, 9, 9, 3, yes</column>
+<column name="- SaveMapYLOOP">126, 126, 42, -, -, 3, no</column>
+<column name=" + SaveMapXLOOP">40, 40, 8, -, -, 5, no</column>
+<column name="  ++ SaveMapNLOOP">5, 5, 4, 1, 1, 3, yes</column>
+<column name="- DWOutYLOOP">10438, 10438, 614, -, -, 17, no</column>
+<column name=" + DWOutXLOOP">612, 612, 36, -, -, 17, no</column>
+<column name="  ++ DWChannelLOOP">33, 33, 16, 9, 9, 3, yes</column>
 </table>
 </item>
 </section>

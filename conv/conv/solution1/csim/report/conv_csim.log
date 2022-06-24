@@ -1,0 +1,26 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../Sources/conv/tb_conv.cpp in debug mode
+   Compiling ../../../../../Sources/conv/conv.cpp in debug mode
+   Generating csim.exe
+Beginning testbench
+Sent Bias
+Sent whole Filter
+Sent whole Input Map
+Output is: 
+15219 15570 15921 
+16974 17325 17676 
+18729 19080 19431 
+
+
+
+37818 38898 39978 
+43218 44298 45378 
+48618 49698 50778 
+
+
+
+The maximum depth reached by any of the 2 hls::stream() instances in the design is 130
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************
+s

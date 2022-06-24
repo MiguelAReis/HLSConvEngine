@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Thu Jun 23 14:53:28 2022
+# Process ID: 10038
+# Current directory: /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog
+# Command line: wbtcv -mode batch -source /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/xsim.dir/depthwise/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/webtalk.log
+# Journal file: /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/webtalk.jou
+#-----------------------------------------------------------
+source /media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/depthwise/depthwise/solution/sim/verilog/xsim.dir/depthwise/webtalk/xsim_webtalk.tcl -notrace
