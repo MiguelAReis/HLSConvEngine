@@ -4,7 +4,7 @@
 // ==============================================================
 `timescale 1 ns / 1 ps
 
-(* use_dsp = "yes" *) module depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1(
+(* use_dsp = "yes" *) module depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4(
     input clk,
     input rst,
     input ce,
@@ -68,7 +68,7 @@ output[dout_WIDTH - 1:0] dout;
 
 
 
-depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1 depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1_U(
+depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4 depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4_U(
     .clk( clk ),
     .rst( reset ),
     .ce( ce ),

@@ -1,5 +1,5 @@
 <root versionMajor = "1" versionMinor = "5">
-  <kernel src_name="depthwise" language="c" hwCtrl="ap_ctrl_hs" mem_layout="fpga64-xilinx-none">
+  <kernel src_name="depthwise" language="c" hwCtrl="ap_ctrl_none" mem_layout="fpga64-xilinx-none">
     <args>
       <arg id="0" access_type="r" src_name="strm_in" src_type="stream&lt;hls::axis&lt;ap_int&lt;32&gt;, 0, 0, 0&gt;, 0&gt;&amp;" src_isptr="1" src_bitwidth="96" src_size_or_depth="1">
         <hw hw_usage="data" hw_interface="AXI-Stream" hw_name="strm_in" hw_bitwidth="32" hw_size_or_depth="1">

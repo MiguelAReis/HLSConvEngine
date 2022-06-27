@@ -55,7 +55,7 @@ void conv(hls::stream<axisStream> &strm_in,
 					#pragma HLS loop_tripcount min=3 max=3
 					#pragma HLS PIPELINE
 					if(f>=filterN)f=LOOPFilterMaxN;
-					else if(n>=kernelN) n=LOOPFilterMaxN;
+					else if(n>=kernelN) n=LOOPKernelMaxN;
 					else if(y>=kernelSize) y=LOOPKernelMaxSize;
 					else if(x>=kernelSize) x=LOOPKernelMaxSize;
 					else{
@@ -91,17 +91,17 @@ void conv(hls::stream<axisStream> &strm_in,
 	short outMapXSize = mapSizeX-kernelSize+1;
 
 	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
-		#pragma HLS loop_tripcount min=17 max=17
+		#pragma HLS loop_tripcount min=5 max=5
 		OutXLOOP:for(int x=0;x<LOOPMapMaxXSize;x++){
-			#pragma HLS loop_tripcount min=17 max=17
+			#pragma HLS loop_tripcount min=5 max=5
 			FilterLOOP:for(int f=0; f<LOOPFilterMaxN; f++){
+				#pragma HLS loop_tripcount min=2 max=2
 				KernelYLOOP:for(int ky=0; ky<LOOPKernelMaxSize; ky++){
 					#pragma HLS loop_tripcount min=3 max=3
-
 					KernelXLOOP: for(int kx=0; kx<LOOPKernelMaxSize; kx++){
-
 						#pragma HLS loop_tripcount min=3 max=3
 						ChannelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn++){
+						#pragma HLS loop_tripcount min=3 max=3
 							#pragma HLS pipeline
 							#pragma HLS unroll factor=1
 

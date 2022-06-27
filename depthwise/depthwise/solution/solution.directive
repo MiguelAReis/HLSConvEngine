@@ -5,6 +5,11 @@
                 <option name="name" value="depthwise"/>
             </pragma>
         </directive>
+        <directive functionName="depthwise" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="depthwise"/>
+            </pragma>
+        </directive>
     </sourceFile>
 </AutoPilot:ProjectResources>
 

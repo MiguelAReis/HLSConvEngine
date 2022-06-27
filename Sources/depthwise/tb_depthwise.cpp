@@ -101,6 +101,7 @@ int main()
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize); i++) {
 		tmp.data=(ap_int<32>)filter[i];
 		str_in.write(tmp);
+
 	}
 
 	printf("Sent whole Filter\n");

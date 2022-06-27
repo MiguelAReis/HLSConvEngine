@@ -28,7 +28,7 @@ architecture rtl of depthwise_filter_V_ram is
 
 signal addr0_tmp : std_logic_vector(AWIDTH-1 downto 0); 
 type mem_array is array (0 to MEM_SIZE-1) of std_logic_vector (DWIDTH-1 downto 0); 
-shared variable ram0 : mem_array;
+shared variable ram : mem_array;
 
 
 begin 
@@ -50,9 +50,9 @@ p_memory_access_0: process (clk)
 begin 
     if (clk'event and clk = '1') then
         if (ce0 = '1') then 
-            q0 <= ram0(CONV_INTEGER(addr0_tmp));
+            q0 <= ram(CONV_INTEGER(addr0_tmp));
             if (we0 = '1') then 
-                ram0(CONV_INTEGER(addr0_tmp)) := d0; 
+                ram(CONV_INTEGER(addr0_tmp)) := d0; 
             end if;
         end if;
     end if;

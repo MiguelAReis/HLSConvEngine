@@ -6,7 +6,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1 is
+entity depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4 is
 port (
     clk: in  std_logic;
     rst: in  std_logic;
@@ -17,11 +17,11 @@ port (
     dout: out std_logic_vector(8 - 1 downto 0));
 
     attribute use_dsp : string;
-    attribute use_dsp of depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1 : entity is "yes";
+    attribute use_dsp of depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4 : entity is "yes";
 
 end entity;
 
-architecture behav of depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1 is
+architecture behav of depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4 is
     signal a       : signed(25-1 downto 0);
     signal b       : signed(18-1 downto 0);
     signal c       : signed(48-1 downto 0);
@@ -75,7 +75,7 @@ entity depthwise_mac_muladd_4s_4s_8ns_8_4_1 is
 end entity;
 
 architecture arch of depthwise_mac_muladd_4s_4s_8ns_8_4_1 is
-    component depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1 is
+    component depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4 is
         port (
             clk : IN STD_LOGIC;
             rst : IN STD_LOGIC;
@@ -89,7 +89,7 @@ architecture arch of depthwise_mac_muladd_4s_4s_8ns_8_4_1 is
 
 
 begin
-    depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1_U :  component depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_1
+    depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4_U :  component depthwise_mac_muladd_4s_4s_8ns_8_4_1_DSP48_4
     port map (
         clk => clk,
         rst => reset,

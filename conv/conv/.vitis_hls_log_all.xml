@@ -15,10 +15,7 @@
       <simLog/>
       <mgLog/>
       <packageLog/>
-      <csimLog>
-        <logs message="WARNING: Hls::stream 'inputStream' is read while empty, which may result in RTL simulation hanging.&#xA;" projectName="conv" solutionName="solution1" date="2022-06-24T23:31:19.296+0100" type="Warning"/>
-        <logs message="WARNING: Hls::stream 'inputStream' is read while empty, which may result in RTL simulation hanging.&#xA;" projectName="conv" solutionName="solution1" date="2022-06-24T23:29:36.287+0100" type="Warning"/>
-      </csimLog>
+      <csimLog/>
     </logs>
   </warningLogs>
 </vivadoHLSLog:LogRoot>

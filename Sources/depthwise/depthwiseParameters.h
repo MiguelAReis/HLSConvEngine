@@ -10,3 +10,12 @@
 #define MapMaxN KernelMaxN
 
 
+//-// LOOP DEFINES //-//
+
+
+#define LOOPKernelMaxN KernelMaxN
+#define LOOPKernelMaxSize KernelMaxSize
+
+#define LOOPMapMaxXSize 1024
+#define LOOPMapMaxYSize LOOPMapMaxXSize
+

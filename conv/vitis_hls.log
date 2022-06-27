@@ -1,15 +1,15 @@
 INFO: [HLS 200-10] Running '/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'miguel' on host 'Victus' (Linux_x86_64 version 5.11.0-37-generic) on Sat Jun 25 00:05:38 WEST 2022
+INFO: [HLS 200-10] For user 'miguel' on host 'Victus' (Linux_x86_64 version 5.11.0-37-generic) on Mon Jun 27 15:39:06 WEST 2022
 INFO: [HLS 200-10] On os Ubuntu 21.04
 INFO: [HLS 200-10] In directory '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv'
-Sourcing Tcl script '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv/solution1/csim.tcl'
+Sourcing Tcl script '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv/solution1/csynth.tcl'
 INFO: [HLS 200-1510] Running: open_project conv 
 INFO: [HLS 200-10] Opening project '/media/miguel/NewVolume/Linux/Thesis/Hardware/VitisHLS/HLSConvEngine/conv/conv'.
 INFO: [HLS 200-1510] Running: set_top conv 
-INFO: [HLS 200-1510] Running: add_files ../Sources/conv/convParameters.h 
-INFO: [HLS 200-10] Adding design file '../Sources/conv/convParameters.h' to the project
 INFO: [HLS 200-1510] Running: add_files ../Sources/conv/conv.cpp 
 INFO: [HLS 200-10] Adding design file '../Sources/conv/conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../Sources/conv/convParameters.h 
+INFO: [HLS 200-10] Adding design file '../Sources/conv/convParameters.h' to the project
 INFO: [HLS 200-1510] Running: add_files -tb ../Sources/conv/tb_conv.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
 INFO: [HLS 200-10] Adding test bench file '../Sources/conv/tb_conv.cpp' to the project
 INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
@@ -20,30 +20,122 @@ INFO: [HLS 200-1505] Using flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
 INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
-INFO: [HLS 200-1510] Running: csim_design -quiet 
-INFO: [SIM 211-2] *************** CSIM start ***************
-INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
-   Compiling ../../../../../Sources/conv/tb_conv.cpp in debug mode
-   Compiling ../../../../../Sources/conv/conv.cpp in debug mode
-   Generating csim.exe
-Beginning testbench
-Sent Bias
-Sent whole Filter
-Sent whole Input Map
-Output is: 
-15219 15570 15921 
-16974 17325 17676 
-18729 19080 19431 
-
-
-
-37818 38898 39978 
-43218 44298 45378 
-48618 49698 50778 
-
-
-
-The maximum depth reached by any of the 2 hls::stream() instances in the design is 130
-INFO: [SIM 211-1] CSim done with 0 errors.
-INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 2.34 seconds. CPU system time: 0.35 seconds. Elapsed time: 2.8 seconds; current allocated memory: 191.817 MB.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.773 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/conv/conv.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.85 seconds. CPU system time: 0.25 seconds. Elapsed time: 3.18 seconds; current allocated memory: 192.931 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'conv(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, int, bool)' (../Sources/conv/conv.cpp:44:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'conv(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, int, bool)' (../Sources/conv/conv.cpp:131:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'conv(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, int, bool)' (../Sources/conv/conv.cpp:121:25)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'conv(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, int, bool)' (../Sources/conv/conv.cpp:82:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'conv(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, int, bool)' (../Sources/conv/conv.cpp:62:21)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.01 seconds. CPU system time: 0.24 seconds. Elapsed time: 3.35 seconds; current allocated memory: 195.381 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.383 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 203.337 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 212.258 MB.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/conv/conv.cpp:115:18) to (../Sources/conv/conv.cpp:119:29) in function 'conv'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.3 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.33 seconds; current allocated memory: 244.255 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveKernelYLOOP' (../Sources/conv/conv.cpp:54:26) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveKernelNLOOP' (../Sources/conv/conv.cpp:52:26) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveFilterNLOOP' (../Sources/conv/conv.cpp:50:26) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/conv/conv.cpp:76:23) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/conv/conv.cpp:72:23) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'KernelXLOOP' (../Sources/conv/conv.cpp:103:22) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'KernelYLOOP' (../Sources/conv/conv.cpp:101:23) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'FilterLOOP' (../Sources/conv/conv.cpp:99:22) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'OutXLOOP' (../Sources/conv/conv.cpp:97:21) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'OutYLOOP' (../Sources/conv/conv.cpp:95:19) in function 'conv' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-960.html
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/conv/conv.cpp:63:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/conv/conv.cpp:83:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/conv/conv.cpp:122:71)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.23 seconds. CPU system time: 0 seconds. Elapsed time: 0.23 seconds; current allocated memory: 243.617 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'conv' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'conv' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln83) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=add_ln116_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln116_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp5) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln116) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp7) to 3 in order to utilize available DSP registers.
+INFO: [SCHED 204-61] Pipelining loop 'SaveKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 7, loop 'SaveMapNLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'ChannelLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 13, loop 'ChannelLOOP'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.22 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.25 seconds; current allocated memory: 244.864 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.25 seconds; current allocated memory: 246.447 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'conv' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_out_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_out_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/strm_out_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/filterN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/kernelN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/kernelSize' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/mapSizeX' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/mapSizeY' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'conv/relu' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'conv' to 'ap_ctrl_none'.
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_11s_2ns_11s_11ns_11_4_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_7ns_7ns_7s_7ns_7_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_7s_7s_7ns_7_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_32s_32s_64_2_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_7s_7s_7_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_11s_11s_11_4_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'conv'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.28 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.33 seconds; current allocated memory: 249.373 MB.
+INFO: [RTMG 210-282] Generating pipelined core: 'conv_mul_7s_7s_7_1_1_Multiplier_0'
+INFO: [RTMG 210-282] Generating pipelined core: 'conv_mul_32s_32s_64_2_1_Multiplier_1'
+INFO: [RTMG 210-278] Implementing memory 'conv_filter_V_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'conv_featureMap_V_ram (RAM)' using auto RAMs.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 2.56 seconds. CPU system time: 0.09 seconds. Elapsed time: 2.77 seconds; current allocated memory: 262.088 MB.
+INFO: [VHDL 208-304] Generating VHDL RTL for conv.
+INFO: [VLOG 209-307] Generating Verilog RTL for conv.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 144.68 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 9.94 seconds. CPU system time: 0.66 seconds. Elapsed time: 10.96 seconds; current allocated memory: 262.315 MB.
+INFO: [HLS 200-112] Total CPU user time: 12.67 seconds. Total CPU system time: 1.23 seconds. Total elapsed time: 13.13 seconds; peak allocated memory: 262.088 MB.

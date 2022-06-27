@@ -20679,3 +20679,1021 @@ Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.77 seconds. CPU system time: 0.27 seconds. Elapsed time: 3.41 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:121:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:111:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:73:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:56:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.05 seconds. CPU system time: 0.23 seconds. Elapsed time: 3.54 seconds; current allocated memory: 195.242 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.243 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.861 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:91) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:94) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:97) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:94) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:97) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:103:17) to (../Sources/depthwise/depthwise.cpp:108:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.29 seconds; current allocated memory: 241.991 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:50:30) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.72 seconds. CPU system time: 0.24 seconds. Elapsed time: 2.99 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:123:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:113:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.92 seconds. CPU system time: 0.19 seconds. Elapsed time: 3.27 seconds; current allocated memory: 195.243 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.244 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.08 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.860 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:93) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.29 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.31 seconds; current allocated memory: 241.996 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.85 seconds. CPU system time: 0.22 seconds. Elapsed time: 3.09 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:123:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:113:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.86 seconds. CPU system time: 0.23 seconds. Elapsed time: 3.18 seconds; current allocated memory: 195.243 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.244 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.862 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) because its parent loop or function is pipelined.
+INFO: [XFORM 203-501] Unrolling loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' partially with a factor of 3.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.35 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.37 seconds; current allocated memory: 242.405 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelNLOOP' (../Sources/depthwise/depthwise.cpp:49:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/depthwise/depthwise.cpp:69:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/depthwise/depthwise.cpp:66:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96:25) in function 'depthwise' more than one sub loop.
+WARNING: [HLS 200-960] Cannot flatten loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:92:24) in function 'depthwise' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+WARNING: [HLS 200-960] Cannot flatten loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:90:24) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:88:21) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/depthwise/depthwise.cpp:59:22)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:76:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:114:70)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.27 seconds. CPU system time: 0 seconds. Elapsed time: 0.28 seconds; current allocated memory: 242.182 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'depthwise' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1345) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=add_ln107_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln107_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp5_0) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp7_0) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1345_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=add_ln107_8) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln107_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp5_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp7_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1345_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=add_ln107_13) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln107_7) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp5_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp7_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'filter_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [SCHED 204-61] Pipelining loop 'SaveDWKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveDWKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 6, loop 'SaveMapNLOOP'
+WARNING: [SCHED 204-65] Unable to satisfy pipeline directive for loop 'DWKernelYLOOP': contains subloop(s) that are not unrolled or flattened.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.32 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.35 seconds; current allocated memory: 243.905 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.4 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.43 seconds; current allocated memory: 246.151 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelSize' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeX' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeY' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/relu' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'depthwise' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_14s_14ns_14s_14ns_14_4_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_18ns_2ns_18s_18ns_18_4_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_2ns_18ns_18s_18ns_18_4_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_4s_4s_8ns_8_4_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_32s_32s_32_2_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_14s_14s_14_4_1': 3 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'depthwise'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.42 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 249.739 MB.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.82 seconds. CPU system time: 0.25 seconds. Elapsed time: 3.1 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:123:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:113:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.89 seconds. CPU system time: 0.24 seconds. Elapsed time: 3.23 seconds; current allocated memory: 195.243 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.244 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.865 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:93) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.28 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.31 seconds; current allocated memory: 241.996 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.778 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.9 seconds. CPU system time: 0.34 seconds. Elapsed time: 3.34 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:123:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:113:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.03 seconds. CPU system time: 0.27 seconds. Elapsed time: 3.4 seconds; current allocated memory: 195.242 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.243 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.862 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:93) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:99) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:105:17) to (../Sources/depthwise/depthwise.cpp:110:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.29 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.3 seconds; current allocated memory: 242.001 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.73 seconds. CPU system time: 0.34 seconds. Elapsed time: 3.14 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:118:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:108:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:93:16) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:93:16)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.09 seconds. CPU system time: 0.2 seconds. Elapsed time: 3.4 seconds; current allocated memory: 195.559 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.560 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.07 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 203.185 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.12 seconds; current allocated memory: 211.273 MB.
+WARNING: [XFORM 203-561] Updating loop upper bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 17 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 17 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 17 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 17 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:99:19) in function 'depthwise'... converting 18 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:106:12) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.35 seconds; current allocated memory: 242.504 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelNLOOP' (../Sources/depthwise/depthwise.cpp:49:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/depthwise/depthwise.cpp:69:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/depthwise/depthwise.cpp:66:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/depthwise/depthwise.cpp:59:22)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:76:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:109:70)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.2 seconds; current allocated memory: 241.361 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'depthwise' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp18) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp17) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_7) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_6) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_5) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_26) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_25) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_8) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'featureMap_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'filter_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [SCHED 204-61] Pipelining loop 'SaveDWKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveDWKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 6, loop 'SaveMapNLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 9, Final II = 9, Depth = 19, loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.27 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.3 seconds; current allocated memory: 242.957 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.36 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.38 seconds; current allocated memory: 244.873 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelSize' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeX' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeY' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/relu' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'depthwise' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_18ns_2ns_18s_18ns_18_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_2ns_18s_18s_18_4_1': 4 instance(s).
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 207.779 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.84 seconds. CPU system time: 0.24 seconds. Elapsed time: 4.59 seconds; current allocated memory: 208.923 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:118:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:108:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:93:16) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:93:16)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.12 seconds. CPU system time: 0.27 seconds. Elapsed time: 3.58 seconds; current allocated memory: 211.558 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 211.559 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 219.184 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.12 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.12 seconds; current allocated memory: 227.277 MB.
+WARNING: [XFORM 203-561] Updating loop upper bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 17 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 17 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 17 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 17 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:99:19) in function 'depthwise'... converting 18 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:106:12) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.32 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.37 seconds; current allocated memory: 258.515 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelNLOOP' (../Sources/depthwise/depthwise.cpp:49:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/depthwise/depthwise.cpp:69:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/depthwise/depthwise.cpp:66:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/depthwise/depthwise.cpp:59:22)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:76:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:109:70)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.2 seconds; current allocated memory: 257.370 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'depthwise' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp18) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp17) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_7) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_6) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_5) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_26) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_25) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_8) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'featureMap_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'filter_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [SCHED 204-61] Pipelining loop 'SaveDWKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveDWKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 6, loop 'SaveMapNLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 9, Final II = 9, Depth = 19, loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.28 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.32 seconds; current allocated memory: 258.963 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.37 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.41 seconds; current allocated memory: 260.880 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelSize' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeX' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeY' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/relu' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'depthwise' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_18ns_2ns_18s_18ns_18_4_1': 1 instance(s).
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.77 seconds. CPU system time: 0.28 seconds. Elapsed time: 3.1 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:118:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:108:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:93:16) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:93:16)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.39 seconds. CPU system time: 0.19 seconds. Elapsed time: 3.72 seconds; current allocated memory: 195.559 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.560 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 203.186 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.11 seconds; current allocated memory: 211.273 MB.
+WARNING: [XFORM 203-561] Updating loop upper bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 5 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 5 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 5 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 5 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:99:19) in function 'depthwise'... converting 18 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:106:12) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.35 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.38 seconds; current allocated memory: 242.505 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelNLOOP' (../Sources/depthwise/depthwise.cpp:49:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/depthwise/depthwise.cpp:69:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/depthwise/depthwise.cpp:66:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/depthwise/depthwise.cpp:59:22)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:76:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:109:70)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.21 seconds; current allocated memory: 241.363 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'depthwise' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp18) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp17) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_7) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_6) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_5) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_26) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_25) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_8) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'featureMap_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'filter_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [SCHED 204-61] Pipelining loop 'SaveDWKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveDWKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 6, loop 'SaveMapNLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 9, Final II = 9, Depth = 19, loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.28 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.31 seconds; current allocated memory: 242.960 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.37 seconds. CPU system time: 0 seconds. Elapsed time: 0.38 seconds; current allocated memory: 244.879 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelN' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/kernelSize' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeX' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/mapSizeY' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/relu' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'depthwise' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_18ns_2ns_18s_18ns_18_4_1': 1 instance(s).
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.788 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.76 seconds. CPU system time: 0.25 seconds. Elapsed time: 3.05 seconds; current allocated memory: 192.924 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:118:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:108:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:93:16) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:93:16)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 214-186] Unrolling loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:96:17) in function 'depthwise' completely with a factor of 3 (../Sources/depthwise/depthwise.cpp:96:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.07 seconds. CPU system time: 0.24 seconds. Elapsed time: 3.41 seconds; current allocated memory: 195.559 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 195.560 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 203.184 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 211.259 MB.
+WARNING: [XFORM 203-561] Updating loop upper bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 3 to 1536 for loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 5 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 5 to 1024 for loop 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop upper bound from 5 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 5 to 1024 for loop 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:99:19) in function 'depthwise'... converting 16 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:99:19) in function 'depthwise'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:36:14) to (../Sources/depthwise/depthwise.cpp:106:12) in function 'depthwise'... converting 5 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.32 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.33 seconds; current allocated memory: 242.485 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelNLOOP' (../Sources/depthwise/depthwise.cpp:49:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapXLOOP' (../Sources/depthwise/depthwise.cpp:69:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveMapYLOOP' (../Sources/depthwise/depthwise.cpp:66:23) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutXLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [XFORM 203-541] Flattening a loop nest 'DWOutYLOOP' (../Sources/depthwise/depthwise.cpp:36:14) in function 'depthwise'.
+INFO: [HLS 200-472] Inferring partial write operation for 'filter.V' (../Sources/depthwise/depthwise.cpp:59:22)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:76:55)
+INFO: [HLS 200-472] Inferring partial write operation for 'featureMap.V' (../Sources/depthwise/depthwise.cpp:109:70)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 241.324 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'depthwise' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp27) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=tmp26) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_5) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_4) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_2) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_1) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln86_3) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_26) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=empty_25) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_6) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_8) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP48 latency (root=ret_7) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'featureMap_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [HLS 200-1457] Automatically inferring 1WnR RAM type for array 'filter_V'. Use bind_storage pragma to overwrite if needed.
+INFO: [SCHED 204-61] Pipelining loop 'SaveDWKernelXLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'SaveDWKernelXLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'SaveMapNLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 6, loop 'SaveMapNLOOP'
+INFO: [SCHED 204-61] Pipelining loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 9, Final II = 9, Depth = 18, loop 'DWOutYLOOP_DWOutXLOOP_DWChannelLOOP'
+WARNING: [HLS 200-871] Estimated clock period (7.944ns) exceeds the target (target clock period: 10ns, clock uncertainty: 2.7ns, effective delay budget: 7.3ns).
+WARNING: [HLS 200-1016] The critical path in module 'depthwise' consists of the following:	'add' operation of DSP[379] ('accum.V') [379]  (2.1 ns)
+	'select' operation ('accum.V', ../Sources/depthwise/depthwise.cpp:99) [381]  (1.25 ns)
+	'select' operation ('accum.V', ../Sources/depthwise/depthwise.cpp:99) [384]  (1.25 ns)
+	'select' operation ('accum.V', ../Sources/depthwise/depthwise.cpp:99) [386]  (1.25 ns)
+	'add' operation of DSP[405] ('accum.V') [405]  (2.1 ns)
+
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.28 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.31 seconds; current allocated memory: 242.877 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.33 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.36 seconds; current allocated memory: 244.750 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'depthwise' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_in_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'depthwise/strm_out_V_keep_V' to 'axis' (register, both mode).
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.785 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 2.83 seconds. CPU system time: 0.23 seconds. Elapsed time: 3.1 seconds; current allocated memory: 192.936 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:124:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:114:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:75:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3 seconds. CPU system time: 0.22 seconds. Elapsed time: 5.11 seconds; current allocated memory: 195.240 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 195.241 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 202.680 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.09 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 210.861 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:93) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:100) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:96) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:100) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:106:17) to (../Sources/depthwise/depthwise.cpp:111:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.29 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 241.998 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 191.778 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.21 seconds. CPU system time: 0.25 seconds. Elapsed time: 3.56 seconds; current allocated memory: 192.938 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:125:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:115:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:76:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.3 seconds. CPU system time: 0.21 seconds. Elapsed time: 5.93 seconds; current allocated memory: 195.404 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.405 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.07 seconds; current allocated memory: 203.219 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.12 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 212.198 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:94) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:97) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:101) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:97) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:101) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:107:17) to (../Sources/depthwise/depthwise.cpp:112:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.31 seconds. CPU system time: 0 seconds. Elapsed time: 0.33 seconds; current allocated memory: 244.060 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: set_directive_top -name depthwise depthwise 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 191.778 MB.
+INFO: [HLS 200-10] Analyzing design file '../Sources/depthwise/depthwise.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.2 seconds. CPU system time: 0.23 seconds. Elapsed time: 3.49 seconds; current allocated memory: 192.938 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:293:50)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:296:25)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:67)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:295:36)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:39)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:294:23)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_int<32>, 0ul, 0ul, 0ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' (/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:43:16)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::write(hls::axis<ap_int<32>, 0ul, 0ul, 0ul> const&)' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:125:19)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:115:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:76:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>::read()' into 'depthwise(hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, hls::stream<hls::axis<ap_int<32>, 0ul, 0ul, 0ul>, 0>&, int, int, int, int, bool)' (../Sources/depthwise/depthwise.cpp:58:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.3 seconds. CPU system time: 0.21 seconds. Elapsed time: 3.6 seconds; current allocated memory: 195.241 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 195.242 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.08 seconds; current allocated memory: 202.684 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 210.865 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'DWChannelLOOP' (../Sources/depthwise/depthwise.cpp:94) in function 'depthwise' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:97) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:101) because its parent loop or function is pipelined.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:97) in function 'depthwise' completely: variable loop bound.
+WARNING: [HLS 200-932] Cannot unroll loop 'DWKernelXLOOP' (../Sources/depthwise/depthwise.cpp:101) in function 'depthwise' completely: variable loop bound.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (../Sources/depthwise/depthwise.cpp:107:17) to (../Sources/depthwise/depthwise.cpp:112:20) in function 'depthwise'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.29 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.33 seconds; current allocated memory: 242.001 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'SaveDWKernelYLOOP' (../Sources/depthwise/depthwise.cpp:51:28) in function 'depthwise' the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
