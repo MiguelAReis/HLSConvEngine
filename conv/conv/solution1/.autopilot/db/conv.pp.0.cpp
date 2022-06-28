@@ -6221,11 +6221,9 @@ private:
 
 
 
-
-
-typedef ap_int<32> filterDataType;
-typedef ap_int<32> actDataType;
-typedef ap_int<32 +32> accDataType;
+typedef ap_int<4> filterDataType;
+typedef ap_int<4> actDataType;
+typedef ap_int<4 +4> accDataType;
 
 
 typedef ap_axis<32, 0, 0, 0> axisStream;
@@ -6240,7 +6238,7 @@ __attribute__((sdx_kernel("conv", 0))) void conv(hls::stream<axisStream> &strm_i
   int mapSizeY,
   bool relu){
 #pragma HLS TOP name=conv
-# 26 "../Sources/conv/conv.cpp"
+# 24 "../Sources/conv/conv.cpp"
 
 
 #pragma HLS INTERFACE ap_ctrl_none port=return
@@ -6248,9 +6246,10 @@ __attribute__((sdx_kernel("conv", 0))) void conv(hls::stream<axisStream> &strm_i
 #pragma HLS INTERFACE axis port=strm_out
 
  actDataType bias;
- filterDataType filter[1*10*3*3];
+ filterDataType filter[1*3*3*10];
 
  actDataType featureMap[10*(3 +1)*32];
+
 
  accDataType accum;
 
@@ -6262,52 +6261,27 @@ __attribute__((sdx_kernel("conv", 0))) void conv(hls::stream<axisStream> &strm_i
  tmp = strm_in.read();
  bias = tmp.data;
  int count =0;
-
- SaveFilterNLOOP:for(int f=0;f<32;f++){
-#pragma HLS loop_tripcount min=2 max=2
- SaveKernelNLOOP:for(int n=0;n<10;n++){
-#pragma HLS loop_tripcount min=3 max=3
- SaveKernelYLOOP:for(int y=0;y<3;y++){
-#pragma HLS loop_tripcount min=3 max=3
- SaveKernelXLOOP:for(int x=0;x<3;x++){
-#pragma HLS loop_tripcount min=3 max=3
+# 71 "../Sources/conv/conv.cpp"
+ SaveFilterLOOP:for(int i=0;i<filterN*kernelN*kernelSize*kernelSize;i++){
+#pragma HLS loop_tripcount min=(5*3*3*3) max=(5*3*3*3)
 #pragma HLS PIPELINE
- if(f>=filterN)f=32;
-     else if(n>=kernelN) n=10;
-     else if(y>=kernelSize) y=3;
-     else if(x>=kernelSize) x=3;
-     else{
-      tmp = strm_in.read();
-      filter[count++] = tmp.data;
-     }
-    }
-   }
-  }
+ tmp = strm_in.read();
+  filter[i] = tmp.data.range(4 -1,0);
  }
-
-
-
- SaveMapYLOOP:for(int y=0;y<3;y++){
-#pragma HLS loop_tripcount min=3 max=3
- SaveMapXLOOP:for(int x=0;x<1024;x++){
-#pragma HLS loop_tripcount min=5 max=5
- SaveMapNLOOP:for(int n=0;n<10;n++){
-#pragma HLS loop_tripcount min=3 max=3
+# 95 "../Sources/conv/conv.cpp"
+ SaveMapLOOP:for(int i=0;i<3*mapSizeX*kernelN;i++){
+#pragma HLS loop_tripcount min=(3*5*3) max=(3*5*3)
 #pragma HLS PIPELINE
- if(x>=mapSizeX) x=1024;
-    else if(n>=kernelN) n=10;
-    else{
-     tmp = strm_in.read();
-     featureMap[(n*mapSizeX*mapSizeY)+(y*mapSizeX)+x] = tmp.data;
-    }
-   }
-  }
+ tmp = strm_in.read();
+  featureMap[i] = tmp.data.range(4 -1,0);
  }
 
 
  short outMapYSize = mapSizeY-kernelSize+1;
  short outMapXSize = mapSizeX-kernelSize+1;
-
+ int address0,address1, address2=0;
+ int addressSuplement = mapSizeX*kernelN;
+ int address2Suplement=kernelN*kernelSize*kernelSize;
  OutYLOOP:for(int y=0;y<1024;y++){
 #pragma HLS loop_tripcount min=5 max=5
  OutXLOOP:for(int x=0;x<1024;x++){
@@ -6319,9 +6293,9 @@ __attribute__((sdx_kernel("conv", 0))) void conv(hls::stream<axisStream> &strm_i
  KernelXLOOP: for(int kx=0; kx<3; kx++){
 #pragma HLS loop_tripcount min=3 max=3
  ChannelLOOP:for(int kn=0; kn<10; kn++){
-#pragma HLS loop_tripcount min=3 max=3
-#pragma HLS pipeline
-#pragma HLS unroll factor=1
+#pragma HLS loop_tripcount min=64 max=64
+#pragma HLS pipeline II=193
+#pragma HLS unroll factor=32
 
  if(y>=outMapYSize) y=1024;
        else if(x>=mapSizeX) x=1024;
@@ -6330,15 +6304,25 @@ __attribute__((sdx_kernel("conv", 0))) void conv(hls::stream<axisStream> &strm_i
        else if(kx>=kernelSize) kx=3;
        else if(kn>=kernelN) kn=10;
        else{
-        if(ky==0 && kx==0 && kn == 0 && x < outMapXSize) accum = bias;
-        if(x < outMapXSize) accum+=featureMap[(kn*mapSizeX*mapSizeY)+(((y+ky)&0x03)*mapSizeX)+(x+kx)]*filter[(f*kernelN*kernelSize*kernelSize)+(kn*kernelSize*kernelSize)+(ky*kernelSize)+kx];
+        if(ky==0 && kx==0 && kn == 0 && x < outMapXSize){
+         accum = bias;
+         address2=f*address2Suplement;
+        }
+        if(kx==0 && kn==0){
+         address0=(((y+ky)&0x03)*addressSuplement)+x*kernelN;
+         address1=(((y+3)&0x03)*addressSuplement)+x*kernelN;
+        }
+
+
+        if(x < outMapXSize){
+         accum+=featureMap[address0++]*filter[address2++];
+        }
 
 
         if(ky==kernelSize-1 && kx==kernelSize-1){
          if(y<outMapYSize-1 && f==0){
           tmp = strm_in.read();
-          featureMap[(kn*mapSizeX*mapSizeY)+(((y+3)&0x03)*mapSizeX)+x]=tmp.data;
-
+          featureMap[address1++]=tmp.data.range(4 -1,0);
          }
          if(kn==kernelN-1 && x < outMapXSize){
           if(relu && (accum < 0)) accum =0;

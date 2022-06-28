@@ -1,9 +1,6 @@
-conv_mul_7s_7s_7_1_1
-conv_mul_32s_32s_64_2_1
-conv_mul_mul_11s_11s_11_4_1
-conv_ama_addmuladd_11s_2ns_11s_11ns_11_4_1
-conv_mac_muladd_7s_7s_7ns_7_4_1
-conv_ama_addmuladd_7ns_7ns_7s_7ns_7_4_1
+conv_mul_32s_32s_32_1_1
+conv_mul_2ns_32s_32_1_1
+conv_mac_muladd_4s_4s_8ns_8_4_1
 conv_filter_V
 conv_featureMap_V
 conv_regslice_both

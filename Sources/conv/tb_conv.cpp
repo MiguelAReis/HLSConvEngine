@@ -78,8 +78,19 @@ void initVectors(){
 			//inputMap[i] = i&0x01;
 		}
 	}
+	/*
 	for (int i=0; i<(tbFilterN*tbKernelN*tbFilterSize*tbFilterSize); i++) {
 		filter[i] = i;
+	}*/
+
+	for (int i=0; i<(tbFilterN); i++) {
+		for(int y=0;y<tbFilterSize*tbFilterSize;y++){
+			for(int j=0;j<tbKernelN;j++){
+				filter[i*tbFilterSize*tbFilterSize*tbKernelN+y*tbKernelN+j] = (tbFilterSize*tbFilterSize*tbKernelN)*i+y+j*tbFilterSize*tbFilterSize;
+				//printf("%d -> %d\n",i*tbFilterSize*tbFilterSize*tbKernelN+y*tbKernelN+j,(int)filter[i*tbFilterSize*tbFilterSize*tbKernelN+y*tbKernelN+j]);
+			}
+
+		}
 	}
 
 

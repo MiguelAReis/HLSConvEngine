@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'conv'" level="0">
-<item name = "Date">Mon Jun 27 15:39:15 2022
+<item name = "Date">Tue Jun 28 19:25:30 2022
 </item>
 <item name = "Version">2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)</item>
 <item name = "Project">conv</item>
@@ -15,7 +15,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="4">Clock, Target, Estimated, Uncertainty</keys>
-<column name="ap_clk">10.00 ns, 6.912 ns, 2.70 ns</column>
+<column name="ap_clk">20.00 ns, 17.020 ns, 1.25 ns</column>
 </table>
 </item>
 </section>
@@ -24,7 +24,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="8">, min, max, min, max, min, max, Type</keys>
-<column name="">8408, 8408, 84.080 us, 84.080 us, 8409, 8409, none</column>
+<column name="">259845, 259845, 5.197 ms, 5.197 ms, 259846, 259846, none</column>
 </table>
 </item>
 <item name = "Detail">
@@ -35,19 +35,14 @@
 </item>
 <item name = "Loop"><table name="" hasTotal="0">
 <keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
-<column name="- SaveFilterNLOOP">124, 124, 62, -, -, 2, no</column>
-<column name=" + SaveKernelNLOOP">60, 60, 20, -, -, 3, no</column>
-<column name="  ++ SaveKernelYLOOP">18, 18, 6, -, -, 3, no</column>
-<column name="   +++ SaveKernelXLOOP">3, 3, 1, 1, 1, 3, yes</column>
-<column name="- SaveMapYLOOP">171, 171, 57, -, -, 3, no</column>
-<column name=" + SaveMapXLOOP">55, 55, 11, -, -, 5, no</column>
-<column name="  ++ SaveMapNLOOP">8, 8, 7, 1, 1, 3, yes</column>
-<column name="- OutYLOOP">8110, 8110, 1622, -, -, 5, no</column>
-<column name=" + OutXLOOP">1620, 1620, 324, -, -, 5, no</column>
-<column name="  ++ FilterLOOP">322, 322, 161, -, -, 2, no</column>
-<column name="   +++ KernelYLOOP">159, 159, 53, -, -, 3, no</column>
-<column name="    ++++ KernelXLOOP">51, 51, 17, -, -, 3, no</column>
-<column name="     +++++ ChannelLOOP">14, 14, 13, 1, 1, 3, yes</column>
+<column name="- SaveFilterLOOP">135, 135, 1, 1, 1, 135, yes</column>
+<column name="- SaveMapLOOP">45, 45, 1, 1, 1, 45, yes</column>
+<column name="- OutYLOOP">259660, 259660, 51932, -, -, 5, no</column>
+<column name=" + OutXLOOP">51930, 51930, 10386, -, -, 5, no</column>
+<column name="  ++ FilterLOOP">10384, 10384, 5192, -, -, 2, no</column>
+<column name="   +++ KernelYLOOP">5190, 5190, 1730, -, -, 3, no</column>
+<column name="    ++++ KernelXLOOP">1728, 1728, 576, -, -, 3, no</column>
+<column name="     +++++ ChannelLOOP">573, 573, 194, 193, 193, 2, yes</column>
 </table>
 </item>
 </section>

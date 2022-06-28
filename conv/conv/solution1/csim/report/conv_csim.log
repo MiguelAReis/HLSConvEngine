@@ -1,5 +1,6 @@
 INFO: [SIM 2] *************** CSIM start ***************
-INFO: [SIM 4] CSIM will launch GCC as the compiler.
+INFO: [SIM 4] CSIM will launch CLANG as the compiler.
+   Compiling ../../../../../Sources/conv/tb_conv.cpp in debug mode
    Compiling ../../../../../Sources/conv/conv.cpp in debug mode
    Generating csim.exe
 Beginning testbench
@@ -7,15 +8,15 @@ Sent Bias
 Sent whole Filter
 Sent whole Input Map
 Output is: 
-15219 15570 15921 
-16974 17325 17676 
-18729 19080 19431 
+-61 34 -31 
+62 -3 -20 
+-39 72 71 
 
 
 
-37818 38898 39978 
-43218 44298 45378 
-48618 49698 50778 
+-22 -30 -22 
+18 106 -94 
+10 -62 90 
 
 
 

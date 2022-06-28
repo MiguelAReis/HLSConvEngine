@@ -5,7 +5,7 @@
 `timescale 1 ns / 1 ps
 module conv_filter_V_ram (addr0, ce0, d0, we0, q0,  clk);
 
-parameter DWIDTH = 32;
+parameter DWIDTH = 4;
 parameter AWIDTH = 7;
 parameter MEM_SIZE = 90;
 
@@ -16,8 +16,7 @@ input we0;
 output reg[DWIDTH-1:0] q0;
 input clk;
 
-reg [DWIDTH-1:0] ram[0:MEM_SIZE-1];
-
+reg [DWIDTH-1:0] ram0[0:MEM_SIZE-1];
 
 
 
@@ -25,8 +24,8 @@ always @(posedge clk)
 begin 
     if (ce0) begin
         if (we0) 
-            ram[addr0] <= d0; 
-        q0 <= ram[addr0];
+            ram0[addr0] <= d0; 
+        q0 <= ram0[addr0];
     end
 end
 
@@ -43,7 +42,7 @@ module conv_filter_V(
     d0,
     q0);
 
-parameter DataWidth = 32'd32;
+parameter DataWidth = 32'd4;
 parameter AddressRange = 32'd90;
 parameter AddressWidth = 32'd7;
 input reset;

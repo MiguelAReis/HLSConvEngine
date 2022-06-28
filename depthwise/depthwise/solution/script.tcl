@@ -5,8 +5,8 @@
 ############################################################
 open_project depthwise
 set_top depthwise
-add_files ../Sources/depthwise/depthwise.cpp
 add_files ../Sources/depthwise/depthwiseParameters.h
+add_files ../Sources/depthwise/depthwise.cpp
 add_files -tb ../Sources/depthwise/tb_depthwise.cpp -cflags "-Wno-unknown-pragmas" -csimflags "-Wno-unknown-pragmas"
 open_solution "solution" -flow_target vivado
 set_part {xc7z020-clg400-1}
