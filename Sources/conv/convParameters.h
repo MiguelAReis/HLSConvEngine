@@ -3,8 +3,17 @@
 
 
 //-// MEMORY DEFINES //-//
-#define WWidth 4 //Bit width of weights
-#define AWidth 4 //Bit width of activations/bias
+#define WWidth 32 //Bit width of weights
+#define AWidth 32 //Bit width of activations/bias
+
+#define weightsPerStream (64/WWidth)
+#define actsPerStream (64/AWidth)
+
+#if weightsPerStream>actsPerStream
+#define itersPerStream actsPerStream
+#else
+#define itersPerStream weightsPerStream
+#endif
 
 #define FilterMaxN 1 //Highest number of Channels Used
 #define KernelMaxN 10//2048 //Highest number of Channels Used
