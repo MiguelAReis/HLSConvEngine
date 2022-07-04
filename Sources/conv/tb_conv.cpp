@@ -139,7 +139,7 @@ int main()
 	printf("Filter 0\n");
 	print_outputMat(filter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 1\n");
-	print_outputMat(filter+3*3, tbFilterSize, tbFilterSize,tbKernelN);
+	print_outputMat(filter+2*3*3, tbFilterSize, tbFilterSize,tbKernelN);
 
 	tmp.data=(ap_int<64>)0;
 	str_in.write(tmp);

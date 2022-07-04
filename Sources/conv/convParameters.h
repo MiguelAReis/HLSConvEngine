@@ -3,8 +3,8 @@
 
 
 //-// MEMORY DEFINES //-//
-#define WWidth 32 //Bit width of weights
-#define AWidth 32 //Bit width of activations/bias
+#define WWidth 8 //Bit width of weights
+#define AWidth 8 //Bit width of activations/bias
 
 #define weightsPerStream (64/WWidth)
 #define actsPerStream (64/AWidth)

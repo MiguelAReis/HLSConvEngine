@@ -90,9 +90,9 @@ void conv(hls::stream<axisStream> &strm_in,
 	bias = tmp.data;
 	int count =0;//             (tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/weightsPerStream+1))
 	//printf("Reading %d values\n",filterN*kernelSize*kernelSize*(kernelN/weightsPerStream+1));
-	readInitialWeights(filter,filterN*kernelSize*kernelSize*(kernelN/weightsPerStream+1),strm_in);
+	readInitialWeights(filter,filterN*kernelSize*kernelSize*(kernelN/itersPerStream+1),strm_in);
 
-	readInitialFeatureMap(featureMap,3*mapSizeX*(kernelN/actsPerStream+1),strm_in);
+	readInitialFeatureMap(featureMap,3*mapSizeX*(kernelN/itersPerStream+1),strm_in);
 
 
 
@@ -103,6 +103,16 @@ void conv(hls::stream<axisStream> &strm_in,
 	int addressSuplement = mapSizeX*kernelN;
 	int address2Suplement=kernelN*kernelSize*kernelSize;
 	ap_int<64> featureMapPacked, filterPacked, outValues=0;
+	unsigned  commonDiv=(kernelN/itersPerStream);
+	int filterAddressMax=filterN*kernelSize*kernelSize*(commonDiv+1);
+	int filterAddress=0;
+	int featureMapAddress=0;
+	int featureMapAddressSuplement0=0;
+	int featureMapAddressSuplement1=0;
+	int yLine[4] ={0,mapSizeX*(commonDiv+1),2*mapSizeX*(commonDiv+1),3*mapSizeX*(commonDiv+1)};
+	#pragma HLS array_partition variable=yLine complete
+	int featureMapSaveAdddress=0;
+
 
 	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
 		#pragma HLS loop_tripcount min=5 max=5
@@ -116,8 +126,8 @@ void conv(hls::stream<axisStream> &strm_in,
 						#pragma HLS loop_tripcount min=3 max=3
 						ChannelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn+=itersPerStream){
 						#pragma HLS loop_tripcount min=64 max=64
-							for(int w=0;w<itersPerStream;w++){
-								#pragma HLS pipeline
+							#pragma HLS pipeline II=1
+							UnrollLOOP:for(int w=0;w<itersPerStream;w++){
 								#pragma HLS unroll
 								if(y>=outMapYSize) y=LOOPMapMaxYSize;
 								else if(x>=mapSizeX) x=LOOPMapMaxXSize;
@@ -128,8 +138,22 @@ void conv(hls::stream<axisStream> &strm_in,
 								else{
 									if(w==0){
 										//printf("kn=%d\n",kn);
-										featureMapPacked = featureMap[(((y+ky)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+(kx+x)*(kernelN/actsPerStream+1)+kn/actsPerStream];
-										filterPacked = filter[f*kernelSize*kernelSize*(kernelN/weightsPerStream+1)+ky*kernelSize*(kernelN/weightsPerStream+1)+kx*(kernelN/weightsPerStream+1)+kn/actsPerStream];
+										if(filterAddress== filterAddressMax) filterAddress=0;
+										if(kn==0){
+											if(f==0 && ky==0 && kx==0 && kn==0 && x!=0)featureMapAddressSuplement0+=(commonDiv+1);
+											else if(f==0 && ky==0 && kx==0 && kn==0)featureMapAddressSuplement0=0;
+											if(kn==0 && kx!=0)featureMapAddressSuplement1+=(commonDiv+1);
+											else if(kn==0) featureMapAddressSuplement1=0;
+										}
+										if(kx==0 && kn==0) featureMapAddress=yLine[(y+ky)&0x03]+featureMapAddressSuplement0+featureMapAddressSuplement1;//(kx+x)*(commonDiv+1);
+										if(f==0 && kn==0) featureMapSaveAdddress=yLine[(y+3)&0x03]+featureMapAddressSuplement0;//x*(commonDiv+1);
+										//printf("FeatureMap before Address %d  after Address %d\n",(((y+ky)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+(kx+x)*(kernelN/actsPerStream+1)+kn/actsPerStream,featureMapAddress);
+										//printf("FeatureMapSave Address %d  \n",featureMapSaveAdddress);
+										featureMapPacked = featureMap[featureMapAddress++]; //(((y+ky)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+(kx+x)*(kernelN/actsPerStream+1)+kn/actsPerStream
+										filterPacked = filter[filterAddress++];
+										//printf("FeatureMap before Address %d  after Address %d\n",(((y+ky)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+(kx+x)*(kernelN/actsPerStream+1)+kn/actsPerStream,featureMapAddress-1);
+
+
 										//for(uint i=actsPerStream;i>0;i--){
 										//	printf("feature map %d\n",(uint)featureMapPacked.range( (i)*WWidth-1, ((i-1)*WWidth)) );
 										//}
@@ -140,13 +164,8 @@ void conv(hls::stream<axisStream> &strm_in,
 									}
 									if(ky==0 && kx==0 && kn == 0 && w==0 && x < outMapXSize){
 										accum = bias;
-										if(f==0) address2=0;
 									}
-									if(kx==0 && kn==0){
-										address0=(((y+ky)&0x03)*addressSuplement)+x*kernelN;
-										if(f==0) address1=(((y+3)&0x03)*addressSuplement)+x*kernelN;
 
-									}
 
 
 									if(x < outMapXSize){
@@ -157,8 +176,8 @@ void conv(hls::stream<axisStream> &strm_in,
 
 									if(ky==kernelSize-1 && kx==kernelSize-1){
 										if(y<outMapYSize-1 && f==0 && w== 0){
-											readActs(featureMap,(((y+3)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+x*(kernelN/actsPerStream+1)+kn/actsPerStream,strm_in);
-											//printf("writing to addr =%d\n",(((y+3)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+x*(kernelN/actsPerStream+1));
+											readActs(featureMap,featureMapSaveAdddress++,strm_in);
+											//printf("before addr =%d after addr%d\n",(((y+3)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+x*(kernelN/actsPerStream+1)+kn/actsPerStream,featureMapSaveAdddress-1);
 
 										}
 										if(kn+w>=kernelN-1 && w== itersPerStream-1 && x < outMapXSize){
