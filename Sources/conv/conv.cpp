@@ -41,7 +41,7 @@ void readInitialWeights(filterDataType filter[FilterMaxN*KernelMaxSize*KernelMax
 void readActs(actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMaxXSize], uint address, hls::stream<axisStream> &strm_in){
 	axisStream tmp = strm_in.read(); //Save Bias
 	featureMap[address]=tmp.data;
-	for(uint i=actsPerStream;i>0;i--){
+	for(uint i=itersPerStream;i>0;i--){
 		//printf("%d\n",(uint)featureMap[address].range( (i)*WWidth-1, ((i-1)*WWidth)) );
 	}
 }
@@ -125,16 +125,17 @@ void conv(hls::stream<axisStream> &strm_in,
 					KernelXLOOP: for(int kx=0; kx<LOOPKernelMaxSize; kx++){
 						#pragma HLS loop_tripcount min=3 max=3
 						ChannelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn+=itersPerStream){
-						#pragma HLS loop_tripcount min=64 max=64
+						#pragma HLS loop_tripcount min=8 max=8
 							#pragma HLS pipeline II=1
+
 							UnrollLOOP:for(int w=0;w<itersPerStream;w++){
 								#pragma HLS unroll
-								if(y>=outMapYSize) y=LOOPMapMaxYSize;
-								else if(x>=mapSizeX) x=LOOPMapMaxXSize;
-								else if(f>=filterN) f=LOOPFilterMaxN;
-								else if(ky>=kernelSize) ky=LOOPKernelMaxSize;
-								else if(kx>=kernelSize) kx=LOOPKernelMaxSize;
-								else if(kn>=kernelN) kn=LOOPKernelMaxN;
+								if(y>=outMapYSize){ if(w==0) y=LOOPMapMaxYSize;}
+								else if(x>=mapSizeX){ if(w==0) x=LOOPMapMaxXSize;}
+								else if(f>=filterN){ if(w==0) f=LOOPFilterMaxN;}
+								else if(ky>=kernelSize){ if(w==0) ky=LOOPKernelMaxSize;}
+								else if(kx>=kernelSize){ if(w==0) kx=LOOPKernelMaxSize;}
+								else if(kn>=kernelN){if(w==0) kn=LOOPKernelMaxN;}
 								else{
 									if(w==0){
 										//printf("kn=%d\n",kn);
@@ -165,17 +166,12 @@ void conv(hls::stream<axisStream> &strm_in,
 									if(ky==0 && kx==0 && kn == 0 && w==0 && x < outMapXSize){
 										accum = bias;
 									}
-
-
-
-									if(x < outMapXSize){
+									if(x < outMapXSize && kn<kernelN && f<filterN && y<outMapYSize){
 										//accum+=featureMap[address0++]*filter[address2++];
 										dotProduct(featureMapPacked.range((w+1)*AWidth-1,(w*AWidth)), filterPacked.range( (w+1)*WWidth-1, (w*WWidth) ), &accum);
 									}
-
-
 									if(ky==kernelSize-1 && kx==kernelSize-1){
-										if(y<outMapYSize-1 && f==0 && w== 0){
+										if(y<outMapYSize-1 && f==0 && w==0){
 											readActs(featureMap,featureMapSaveAdddress++,strm_in);
 											//printf("before addr =%d after addr%d\n",(((y+3)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+x*(kernelN/actsPerStream+1)+kn/actsPerStream,featureMapSaveAdddress-1);
 
@@ -184,7 +180,7 @@ void conv(hls::stream<axisStream> &strm_in,
 											if(relu && (accum < 0)) accum =0;
 											//printf("\t\tOut is %u\n",(ushort)accum);
 											outValues=(outValues<<AWidth)+accum.range(AWidth-1,0);
-											if(f==filterN-1 || (f+1)%itersPerStream==0){
+											if(f==filterN-1 || (f+1)%itersPerStream==0 ){
 												//printf("sent %lu\n",(long)outValues);
 												if(f==filterN-1){
 													//printf("f %d\n",f);
@@ -199,6 +195,7 @@ void conv(hls::stream<axisStream> &strm_in,
 												tmpo.last = (!(y<outMapYSize-1) && !(x<outMapXSize-1));
 												strm_out.write(tmpo);
 												outValues=0;
+												//printf("y%d x%d f%d kx%d ky%d kn%d w%d\n",y,x,f,kx,ky,kn,w);
 											}
 										}
 									}

@@ -17,9 +17,9 @@ typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-static unsigned long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/weightsPerStream+1)];
-static unsigned long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/actsPerStream+1)];
-unsigned long outputMap[(tbFilterN/weightsPerStream+1)*tbOutputMapSize*tbOutputMapSize];
+static unsigned long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/itersPerStream+1)];
+static unsigned long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];
+unsigned long outputMap[(tbFilterN/itersPerStream+1)*tbOutputMapSize*tbOutputMapSize];
 
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
@@ -139,7 +139,8 @@ int main()
 	printf("Filter 0\n");
 	print_outputMat(filter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 1\n");
-	print_outputMat(filter+2*3*3, tbFilterSize, tbFilterSize,tbKernelN);
+	int sizeOfFilter= tbFilterSize*tbFilterSize*(tbKernelN/itersPerStream+1);
+	print_outputMat(filter+sizeOfFilter, tbFilterSize, tbFilterSize,tbKernelN);
 
 	tmp.data=(ap_int<64>)0;
 	str_in.write(tmp);
