@@ -19,7 +19,7 @@ typedef ap_axis<64, 0, 0, 0> axisStream;
 
 static unsigned long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/itersPerStream+1)];
 static unsigned long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];
-unsigned long outputMap[(tbFilterN/itersPerStream+1)*tbOutputMapSize*tbOutputMapSize];
+unsigned long outputMap[((2*tbFilterN)/itersPerStream+1)*tbOutputMapSize*tbOutputMapSize];
 
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
@@ -96,7 +96,7 @@ void initVectors(){
 				}else{
 					value= (value<<AWidth);
 				}
-			}
+			} //arranjar shifts quando width n e potencia 2
 			inputMap[i*((tbKernelN-1)/itersPerStream+1)+k] = value;
 		}
 
@@ -144,8 +144,19 @@ int main()
 
 	tmp.data=(ap_int<64>)0;
 	str_in.write(tmp);
+	tmp.data=(ap_int<64>)0;
+	str_in.write(tmp);
+	tmp.data=(ap_int<64>)1;
+	str_in.write(tmp);
+	tmp.data=(ap_int<64>)1;
+	str_in.write(tmp);
 	printf("Sent Bias\n");
 
+	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
+		tmp.data=(ap_int<64>)filter[i];
+		str_in.write(tmp);
+		//printf("%d %lu\n",i,filter[i]);
+	}
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
 		tmp.data=(ap_int<64>)filter[i];
 		str_in.write(tmp);
@@ -166,16 +177,16 @@ int main()
 
 	printf("Sent whole Input Map\n");
 
-	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
+	conv(str_in, str_out,2*tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
 
-	printf("getting %d values\n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));
-	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
+
+	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((2*tbFilterN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
 	}
 
 	printf("Output is: \n");
-	print_outputMat(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN);
+	print_outputMat(outputMap, tbOutputMapSize, tbOutputMapSize,2*tbFilterN);
 
 	return 0;
 }

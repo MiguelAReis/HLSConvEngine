@@ -3,19 +3,28 @@
 
 
 //-// MEMORY DEFINES //-//
-#define WWidth 4 //Bit width of weights
-#define AWidth 4 //Bit width of activations/bias
+#define DMAWidth 64
+#define WWidth 8 //Bit width of weights
+#define AWidth 8 //Bit width of activations/bias
 
-#define weightsPerStream (64/WWidth)
-#define actsPerStream (64/AWidth)
+#define numPEs 16 //Num of PE's (Has to be multiple eg. for AWidth == 16 && DMAWidth==64 numPEs = 4,8,12,16 etc)
+
+#define outWidth numPEs*AWidth
+#define streamItersBound ((outWidth-1)/DMAWidth+1)
+#define WRemainder (DMAWidth%WWidth)
+#define ARemainder (DMAWidth%AWidth)
+
+#define weightsPerStream (DMAWidth/WWidth)
+#define actsPerStream (DMAWidth/AWidth)
 
 #if weightsPerStream>actsPerStream
-#define itersPerStream actsPerStream
+#define itersPerStream actsPerStream //SIMD
 #else
-#define itersPerStream weightsPerStream
+#define itersPerStream weightsPerStream //SIMD
 #endif
 
-#define FilterMaxN 1 //Highest number of Channels Used
+#define FilterMaxN 64 //Highest number of Channels Used
+#define FilterMaxNPerPE ((FilterMaxN-1)/numPEs+1) //Highest number of Channels Used
 #define KernelMaxN 10//2048 //Highest number of Channels Used
 #define KernelMaxSize 3 // Highest Size of Kernel Used X & Y
 
