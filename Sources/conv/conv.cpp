@@ -21,6 +21,7 @@ void readBias(actDataType bias[FilterMaxN],uint totalbias, hls::stream<axisStrea
 			#pragma HLS pipeline II=1
 			axisStream tmp = strm_in.read(); //Save Bias
 			bias[i]=tmp.data;
+			//printf("bias %d\n",(int)bias[i]);
 		}
 
 }
@@ -76,6 +77,7 @@ void PE( actDataType featureMapValue,filterDataType filterValue, accDataType *ac
 
 	//printf("NEW SIMD\n");
 	PELOOP:for(int w=0;w<itersPerStream;w++){
+		#pragma HLS inline
 		#pragma HLS unroll
 		*accum+=featureMapValue.range((w+1)*AWidth-1,(w*AWidth))* filterValue.range((w+1)*WWidth-1,(w*WWidth));
 		//printf("Doing mac map %d  filter %d  result %d.\n\n",(int)featureMapValue.range((w+1)*AWidth-1,(w*AWidth)),(int)filterValue.range((w+1)*WWidth-1,(w*WWidth)),(int)*accum);
@@ -91,6 +93,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
+		int stride,
 		bool relu){
 
 	#pragma HLS INTERFACE ap_ctrl_none port=return
@@ -134,12 +137,17 @@ void conv(hls::stream<axisStream> &strm_in,
 
 
 	int filterAddress=0;
+	int filterAddress_=0;
 	int featureMapAddress=0;
 	int featureMapAddressSuplement0=0;
 	int featureMapAddressSuplement1=0;
 	int yLine[4] ={0,mapSizeX*(commonDiv+1),2*mapSizeX*(commonDiv+1),3*mapSizeX*(commonDiv+1)};
 	#pragma HLS array_partition variable=yLine complete
 	int featureMapSaveAdddress=0;
+	int biasSupplement=0;
+	bool active=1;
+	int itersInactiveX=99;
+	int itersInactiveY=99;
 
 
 	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
@@ -153,8 +161,8 @@ void conv(hls::stream<axisStream> &strm_in,
 					KernelXLOOP: for(int kx=0; kx<LOOPKernelMaxSize; kx++){
 						#pragma HLS loop_tripcount min=3 max=3
 						ChannelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn+=itersPerStream){
-						PRAGMA_HLS(HLS loop_tripcount min=64/itersPerStream max=64/itersPerStream);
-							#pragma HLS pipeline II=6
+						PRAGMA_HLS(HLS loop_tripcount min=512/itersPerStream max=512/itersPerStream);
+							PRAGMA_HLS(HLS pipeline II=IIValue);
 							if(y>=outMapYSize){  y=LOOPMapMaxYSize;}
 							else if(x>=mapSizeX){ x=LOOPMapMaxXSize;}
 							else if(f>=(filterN-1)/numPEs+1){  f=LOOPFilterMaxN;}
@@ -166,8 +174,14 @@ void conv(hls::stream<axisStream> &strm_in,
 
 								if(filterAddress>= filterAddressMax+filterAddressMaxSuplement){
 									if(ky==0 && kx==0 && kn ==0){
-										if(f==0) filterAddressMaxSuplement=0;
-										else filterAddressMaxSuplement+=filterAddressMax;
+										if(f==0) {
+											filterAddressMaxSuplement=0;
+											biasSupplement=0;
+										}
+										else{
+											filterAddressMaxSuplement+=filterAddressMax;
+											biasSupplement+=numPEs;
+										}
 									}
 									filterAddress=filterAddressMaxSuplement;
 								}
@@ -180,31 +194,64 @@ void conv(hls::stream<axisStream> &strm_in,
 								if(kx==0 && kn==0) featureMapAddress=yLine[(y+ky)&0x03]+featureMapAddressSuplement0+featureMapAddressSuplement1;//(kx+x)*(commonDiv+1);
 								if(f==0 && kn==0) featureMapSaveAdddress=yLine[(y+3)&0x03]+featureMapAddressSuplement0;//x*(commonDiv+1);
 								featureMapPacked = featureMap[featureMapAddress++]; //(((y+ky)&0x03)*mapSizeX*(kernelN/actsPerStream+1))+(kx+x)*(kernelN/actsPerStream+1)+kn/actsPerStream
+								filterAddress_=filterAddress++;
 								//filterPacked = filter[filterAddress++];
 								//printf("filter address is %d\n",filterAddress);
 								//printf("Map address is %d\n",featureMapAddress-1);
+								if(ky==0 && kx==0 && kn==0 && f==0){
+									if(!itersInactiveY){
+										if(itersInactiveX>=stride-1){
+											itersInactiveX=0;
+										}
+										else{
+											itersInactiveX++;
+										}
+									}
+
+									if(x==0){
+										if(itersInactiveY>=stride-1){
+											itersInactiveY=0;
+											itersInactiveX=0;
+										}
+										else{
+											itersInactiveY++;
+										}
+									}
+									active = !itersInactiveX & !itersInactiveY;
+									//printf("x is %d y is %d itersInactiveX is %d itersInactiveY is %d active is %d\n",x,y,itersInactiveX,itersInactiveY,(int)active);
+
+								}
+								if(!active){
+									ky=kernelSize-1;
+									kx=kernelSize-1;
+									filterAddress=filterAddressMax+filterAddressMaxSuplement;
+									//kn=LOOPKernelMaxN;
+								}
 
 
-								if(ky==0 && kx==0 && kn == 0 && x < outMapXSize){ //Accum Reset with bias
+								if(ky==0 && kx==0 && kn == 0 && x < outMapXSize && active){ //Accum Reset with bias
 									for(short pes=0; pes<numPEs; pes++){
 										#pragma HLS unroll
-										if(f+pes<filterN) accum[pes]=bias[pes];
+										if(biasSupplement+pes<filterN) accum[pes]=bias[biasSupplement+pes];
 										else accum[pes]=0;
+										//printf("accum %d index %d f %d pes %d filterN %d \n",(int)bias[f*numPEs+pes],f*numPEs+pes,f,pes,filterN);
 									}
 								}
-								if(x < outMapXSize && kn<kernelN && f<filterN && y<outMapYSize){ //Dot producti
+
+								if(x < outMapXSize && kn<kernelN && f<filterN && y<outMapYSize && active){ //Dot producti
 									//accum+= featureMapPacked.range((w+1)*AWidth-1,(w*AWidth)) * filterPacked.range((w+1)*WWidth-1,(w*WWidth));
 									PEDeploymentLOOP:for(short pes=0;pes<numPEs;pes++){
 										#pragma HLS unroll
-										//if(f+pes<filterN) printf("pes is %d filter addres is %d f is %d\n",pes,filterAddress,f);
-										if(f+pes<filterN) PE(featureMapPacked, filter[pes][filterAddress],&accum[pes]);
+										//if(f+pes<filterN) printf("pes is %d filter addres is %d f is %d\n",pes,filterAddress_,f);
+										if(f+pes<filterN ) PE(featureMapPacked, filter[pes][filterAddress_],&accum[pes]);
 									}
-									filterAddress++;
 								}
-								if(ky==kernelSize-1 && kx==kernelSize-1){ //Read Next Values
-									if(y<outMapYSize-1 && f==0 ){
-										readActs(featureMap,featureMapSaveAdddress++,strm_in);
-									}
+								if(y<outMapYSize-1 && f==0 && ky==kernelSize-1 && kx==kernelSize-1 ){
+									readActs(featureMap,featureMapSaveAdddress++,strm_in);
+									//printf("Reading one value\n");
+								}
+								if(ky==kernelSize-1 && kx==kernelSize-1 && active){ //Read Next Values
+
 									if(kn+itersPerStream>=kernelN && x < outMapXSize){
 
 										for(short pes=0;pes<numPEs;pes++){

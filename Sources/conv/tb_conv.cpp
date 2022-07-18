@@ -10,7 +10,10 @@
 #define tbKernelN 3
 #define tbFilterSize 3
 #define tbInputMapSize 5
-#define tbOutputMapSize (tbInputMapSize - tbFilterSize + 1)
+#define tbStride 1
+#define tbPadding 0
+#define tbOutputMapSize ((tbInputMapSize - tbFilterSize+ 2*tbPadding)/tbStride + 1)
+
 
 
 typedef ap_int<WWidth> filterDataType;
@@ -28,6 +31,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
+		int stride,
 		bool relu);
 
 
@@ -177,7 +181,7 @@ int main()
 
 	printf("Sent whole Input Map\n");
 
-	conv(str_in, str_out,2*tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,0);
+	conv(str_in, str_out,2*tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,0);
 
 
 	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((2*tbFilterN-1)/itersPerStream+1); i++) {
