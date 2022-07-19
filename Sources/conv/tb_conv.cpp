@@ -185,17 +185,8 @@ int main()
 	str_in.write(tmp);
 	tmp.data=(ap_int<64>)0;
 	str_in.write(tmp);
-	tmp.data=(ap_int<64>)1;
-	str_in.write(tmp);
-	tmp.data=(ap_int<64>)1;
-	str_in.write(tmp);
 	printf("Sent Bias\n");
 
-	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
-		tmp.data=(ap_int<64>)filter[i];
-		str_in.write(tmp);
-		//printf("%d %lu\n",i,filter[i]);
-	}
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
 		tmp.data=(ap_int<64>)filter[i];
 		str_in.write(tmp);
@@ -216,16 +207,16 @@ int main()
 
 	printf("Sent whole Input Map\n");
 
-	conv(str_in, str_out,2*tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0);
+	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0);
 
 
-	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((2*tbFilterN-1)/itersPerStream+1); i++) {
+	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
 	}
 
 	printf("Output is: \n");
-	print_Map(outputMap, tbOutputMapSize, tbOutputMapSize,2*tbFilterN);
+	print_Map(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN);
 
 	return 0;
 }
