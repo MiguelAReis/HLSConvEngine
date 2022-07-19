@@ -94,6 +94,7 @@ void conv(hls::stream<axisStream> &strm_in,
 		int mapSizeX,
 		int mapSizeY,
 		int stride,
+		int padding,
 		bool relu){
 
 	#pragma HLS INTERFACE ap_ctrl_none port=return
@@ -112,7 +113,7 @@ void conv(hls::stream<axisStream> &strm_in,
 
 	axisStream tmp,tmpo;
 
-	unsigned short commonDiv=(kernelN/itersPerStream);
+	unsigned short commonDiv=((kernelN-1)/itersPerStream);
 	short outMapYSize = mapSizeY-kernelSize+1;
 	short outMapXSize = mapSizeX-kernelSize+1;
 	ap_int<64> featureMapPacked, filterPacked, outValues=0;
@@ -146,8 +147,8 @@ void conv(hls::stream<axisStream> &strm_in,
 	int featureMapSaveAdddress=0;
 	int biasSupplement=0;
 	bool active=1;
-	int itersInactiveX=99;
-	int itersInactiveY=99;
+	unsigned short itersInactiveX=99;
+	unsigned short itersInactiveY=99;
 
 
 	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
@@ -253,7 +254,6 @@ void conv(hls::stream<axisStream> &strm_in,
 								if(ky==kernelSize-1 && kx==kernelSize-1 && active){ //Read Next Values
 
 									if(kn+itersPerStream>=kernelN && x < outMapXSize){
-
 										for(short pes=0;pes<numPEs;pes++){
 											#pragma HLS unroll
 											if(relu && (accum[pes]< 0)) accum[pes] =0;

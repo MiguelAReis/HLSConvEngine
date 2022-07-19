@@ -4,8 +4,8 @@
 
 //-// MEMORY DEFINES //-//
 #define DMAWidth 64
-#define WWidth 8 //Bit width of weights
-#define AWidth 8 //Bit width of activations/bias
+#define WWidth 17 //Bit width of weights
+#define AWidth 17 //Bit width of activations/bias
 
 #define numPEs 8 //Num of PE's (Has to be multiple eg. for AWidth == 16 && DMAWidth==64 numPEs = 4,8,12,16 etc)
 
