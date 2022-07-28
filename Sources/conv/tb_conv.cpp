@@ -227,14 +227,14 @@ int main()
 
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
-	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,9,0);
+	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,9,1);
 
 	printf("Receiving out Map N = %d  \n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));
 
 	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
-		//printf("%lu\n",outputMap[i]);
+		printf("%lu\n",outputMap[i]);
 		if(tmpa.last) printf("Received LAST\n");
 	}
 

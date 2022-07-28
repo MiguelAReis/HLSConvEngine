@@ -320,8 +320,8 @@ void conv(hls::stream<axisStream> &strm_in,
 												}
 												//printf("\t\tsent stream %lu\n\n",outValues.to_int());
 												tmpo.data = outValues<<ARemainder;
-												tmpo.keep = 0xF;
-												tmpo.strb = 0xF;
+												tmpo.keep = 0xFF;
+												tmpo.strb = 0xFF;
 												tmpo.last = (!(y<outMapYSize-1) && !(x<outMapXSize-1) && !(f+limit>=filterN));
 												strm_out.write(tmpo);
 												if(tmpo.last) return;
