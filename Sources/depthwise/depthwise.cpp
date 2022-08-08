@@ -253,17 +253,14 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	unsigned short itersInactiveY=99;
 
 
-	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
+	OutYLOOP:for(ap_uint<10> y=0;y<(ap_uint<10>)outMapYSize;y++){
 		#pragma HLS loop_tripcount min=5 max=5
-		OutXLOOP:for(int x=0;x<LOOPMapMaxXSize;x++){
+		OutXLOOP:for(ap_uint<10> x=0;x<(ap_uint<10>)mapSizeX;x++){
 			#pragma HLS loop_tripcount min=5 max=5
-			KernelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn+=numPEs){
+			KernelLOOP:for(int kn=0; kn<kernelN; kn+=numPEs){
 				PRAGMA_HLS(HLS loop_tripcount min=512/numPEs max=512/numPEs);
 				PRAGMA_HLS(HLS pipeline II=IIValue);//
-				if(y>=outMapYSize){  y=LOOPMapMaxYSize;}
-				else if(x>=mapSizeX){ x=LOOPMapMaxXSize;}
-				else if(kn>=kernelN){kn=LOOPKernelMaxN;}
-				else{
+				if(1){
 					//Address Generation
 					kernelSupplement++;
 					if(kn==0){
@@ -333,7 +330,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 
 					}
 					if(!active){
-						kn=LOOPKernelMaxN;
+						//kn=LOOPKernelMaxN;
 					}
 
 
@@ -410,7 +407,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 									tmpo.strb = 0xFF;
 									tmpo.last = (!(y<outMapYSize-1) && !(x<outMapXSize-1) && !(kn+limit>=kernelN));
 									strm_out.write(tmpo);
-									if(tmpo.last) return;
+									//if(tmpo.last) return;
 									outValues=0;
 
 

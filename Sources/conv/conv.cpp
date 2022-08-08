@@ -1,4 +1,4 @@
- #include <ap_int.h>
+#include <ap_int.h>
 #include <stdint.h>
 #include <hls_stream.h>
 #include "ap_axi_sdata.h"
@@ -214,26 +214,20 @@ void conv(hls::stream<axisStream> &strm_in,
 
 
 
-	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
+	OutYLOOP:for(ap_uint<10> y=0;y<(ap_uint<10>)outMapYSize;y++){
 		#pragma HLS loop_tripcount min=5 max=5
-		OutXLOOP:for(int x=0;x<LOOPMapMaxXSize;x++){
+		OutXLOOP:for(ap_uint<10> x=0;x<(ap_uint<10>)mapSizeX;x++){
 			#pragma HLS loop_tripcount min=5 max=5
-			FilterLOOP:for(int f=0; f<LOOPFilterMaxN; f++){
+			FilterLOOP:for(ap_uint<10> f=0; f<(ap_uint<10>)flimit; f++){
 				PRAGMA_HLS(HLS loop_tripcount min=64/numPEs max=64/numPEs);
-				KernelYLOOP:for(int ky=0; ky<LOOPKernelMaxSize; ky++){
+				KernelYLOOP:for(ap_uint<2> ky=0; ky<(ap_uint<2>)kernelSize; ky++){
 					#pragma HLS loop_tripcount min=3 max=3
-					KernelXLOOP: for(int kx=0; kx<LOOPKernelMaxSize; kx++){
+					KernelXLOOP: for(ap_uint<2> kx=0; kx<(ap_uint<2>)kernelSize; kx++){
 						#pragma HLS loop_tripcount min=3 max=3
-						ChannelLOOP:for(int kn=0; kn<LOOPKernelMaxN; kn+=itersPerStream){
+						ChannelLOOP:for(int kn=0; kn<kernelN; kn+=itersPerStream){
 						PRAGMA_HLS(HLS loop_tripcount min=512/itersPerStream max=512/itersPerStream);
 							PRAGMA_HLS(HLS pipeline II=IIValue);
-							if(y>=outMapYSize){  y=LOOPMapMaxYSize;}
-							else if(x>=mapSizeX){ x=LOOPMapMaxXSize;}
-							else if(f>=flimit){  f=LOOPFilterMaxN;}
-							else if(ky>=kernelSize){ky=LOOPKernelMaxSize;}
-							else if(kx>=kernelSize){kx=LOOPKernelMaxSize;}
-							else if(kn>=kernelN){kn=LOOPKernelMaxN;}
-							else{
+							if(1){
 								//Address Generation
 
 								if(filterAddress>= filterAddressMax+filterAddressMaxSuplement){
@@ -285,8 +279,8 @@ void conv(hls::stream<axisStream> &strm_in,
 
 								}
 								if(!active){
-									ky=LOOPKernelMaxSize;
-									kx=LOOPKernelMaxSize;
+									//ky=LOOPKernelMaxSize;
+									//kx=LOOPKernelMaxSize;
 									filterAddress=filterAddressMax+filterAddressMaxSuplement;
 								}
 

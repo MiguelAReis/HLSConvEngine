@@ -24,8 +24,7 @@ static  long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/itersPerStrea
 static  long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)] = {-6917430071594582016, 2333753012373159936, 8254337254923698176, -1383319768160796672, -6302021318900449280, 5577578396126281728, 7459962094088093696, 6245865961535045632, 7364820253425008640, 7704701287803125760, -3898647230256513024, 3891670828978274304, 7393653846351806464, 828974592738459648, -5513140417668841472, 6005983310679900160, 941726211632005120, 3064960130681405440, 605379007625560064, 2992457234434228224, 2241888815872475136, 8146613702703972352, 8515008372125204480, -3199145629246816256, 6392601285819891712};
 long outputMap[((2*tbFilterN)/itersPerStream+1)*tbOutputMapSize*tbOutputMapSize];
 
-void conv(hls::stream<axisStream> &strm_in0,
-		hls::stream<axisStream> &strm_in1,
+void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
 		int filterN,
 		int kernelN,
@@ -37,12 +36,7 @@ void conv(hls::stream<axisStream> &strm_in0,
 		int isMapSigned,
 		int biasScale,
 		int scale,
-		int relu,
-		int addMap,
-		int addMapScale,
-		int interpolate,
-		int interpolateSize,
-		int avgpool);
+		int relu);
 
 
 void print_mat(int *x, int rows, int cols)
@@ -191,8 +185,7 @@ void initVectors(){
 int main()
 {
 
-	hls::stream<axisStream> str_in0("inputStream"); //("sinp");
-	hls::stream<axisStream> str_in1("inputStream"); //("sinp");
+	hls::stream<axisStream> str_in("inputStream"); //("sinp");
 	hls::stream<axisStream> str_out("outputStream"); //("sout");
 	axisStream tmp, tmpa;
 
@@ -208,15 +201,15 @@ int main()
 	print_Filter(filter+sizeOfFilter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 3\n");
 	print_Filter(filter+sizeOfFilter*2, tbFilterSize, tbFilterSize,tbKernelN);
-	long bias =(127<<(64-8))|(127<<(64-16))|(-128<<(64-24));
+	long bias =((long)127<<(64-8))+((long)127<<(64-16))+((long)-128<<(64-24));
 	tmp.data=bias;
-	str_in0.write(tmp);
+	str_in.write(tmp);
 
 	printf("Sent Bias N = %d \n",1);
 
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
 		tmp.data=(ap_int<64>)filter[i];
-		str_in0.write(tmp);
+		str_in.write(tmp);
 		//printf("%d %lu\n",i,filter[i]);
 	}
 
@@ -228,19 +221,15 @@ int main()
 		tmp.data=(ap_int<64>)inputMap[y];
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
 		//else tmp.last=0;
-		str_in0.write(tmp);
+		str_in.write(tmp);
 		//printf("%lu\n",inputMap[y]);
 	}
 
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
-	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
-		tmp.data=(ap_int<64>)72340168526266368; //1 in each channels
-		str_in1.write(tmp);
-	}
-	printf("Sent whole addMap N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
-	conv(str_in0,str_in1, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0,0,9,1,1,0,0,0,0);
+
+	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0,0,9,1);
 
 	printf("Receiving out Map N = %d  \n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));
 
