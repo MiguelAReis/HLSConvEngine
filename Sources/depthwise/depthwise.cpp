@@ -10,8 +10,11 @@
 
 typedef ap_int<itersPerStream*WWidth> filterDataType;
 typedef ap_int<itersPerStream*AWidth> actDataType;
-typedef ap_int<32> accDataType;
+typedef ap_int<biasPerStream*BWidth> biasStreamDataType;
+typedef ap_int<BWidth> biasDataType;
+typedef ap_int<DMAWidth> accDataType;
 typedef ap_uint<AWidth> PEAct;
+typedef ap_int<AWidth+1> PESignedAct;
 typedef ap_int<WWidth> PEWeight;
 typedef ap_int<WWidth+AWidth> PEWAccum;
 
@@ -19,13 +22,13 @@ typedef ap_axis<DMAWidth, 0, 0, 0> axisStream;
 
 
 
-void readBias(accDataType bias[KernelMaxN],unsigned int totalbias, hls::stream<axisStream> &strm_in){
+void readBias(biasStreamDataType bias[KernelMaxN],unsigned int totalbias, hls::stream<axisStream> &strm_in){
 
-	SaveBiasLOOP:for(int i=0;i<totalbias;i++){
+	SaveBiasLOOP:for(int i=0;i<totalbias;i+=biasPerStream){
 			#pragma HLS loop_tripcount min=2 max=2
 			#pragma HLS pipeline II=1
 			axisStream tmp = strm_in.read(); //Save Bias
-			bias[i]=tmp.data;
+			bias[i]=tmp.data.range(DMAWidth-1,BRemainder);//.range((((biasPerStream-1)-j)+1)*BWidth-1,(((biasPerStream-1)-j)*BWidth));;
 			//printf("bias %d\n",i);
 		}
 
@@ -116,7 +119,7 @@ void readInitialFeatureMap(actDataType featureMap[MaxBRAMValuesForKernelMaxN*Map
 	}
 }
 
-void PE( actDataType featureMapPE[KernelSizeSquared],filterDataType filterValue[KernelSizeSquared], accDataType *accum,unsigned int PE){
+void PE( actDataType featureMapPE[KernelSizeSquared],filterDataType filterValue[KernelSizeSquared], accDataType *accum,unsigned int PE,int isMapSigned){
 
 	//printf("NEW SIMD pe %d\n",PE);
 
@@ -125,7 +128,9 @@ void PE( actDataType featureMapPE[KernelSizeSquared],filterDataType filterValue[
 		#pragma HLS inline
 		#pragma HLS unroll
 		//printf("fm is %ld\n",featureMapPE[i].to_long());
-		PEAct fmValue=featureMapPE[i].range((((itersPerStream-1)-PE)+1)*AWidth-1,(((itersPerStream-1)-PE)*AWidth));
+		PESignedAct fmValue=0;
+		if(isMapSigned) fmValue=featureMapPE[i].range((((itersPerStream-1)-PE)+1)*AWidth-1,(((itersPerStream-1)-PE)*AWidth));
+		else fmValue+=featureMapPE[i].range((((itersPerStream-1)-PE)+1)*AWidth-1,(((itersPerStream-1)-PE)*AWidth))&((1<<AWidth)-1);
 		//printf("fmValue is %ld\n",fmValue.to_long());
 		PEWeight fValue=filterValue[i].range((((itersPerStream-1)-PE)+1)*WWidth-1,(((itersPerStream-1)-PE)*WWidth));
 		//printf("fValue is %ld\n",fValue.to_long());
@@ -133,7 +138,11 @@ void PE( actDataType featureMapPE[KernelSizeSquared],filterDataType filterValue[
 
 		*accum+= MAC;
 		accDataType accumValue = *accum;
-		//printf("Doing mac map %d  filter %d  result %d accum is %d.\n\n",fmValue.to_int(),fValue.to_int(),MAC.to_int(),accumValue.to_int());
+		//printf("Doing mac map %d  filter %d  result %d accum is %d.\n",fmValue.to_int(),fValue.to_int(),MAC.to_int(),accumValue.to_int());
+
+
+
+
 	}
 
 }
@@ -146,6 +155,8 @@ void depthwise(hls::stream<axisStream> &strm_in,
 		int mapSizeY,
 		int stride,
 		int padding,
+		int isMapSigned,
+		int biasScale,
 		int scale,
 		int relu){
 
@@ -154,11 +165,12 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	#pragma HLS INTERFACE axis port=strm_out
 	#pragma HLS INTERFACE s_axilite port=return bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=kernelN bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=kernelSize bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=mapSizeX bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=mapSizeY bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=stride bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=padding bundle=BUS1
+	#pragma HLS INTERFACE s_axilite port=isMapSigned bundle=BUS1
+	#pragma HLS INTERFACE s_axilite port=biasScale bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=scale bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=relu bundle=BUS1
 
@@ -170,8 +182,8 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	PRAGMA_HLS(HLS array_partition variable=featureMap block factor=KernelSizeSquaredPlus dim=2);
 	actDataType featureMapPE[KernelSizeSquaredPlus];
 	PRAGMA_HLS(HLS array_partition variable=featureMapPE complete);
-	accDataType bias[KernelMaxN]; //12BRAM
-	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=numPEs dim=1);
+	biasStreamDataType bias[(KernelMaxN-1/biasPerStream+1)]; //12BRAM
+	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=biasIterFactor dim=1);
 	//#pragma HLS array_partition variable=featureMap complete
 	accDataType accum[numPEs];
 	#pragma HLS array_partition variable=accum complete
@@ -181,7 +193,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	unsigned int commonDiv =((kernelN-1)/itersPerStream);
 	unsigned int totalWeights=0;
 
-	readBias(bias,kernelN, strm_in);
+	readBias(bias,commonDiv+1, strm_in);
 
 	for(int i=0;i<KernelSizeSquared;i++) totalWeights+=commonDiv+1;
 	//printf("Reading Filter totalWeights is %d\n",totalWeights);
@@ -207,7 +219,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	unsigned int FMBRAMIndex[KernelSizeSquaredPlus][2];
 	#pragma HLS array_partition variable=FMBRAMIndex complete
 	unsigned int FMBRAMIndex_[KernelSizeSquaredPlus][2];
-	#pragma HLS array_partition variable=FMBRAMIndex complete
+	#pragma HLS array_partition variable=FMBRAMIndex_ complete
 	unsigned int addr =0;
 	unsigned int addrValue=0;
 	unsigned int iterCounter=0;
@@ -217,27 +229,17 @@ void depthwise(hls::stream<axisStream> &strm_in,
 							{4,5,6},
 							{7,8,9},
 							{10,11,12}};
-    int BRAMIndex[4][3]={{1,2,3},
-						 {4,5,6},
-						 {7,8,9},
-						 {10,11,12}};
-    int BRAMIndex_[4][3]={{1,2,3},
-						 {4,5,6},
-						 {7,8,9},
-						 {10,11,12}};
-    int BRAMAddr[4][3]={{0,0,0},
-                        {0,0,0},
-                        {0,0,0},
-                        {0,0,0}};
-    int BRAMAddr_[4][3]={{0,0,0},
-                        {0,0,0},
-                        {0,0,0},
-                        {0,0,0}};
-#pragma HLS array_partition variable=BRAMIndexRef complete
-#pragma HLS array_partition variable=BRAMIndex complete
-#pragma HLS array_partition variable=BRAMAddr complete
-#pragma HLS array_partition variable=BRAMIndex_ complete
-#pragma HLS array_partition variable=BRAMAddr_ complete
+    int BRAMIndex[4][3];
+    int BRAMIndex_[4][3];
+    int BRAMAddr[4][3];
+    int BRAMAddr_[4][3];
+
+	#pragma HLS array_partition variable=BRAMIndexRef complete
+	#pragma HLS array_partition variable=BRAMIndex complete
+	#pragma HLS array_partition variable=BRAMAddr complete
+	#pragma HLS array_partition variable=BRAMIndex_ complete
+	#pragma HLS array_partition variable=BRAMAddr_ complete
+
     int BRAMIndexSupplement=0;
     int indexLimitBeginning=0;
 	int yPadlowerBound=padding-3<0 ? 0 : padding-3;
@@ -337,10 +339,19 @@ void depthwise(hls::stream<axisStream> &strm_in,
 
 
 					if(x < outMapXSize ){ //Accum Reset with bias
-						for(short pes=0; pes<numPEs; pes++){
+						for(short pes=0,i=0,j=0; pes<numPEs; pes++,i++){
 							#pragma HLS unroll
-							if(kn+pes<kernelN ) accum[pes]=bias[kn+pes];
-							else accum[pes]=0;
+							if(i==biasPerStream){
+								i=0;
+								j++;
+							}
+							accum[pes]=0;
+							if(kn+pes<kernelN ){
+								biasDataType biasVal=bias[kn+j].range((((biasPerStream-1)-i)+1)*BWidth-1,(((biasPerStream-1)-i)*BWidth));
+								accum[pes]+=biasVal;
+								accum[pes]=accum[pes]<<biasScale;
+							}
+
 
 							//if(biasSupplement+pes<kernelN ) printf("resetting accum for pes %d with %d\n",pes,biasSupplement+pes);
 							//else printf("pes %d not active for accum reset\n",pes);
@@ -353,7 +364,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 						for(int i=0;i<KernelSizeSquaredPlus;i++){
 							#pragma HLS unroll
 							//featureMapPE[i]=featureMap[FMBRAMIndex_[i][1]][FMBRAMIndex_[i][0]];
-							featureMapPE[FMBRAMIndex[i][0]]=featureMap[FMBRAMIndex[i][1]+kernelSupplement][i];
+							featureMapPE[FMBRAMIndex[i][0]]=featureMap[FMBRAMIndex[i][1]][i];//+kernelSupplement
 							//printf("fm %d is %ld  BRAM %d addr %d\n",i,featureMapPE[FMBRAMIndex_[i][0]].to_long(),FMBRAMIndex_[i][0],FMBRAMIndex_[i][1]);
 							//printf("fm %d is %ld  BRAM %d addr %d\n",FMBRAMIndex[i][0],featureMapPE[FMBRAMIndex[i][0]].to_long(),i,FMBRAMIndex[i][1]);
 						}
@@ -361,13 +372,13 @@ void depthwise(hls::stream<axisStream> &strm_in,
 
 						PEDeploymentLOOP:for(short pes=0;pes<numPEs;pes++){
 							#pragma HLS unroll
-							if(kn+pes<kernelN ) PE(featureMapPE,filter[kn], &accum[pes],pes);
+							if(kn+pes<kernelN ) PE(featureMapPE,filter[kn], &accum[pes],pes,isMapSigned);
 							//if(kn+pes<kernelN ) printf("dot Product with pes %d final result %ld\n",pes,accum[pes].to_long());
 						}
 					}
 
 					if(y<outMapYSize-1){
-						if(x<xPadlowerBound || x >= xPadUpperBound || y < yPadlowerBound || y>=yPadUpperBound) featureMap[ FMBRAMIndex[KernelSizeSquared][1] ][FMBRAMIndex[KernelSizeSquared][0] ]=0;
+						if(x<xPadlowerBound || x >= xPadUpperBound || y < yPadlowerBound || y>=yPadUpperBound) featureMap[ FMBRAMIndex_[KernelSizeSquared][1] ][FMBRAMIndex_[KernelSizeSquared][0] ]=0;
 						else readActs(featureMap[FMBRAMIndex_[KernelSizeSquared][1]],FMBRAMIndex_[KernelSizeSquared][0] ,strm_in);
 						//if(x<xPadlowerBound || x >= xPadUpperBound || y < yPadlowerBound || y>=yPadUpperBound) printf("padding BRAM %d with addr %d\n",FMBRAMIndex[KernelSizeSquared][0],FMBRAMIndex[KernelSizeSquared][1]);
 						//else printf("reading for BRAM %d with addr %d\n",FMBRAMIndex[9][0],FMBRAMIndex[9][1]);

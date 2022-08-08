@@ -4,25 +4,27 @@
 #include "ap_axi_sdata.h"
 #include "convParameters.h"
 
-//#define DEBUG
 
 
 typedef ap_int<itersPerStream*WWidth> filterDataType;
 typedef ap_int<itersPerStream*AWidth> actDataType;
-typedef ap_int<32> accDataType;
+typedef ap_int<biasPerStream*BWidth> biasStreamDataType;
+typedef ap_int<DMAWidth> accDataType;
+typedef ap_int<BWidth> biasDataType;
 typedef ap_uint<AWidth> PEAct;
+typedef ap_int<AWidth+1> PESignedAct;
 typedef ap_int<WWidth> PEWeight;
 typedef ap_int<WWidth+AWidth> PEWAccum;
-
+typedef ap_uint<AWidth+1> addAct;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-void readBias(accDataType bias[FilterMaxN],unsigned int totalbias, hls::stream<axisStream> &strm_in){
+void readBias(biasStreamDataType bias[FilterMaxN],unsigned int totalbias, hls::stream<axisStream> &strm_in){
 
-	SaveBiasLOOP:for(int i=0;i<totalbias;i++){
+	SaveBiasLOOP:for(int i=0;i<totalbias;i+=biasPerStream){
 			#pragma HLS loop_tripcount min=2 max=2
 			#pragma HLS pipeline II=1
 			axisStream tmp = strm_in.read(); //Save Bias
-			bias[i]=tmp.data;
+			bias[i]=tmp.data.range(DMAWidth-1,BRemainder);
 			//printf("bias %d\n",(int)bias[i]);
 		}
 
@@ -87,13 +89,15 @@ void readInitialFeatureMap(actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMax
 	}
 }
 
-void PE( actDataType featureMapValue,filterDataType filterValue, accDataType *accum){
+void PE( actDataType featureMapValue,filterDataType filterValue, accDataType *accum, int isMapSigned){
 
 	//printf("NEW SIMD\n");
 	PELOOP:for(int w=0;w<itersPerStream;w++){
 		#pragma HLS inline
 		#pragma HLS unroll
-		PEAct fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth));
+		PESignedAct fmValue=0;
+		if(isMapSigned) fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth));
+		else fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth))&((1<<AWidth)-1);
 		PEWeight fValue=filterValue.range((w+1)*WWidth-1,(w*WWidth));
 		PEWAccum MAC = fmValue * fValue;
 		*accum+= MAC;
@@ -104,6 +108,7 @@ void PE( actDataType featureMapValue,filterDataType filterValue, accDataType *ac
 	//printf("\t\tfilter %d featureMap %d accum %d\n",(unsigned int)filterValue,(unsigned int)featureMapValue,(int)*accum);
 }
 
+
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
 		int filterN,
@@ -113,6 +118,8 @@ void conv(hls::stream<axisStream> &strm_in,
 		int mapSizeY,
 		int stride,
 		int padding,
+		int isMapSigned,
+		int biasScale,
 		int scale,
 		int relu){
 
@@ -127,18 +134,26 @@ void conv(hls::stream<axisStream> &strm_in,
 	#pragma HLS INTERFACE s_axilite port=mapSizeY bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=stride bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=padding bundle=BUS1
+	#pragma HLS INTERFACE s_axilite port=isMapSigned bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=scale bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=relu bundle=BUS1
 
 
-	accDataType bias[FilterMaxN];
-	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=numPEs dim=1);
+	biasStreamDataType bias[(FilterMaxN-1/biasPerStream+1)];
+	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=biasIterFactor dim=1);
 	filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*KernelMaxN];
 	PRAGMA_HLS(HLS array_partition variable=filter block factor=numPEs dim=1);
 	actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMaxXSize];
 
 	accDataType accum[numPEs];
 	#pragma HLS array_partition variable=accum complete
+
+	hls::stream<actDataType>internalStream0;
+	#pragma HLS STREAM variable=internalStream0 depth=5
+	hls::stream<actDataType>internalStream1;
+	#pragma HLS STREAM variable=internalStream1 depth=5
+	hls::stream<actDataType>addMapFifo;
+	#pragma HLS STREAM variable=addMapFifo depth=5
 
 
 	axisStream tmp,tmpo;
@@ -198,6 +213,7 @@ void conv(hls::stream<axisStream> &strm_in,
 	//printf("flimit %d\n",flimit);
 
 
+
 	OutYLOOP:for(int y=0;y<LOOPMapMaxYSize;y++){
 		#pragma HLS loop_tripcount min=5 max=5
 		OutXLOOP:for(int x=0;x<LOOPMapMaxXSize;x++){
@@ -228,7 +244,7 @@ void conv(hls::stream<axisStream> &strm_in,
 										}
 										else{
 											filterAddressMaxSuplement+=filterAddressMax;
-											biasSupplement+=numPEs;
+											biasSupplement++;
 										}
 									}
 									filterAddress=filterAddressMaxSuplement;
@@ -276,11 +292,18 @@ void conv(hls::stream<axisStream> &strm_in,
 
 
 								if(ky==0 && kx==0 && kn == 0 && x < outMapXSize ){ //Accum Reset with bias
-									for(short pes=0; pes<numPEs; pes++){
+									for(short pes=0,i=0,j=0; pes<numPEs; pes++,i++){
 										#pragma HLS unroll
-										if(biasSupplement+pes<filterN && active) accum[pes]=bias[biasSupplement+pes];
-										else accum[pes]=0;
-										//printf("accum %d index %d f %d pes %d filterN %d \n",(int)bias[f*numPEs+pes],f*numPEs+pes,f,pes,filterN);
+										if(i==biasPerStream){
+											i=0;
+											j++;
+										}
+										accum[pes]=0;
+										if(kn+pes<kernelN ){
+											biasDataType biasVal=bias[kn+j].range((((biasPerStream-1)-i)+1)*BWidth-1,(((biasPerStream-1)-i)*BWidth));
+											accum[pes]+=biasVal;
+											accum[pes]=accum[pes]<<biasScale;
+										}
 									}
 								}
 
@@ -289,7 +312,7 @@ void conv(hls::stream<axisStream> &strm_in,
 									PEDeploymentLOOP:for(short pes=0;pes<numPEs;pes++){
 										#pragma HLS unroll
 										//if(f+pes<filterN) printf("pes is %d filter addres is %d f is %d\n",pes,filterAddress_,f);
-										if(f+pes<filterN ) PE(featureMapPacked, filter[pes][filterAddress_],&accum[pes]);
+										if(f+pes<filterN ) PE(featureMapPacked, filter[pes][filterAddress_],&accum[pes],isMapSigned);
 									}
 								}
 								if(y<outMapYSize-1 && f==0 && ky>=kernelSize-1 && kx>=kernelSize-1  ){
@@ -299,12 +322,13 @@ void conv(hls::stream<axisStream> &strm_in,
 									//else printf("reading value at x=%d and y=%d\n",x,y);
 									//printf("Reading one value\n");
 								}
-								if(ky==kernelSize-1 && kx==kernelSize-1 && active){ //Read Next Values
 
+								if(ky==kernelSize-1 && kx==kernelSize-1 && active){ //Read Next Values
 									if(kn+itersPerStream>=kernelN && x < outMapXSize){
-										for(short pes=0;pes<numPEs;pes++){
+										for(short pes=0,j=0,i=0;pes<numPEs;pes++){
 											#pragma HLS unroll
 											if(relu && (accum[pes]< 0)) accum[pes] =0;
+											else accum[pes] =accum[pes]>>scale;
 											//printf("relu is %d and accum is %d for pe %d\n",relu,accum[pes].to_int(),pes);
 										}
 										short peIndex=0;
@@ -312,22 +336,23 @@ void conv(hls::stream<axisStream> &strm_in,
 
 										OutStreamLoop:for(short streamIters=0;streamIters<streamItersBound;streamIters++){
 											if(!(f+limit>=filterN)){
-												OutWordLOOP:for(short pes=0;pes<actsPerStream;pes++){
+												OutWordLOOP:for(short pes=0;pes<itersPerStream;pes++){
 													#pragma HLS unroll
 													//printf("\t\tpe %d out is %d from %d\n",peIndex,accum[peIndex].range(AWidth-1+scale,scale).to_int(),accum[peIndex].to_int());
-													outValues=(outValues<<AWidth)+accum[peIndex].range(AWidth-1+scale,scale);		//mudar range com escala
+													outValues=(outValues<<AWidth)+accum[peIndex].range(AWidth-1,0);		//mudar range com escala
 													peIndex++;
 												}
 												//printf("\t\tsent stream %lu\n\n",outValues.to_int());
-												tmpo.data = outValues<<ARemainder;
-												tmpo.keep = 0xFF;
-												tmpo.strb = 0xFF;
-												tmpo.last = (!(y<outMapYSize-1) && !(x<outMapXSize-1) && !(f+limit>=filterN));
-												strm_out.write(tmpo);
-												if(tmpo.last) return;
+
+													tmpo.data = outValues<<ARemainder;
+													tmpo.keep = 0xFF;
+													tmpo.strb = 0xFF;
+													tmpo.last = (f+limit>=filterN); //At the end of each pixel z-wise
+													strm_out.write(tmpo);
+													//if(tmpo.last) return;
+
+
 												outValues=0;
-
-
 												limit+=actsPerStream;
 
 											}
