@@ -30,7 +30,7 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 	#pragma HLS INTERFACE s_axilite port=zWiseValues bundle=BUS1
 
 
-	actDataType0 featureMap[((KernelMaxN-1)/itersPerStream)];
+	actDataType0 featureMap[((KernelMaxN-1)/itersPerStream+1)];
 
 	axisStream tmp,tmpo;
 	act actValue=0;
@@ -38,16 +38,29 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 	act_ actValueDiv=0;
 	actDataType0 values=0,values_=0,values__=0,values___=0;
 	unsigned int j=0,jj=0;
-	ap_uint<20> factor=0;
+	ap_uint<25> factor=0;
+	ap_uint<32> result=0;
 
 
 	act finalValue=0;
+	bool last=0;
 
 	if(ctrl){
 		factor = (1<<25)/mapSize;
-		OutYLOOP:for(int xy=0;xy<mapSize;xy++){
+		for(int i=0;i<2;i++){
+			while(!last){ //bias
+				tmp = strm_in.read();
+				//printf("Received value %lu sending it back\n",tmp.data.to_long());
+				tmpo.data=tmp.data;
+				strm_out.write(tmpo);
+				last=tmp.last;
+			}
+			last=0;
+		}
+
+		OutYLOOP:for(ap_uint<11> xy=0;xy<(ap_uint<11>)mapSize;xy++){
 			#pragma HLS loop_tripcount min=5 max=5
-			KernelLOOP:for(int kn=0; kn<zWiseValues; kn++){
+			KernelLOOP:for(ap_uint<12> kn=0; kn<(ap_uint<12>)zWiseValues; kn++){
 			#pragma HLS PIPELINE  II=1
 				tmp = strm_in.read();
 				//printf("xy %d kn %d j %d jj %d factor %d zWiseValues %d\n",xy,kn,j,jj,factor,zWiseValues);
@@ -90,8 +103,9 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 			#pragma HLS Unroll
 				actValue_=values.range((((itersPerStream-1)-w)+1)*(accumBitWidth)-1,(((itersPerStream-1)-w)*(accumBitWidth)));
 				//printf("Got Value %d to send out\n",actValue_.to_int());
-
-				actValue=((actValue_*factor)>>25)+1;
+				result=(actValue_*factor);
+				actValue=(result>>25);
+				//if(result.range(24,24))actValue++;
 				//printf("Result %d to send out\n",actValue.to_int());
 				values_=(values_<<(AWidth))+actValue;
 			}
@@ -104,13 +118,29 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 
 
 	}else{
-		while(!tmp.last){
-			tmp = strm_in.read();
-			//printf("Received value %lu sending it back\n",tmp.data.to_long());
-			tmpo.data=tmp.data;
-			strm_out.write(tmpo);
+		for(int i=0;i<2;i++){
+
+			while(!last){ //bias && filters
+				tmp = strm_in.read();
+				//printf("Received value %lu sending it back\n",tmp.data.to_long());
+				tmpo.data=tmp.data;
+				strm_out.write(tmpo);
+				last=tmp.last;
+			}
+			last=0;
 		}
+
+		for(int xy=0;xy<mapSize;xy++){
+			for(int z=0;z<zWiseValues;z++){
+				tmp = strm_in.read();
+				//printf("Received value %lu sending it back\n",tmp.data.to_long());
+				tmpo.data=tmp.data;
+				strm_out.write(tmpo);
+				last=tmp.last;
+			}
+		}
+
+
+
 	}
-
-
 }

@@ -15,10 +15,10 @@ typedef ap_uint<AWidth> PEAct;
 typedef ap_int<AWidth+1> PESignedAct;
 typedef ap_int<WWidth> PEWeight;
 typedef ap_int<WWidth+AWidth> PEWAccum;
-typedef ap_uint<AWidth+1> addAct;
+typedef ap_int<AWidth+2> addAct;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType q21, actDataType q22, ap_int<20> x2x1y2y1,  ap_int<20> first, ap_int<10> second, ap_int<20> third, ap_int<20> fourth,ap_int<20> factor,int scale,bool map0Signed)
+actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType q21, actDataType q22, ap_int<20> x2x1y2y1,  ap_int<20> first, ap_int<10> second, ap_int<20> third, ap_uint<20> fourth,ap_uint<25> factor,int scale,bool map0Signed)
 {
 //#pragma HLS INLINE
     actDataType outValues=0,result=0;
@@ -28,22 +28,23 @@ actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType 
     for(unsigned short w=0;w<itersPerStream;w++){
 		#pragma HLS UNROLL
     	PESignedAct q11Value, q21Value, q12Value, q22Value;
-    	if(map0Signed){
-    		q11Value=q11.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-    		q12Value=q12.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-    		q21Value=q21.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-    		q22Value=q22.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-    	}
-    	else{
-    		q11Value=q11.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
-    		q12Value=q12.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
-    		q21Value=q21.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
-    		q22Value=q22.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
-    	}
-    	//printf("q11 %d q12 %d q21 %d q22 %d\n",q11Value.to_int(),q12Value.to_int(),q21Value.to_int(),q22Value.to_int());
 
-		result=  (((x2x1y2y1+(first*q11Value+second*q21Value+third*q12Value+fourth*q22Value))*factor)>>factorBits)-1;
-		//printf("result is %d\n",result.to_int());
+		q11Value=q11.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+		q12Value=q12.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+		q21Value=q21.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+		q22Value=q22.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+
+		if(map0Signed && q11Value.test(AWidth-1)) q11Value.set(AWidth);
+		if(map0Signed && q12Value.test(AWidth-1)) q12Value.set(AWidth);
+		if(map0Signed && q21Value.test(AWidth-1)) q21Value.set(AWidth);
+		if(map0Signed && q22Value.test(AWidth-1)) q22Value.set(AWidth);
+
+    	//if(!w) printf("q11 %d q12 %d q21 %d q22 %d\n",q11Value.to_int(),q12Value.to_int(),q21Value.to_int(),q22Value.to_int());
+    	//printf("factor is %d\n",factor.to_int());
+    	//printf("x2x1y2y1 is %d\n",x2x1y2y1.to_int());
+
+		result=  (((x2x1y2y1+(first*q11Value+second*q21Value+third*q12Value+fourth*q22Value))*factor>>factorBits))-1;
+		//if(!w) printf("result is %ld\n",result.to_long());
 		outValues=(outValues<<AWidth)+result.range(AWidth-1+scale,scale);
     }
 
@@ -55,7 +56,7 @@ actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType 
 void postProcessing(hls::stream<axisStream> &strm_in0,
 		hls::stream<axisStream> &strm_in1,
 		hls::stream<axisStream> &strm_out,
-		int ctrl, //0: addMap 1: Map0Signed? 2: Map1Signed? 3-4: Scale 5:interpolate 6-15:size0 16-25:size1
+		int ctrl, //0: addMap 1: Map0Signed? 2: Map1Signed? 3-4: Scale 5:interpolate 6-15:size0 16-25:size1 26: tlast
 		int totalValues,
 		int valuesZWise){
 
@@ -76,14 +77,25 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 	axisStream tmp0,tmp1,tmpo;
 
 	bool addMap = ctrl&0x01;
-	bool map0Signed = (ctrl&0x02)>>1;
-	bool map1Signed = (ctrl&0x04)>>2;
+	bool map0Signed = (ctrl&0x02);
+	bool map1Signed = (ctrl&0x04);
 	unsigned short scale=(ctrl&0x18)>>3;
-	bool interpolate=(ctrl&0x20)>>5;
+	bool interpolate=(ctrl&0x20);
 	unsigned short size0=(ctrl&0xFFC0)>>6;//initial size
 	unsigned short size1=(ctrl&0x3FF0000)>>16;//final size
-	addAct map0Value=0;
-	addAct map1Value=0;
+	bool lastPixel = (ctrl&0x200000);
+
+	//printf("addMap %d\n",addMap);
+	//printf("map0Signed %d\n",map0Signed);
+	//printf("map1Signed %d\n",map1Signed);
+	//printf("scale %d\n",scale);
+	//printf("interpolate %d\n",interpolate);
+	//printf("size0 %d\n",size0);
+	//printf("size1 %d\n",size1);
+
+	PESignedAct map0Value=0;
+	PESignedAct map1Value=0;
+	addAct result=0;
 	accDataType outValues=0;
 	actDataType map0Stream=0;
 	actDataType map1Stream=0;
@@ -109,13 +121,13 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 	ap_int<20> third;
 	ap_int<20> fourth;
 	unsigned int xx=0,xz=0;
-
+	bool last=0;
 
 
 
 
 	if(addMap){
-		ADDLOOP:for(unsigned int i=0,j=0;i<totalValues;i++){
+		ADDLOOP:for(unsigned int i=0;i<totalValues;i++){
 			#pragma HLS PIPELINE II=1
 			tmp0 = strm_in0.read();
 			tmp1 = strm_in1.read();
@@ -123,13 +135,14 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 			map1Stream=tmp1.data.range(DMAWidth-1,ARemainder);
 			for(unsigned short w=0;w<itersPerStream;w++){
 				#pragma HLS UNROLL
-				if(map0Signed) map0Value=map0Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-				else map0Value=map0Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
-				if(map1Signed) map1Value=map1Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
-				else map1Value=map1Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth))&((1<<AWidth)-1);
+				map0Value=map0Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+				if(map0Signed && map0Value.test(AWidth-1)) map0Value.set(AWidth);
+
+				map1Value=map1Stream.range((((itersPerStream-1)-w)+1)*AWidth-1,(((itersPerStream-1)-w)*AWidth));
+				if(map1Signed && map1Value.test(AWidth-1)) map1Value.set(AWidth);
 				//printf("map0Value is %d map1Value is%d\n",map0Value.to_int(),map1Value.to_int());
-				map0Value+=map1Value;
-				outValues=(outValues<<AWidth)+map0Value.range(AWidth-1+scale,scale);
+				result=map0Value+map1Value;
+				outValues=(outValues<<AWidth)+result.range(AWidth-1+scale,scale);
 			}
 
 			outValues=outValues<<ARemainder;
@@ -137,12 +150,13 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 			tmpo.data = outValues;
 			tmpo.keep = 0xFF;
 			tmpo.strb = 0xFF;
-			tmpo.last = (j==valuesZWise-1);
+			tmpo.last = tmp0.last;
 			strm_out.write(tmpo);
-			if(j==valuesZWise-1) j=0;
+
+
 			outValues=0;
 		}
-	}else if(interpolate){
+	}else if(interpolate && factor0){
 
 		//printf("size0 is %d\n",size0);
 		//printf("size1 is %d\n",size1);
@@ -155,7 +169,7 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 
 					tmp0 = strm_in0.read();
 					input[y][xz]=tmp0.data.range(DMAWidth-1,ARemainder);
-					//printf("received %lu\n",input[y][xz].to_long());
+					//printf("0received %lu\n",input[y][xz].to_long());
 
 				}
 
@@ -165,6 +179,7 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 		x2x1 = x2 - x1;
 		y2y1 = y2 - y1;
 		x2x1y2y1 = (x2x1 * y2y1);
+		//printf("x2x1y2y1 %d \n",x2x1y2y1);
 		INTERPOLATEYLOOP:for(ap_uint<10> outY=0,yy=0;outY<size1;outY++,yy+=factor0){
 			PRAGMA_HLS(HLS loop_tripcount min=9 max=9);
 			//printf("changed line\n");
@@ -229,18 +244,21 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 					q21=input[bramIndex0][x2_+outZ];
 					q22=input[bramIndex1][x2_+outZ];
 					//printf("\n\nNew Interpolation for pixel y %d x %d\n",outY,outX);
-					outValues=BilinearInterpolation(q11,q12,q21,q22,(ap_int<20>)x2x1y2y1,first,second,third,fourth,(ap_int<20>)factor,scale,map0Signed);
+					//printf("factor is %d\n",factor);
+					outValues=BilinearInterpolation(q11,q12,q21,q22,(ap_int<20>)x2x1y2y1,first,second,third,fourth,(ap_uint<25>)factor,scale,map0Signed);
 					outValues=outValues<<ARemainder;
 					//printf("\toutValue is %ld\n",outValues.to_long());
 					tmpo.data = outValues;
 					tmpo.keep = 0xFF;
 					tmpo.strb = 0xFF;
-					tmpo.last = (outZ==valuesZWise-1);
+					if(lastPixel) tmpo.last = (outZ==valuesZWise-1); //At the end of each pixel z-wise
+					else tmpo.last = !(outY<size1-1) && !(outX<size1-1) && (outZ==valuesZWise-1) ;
+
 					strm_out.write(tmpo);
 					if(readValues){
 						tmp0 = strm_in0.read();
 						input[bramIndex2][xz]=tmp0.data.range(DMAWidth-1,ARemainder);
-						//printf("received %lu\n",input[bramIndex2][xz].to_long());
+						//printf("1received %lu\n",input[bramIndex2][xz].to_long());
 						if(outX==size0-1 && outZ==valuesZWise-1)readValues=0;
 					}
 
@@ -250,6 +268,42 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 			}
 		}
 
+	}else if(interpolate && !factor0){
+		//printf("changed line %d\n", size0);
+		for(unsigned int z=0;z<(ap_uint<10>)valuesZWise;z++){
+			#pragma HLS PIPELINE II=1
+			tmp0 = strm_in0.read();
+			input[0][z]=tmp0.data.range(DMAWidth-1,ARemainder);
+			//printf("received %lu\n",input[0][xz].to_long());
+		}
+		for(unsigned int y=0;y<size1;y++){
+			for(unsigned int x=0;x<size1;x++){
+				for(unsigned int z=0;z<(ap_uint<10>)valuesZWise;z++){
+					#pragma HLS PIPELINE II=1
+
+					tmpo.data = input[0][z]<<ARemainder;
+					tmpo.keep = 0xFF;
+					tmpo.strb = 0xFF;
+					if(lastPixel) tmpo.last = (z==valuesZWise-1); //At the end of each pixel z-wise
+					else tmpo.last = !(y<size1-1) && !(x<size1-1) && (z==valuesZWise-1) ;
+					strm_out.write(tmpo);
+
+				}
+			}
+		}
+
+
+
+	}else{
+		for(int i=0;i<totalValues;i++){
+			tmp0 = strm_in0.read();
+			//printf("Received value %lu sending it back\n",tmp.data.to_long());
+			//tmpo.data=tmp.data;
+			//tmpo.last = tmp0.last;
+			tmpo=tmp0;
+			strm_out.write(tmpo);
+			last=tmp0.last;
+		}
 	}
 
 }

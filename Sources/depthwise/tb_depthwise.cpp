@@ -7,12 +7,15 @@
 
 #define tbFilterN 3
 #define tbFilterSize 3
-#define tbInputMapSize 5
-#define tbStride 1
-#define tbPadding 0
+#define tbInputMapSize 6
+#define tbStride 2
+#define tbPadding 4
 #define tbOutputMapSize ((tbInputMapSize - tbFilterSize+ 2*tbPadding)/tbStride + 1)
-#define tbScale 0
-
+#define tbScale 6
+#define tbBiasScale 0
+#define tbRelu 0
+#define tbIsMapSigned 0
+#define tbTlast 1
 
 
 
@@ -29,12 +32,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 		int kernelN,
 		int mapSizeX,
 		int mapSizeY,
-		int stride,
-		int padding,
-		int isMapSigned,
-		int biasScale,
-		int scale,
-		int relu);
+		int ctrl);
 
 
 void print_inputMat(actDataType *x, int rows, int cols, int channels){
@@ -179,9 +177,9 @@ int main()
 	initVectors();
 
 	printf("Input Map\n");
-	print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbFilterN,0);
+	//print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbFilterN,0);
 	printf("Filters \n");
-	print_Filter(filter, tbFilterSize, tbFilterSize,tbFilterN);
+	//print_Filter(filter, tbFilterSize, tbFilterSize,tbFilterN);
 
 	for(int i=0;i<((tbFilterN-1)/biasPerStream+1);i++){
 		tmp.data=(ap_int<64>)0;
@@ -205,14 +203,18 @@ int main()
 
 
 	printf("Sent whole Input Map N =%d\n",tbInputMapSize*tbInputMapSize*((tbFilterN-1)/itersPerStream+1));
-
-	depthwise(str_in, str_out,tbFilterN,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0,tbScale,0,1);
+	//0-1: stride  2-4: padding  5: isMapSigned 6-9:biasScale 10-12: scale 13:relu 14:tlast
+	int ctrl=(tbStride)+(tbPadding<<2)+(tbIsMapSigned<<5)+(tbBiasScale<<6)+(tbScale<<10)+(tbRelu<<13)+(tbTlast<<14);
+	//ctrl=6162;
+	printf("ctr is %d\n",ctrl);
+	depthwise(str_in, str_out,tbFilterN,tbInputMapSize,tbInputMapSize,ctrl);
 
 
 	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = tmpa.data;
-		//printf("%lu\n",outputMap[i]);
+		printf("%d %lu\n",i,outputMap[i]);
+		if(tmpa.last)printf("LAST\n");
 	}
 
 	printf("Read whole Output Map N =%d\n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));

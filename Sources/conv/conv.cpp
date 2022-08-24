@@ -9,7 +9,7 @@
 typedef ap_int<itersPerStream*WWidth> filterDataType;
 typedef ap_int<itersPerStream*AWidth> actDataType;
 typedef ap_int<biasPerStream*BWidth> biasStreamDataType;
-typedef ap_int<DMAWidth> accDataType;
+typedef ap_int<accumBitWidth> accDataType;
 typedef ap_int<BWidth> biasDataType;
 typedef ap_uint<AWidth> PEAct;
 typedef ap_int<AWidth+1> PESignedAct;
@@ -18,9 +18,10 @@ typedef ap_int<WWidth+AWidth> PEWAccum;
 typedef ap_uint<AWidth+1> addAct;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-void readBias(biasStreamDataType bias[FilterMaxN],unsigned int totalbias, hls::stream<axisStream> &strm_in){
+void readBias(biasStreamDataType bias[(BiasMaxN-1/biasPerStream+1)],unsigned int totalbias, hls::stream<axisStream> &strm_in){
 
-	SaveBiasLOOP:for(int i=0;i<totalbias;i+=biasPerStream){
+	//printf("totalBias is %d\n",totalbias);
+	SaveBiasLOOP:for(int i=0;i<totalbias;i++){
 			#pragma HLS loop_tripcount min=2 max=2
 			#pragma HLS pipeline II=1
 			axisStream tmp = strm_in.read(); //Save Bias
@@ -30,7 +31,7 @@ void readBias(biasStreamDataType bias[FilterMaxN],unsigned int totalbias, hls::s
 
 }
 
-void readWeights(filterDataType filter[FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*KernelMaxN], unsigned int address, hls::stream<axisStream> &strm_in)
+void readWeights(filterDataType filter[FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*((KernelMaxN-1)/itersPerStream+1)], unsigned int address, hls::stream<axisStream> &strm_in)
 {
 	axisStream tmp = strm_in.read();
 	filter[address]=tmp.data.range(DMAWidth-1,WRemainder);
@@ -38,7 +39,7 @@ void readWeights(filterDataType filter[FilterMaxNPerPE*KernelMaxSize*KernelMaxSi
 
 }
 
-void readInitialWeights(filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*KernelMaxN],unsigned int totalWeights, unsigned int filterSize, hls::stream<axisStream> &strm_in){
+void readInitialWeights(filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*((KernelMaxN-1)/itersPerStream+1)],unsigned int totalWeights, unsigned int filterSize, hls::stream<axisStream> &strm_in){
 
 
 	unsigned int arrayIndex=0;
@@ -63,19 +64,19 @@ void readInitialWeights(filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxS
 	}
 }
 
-void readActs(actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMaxXSize], unsigned int address, hls::stream<axisStream> &strm_in){
+void readActs(actDataType featureMap[((MapMaxN-1)/itersPerStream+1)*(MapMaxYSize+1)*MapMaxXSize], unsigned int address, hls::stream<axisStream> &strm_in){
 	axisStream tmp = strm_in.read(); //Save Bias
 	featureMap[address]=tmp.data.range(DMAWidth-1,ARemainder);
 }
 
-void readInitialFeatureMap(actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMaxXSize], unsigned int lineN,unsigned int paddingN, unsigned int padding, hls::stream<axisStream> &strm_in){
+void readInitialFeatureMap(actDataType featureMap[((MapMaxN-1)/itersPerStream+1)*(MapMaxYSize+1)*MapMaxXSize], unsigned int lineN,unsigned int paddingN, unsigned int padding,int mapSizeY,  hls::stream<axisStream> &strm_in){
 
 	int xnIters=0;
 	int yIters=0;
 	int padXUpperBound=lineN-paddingN;
 	//printf("lower bound is %d upper bound is %d\n",paddingN,padXUpperBound);
 
-	SaveMapLOOP:for(int i=0;i<3*lineN;i++){
+	SaveMapLOOP:for(int i=0;i<(mapSizeY>=3 ? 3 : mapSizeY)*lineN;i++){
 		#pragma HLS loop_tripcount min=(3*5*3) max=(3*5*3)
 		#pragma HLS PIPELINE II=1
 		if(xnIters<paddingN || xnIters >= padXUpperBound || yIters < padding) featureMap[i]=0;
@@ -96,11 +97,13 @@ void PE( actDataType featureMapValue,filterDataType filterValue, accDataType *ac
 		#pragma HLS inline
 		#pragma HLS unroll
 		PESignedAct fmValue=0;
-		if(isMapSigned) fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth));
-		else fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth))&((1<<AWidth)-1);
+		fmValue=featureMapValue.range((w+1)*AWidth-1,(w*AWidth));
+		if(isMapSigned && fmValue.test(AWidth-1)) fmValue.set(AWidth);
+
 		PEWeight fValue=filterValue.range((w+1)*WWidth-1,(w*WWidth));
 		PEWAccum MAC = fmValue * fValue;
 		*accum+= MAC;
+
 		accDataType accumValue = *accum;
 		//printf("Doing mac map %d  filter %d  result %d accum is %d.\n\n",fmValue.to_int(),fValue.to_int(),MAC.to_int(),accumValue.to_int());
 	}
@@ -113,15 +116,10 @@ void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
 		int filterN,
 		int kernelN,
-		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
-		int stride,
-		int padding,
-		int isMapSigned,
-		int biasScale,
-		int scale,
-		int relu){
+		int ctrl// 0-1: kernelSize //2-3: stride  4-6: padding 7:isMapSigned 8-11: biasScale 12-14: scale 15: relu 16:tlast
+		){
 
 	//#pragma HLS INTERFACE ap_ctrl_none port=return
 	#pragma HLS INTERFACE axis port=strm_in
@@ -129,21 +127,34 @@ void conv(hls::stream<axisStream> &strm_in,
 	#pragma HLS INTERFACE s_axilite port=return bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=filterN bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=kernelN bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=kernelSize bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=mapSizeX bundle=BUS1
 	#pragma HLS INTERFACE s_axilite port=mapSizeY bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=stride bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=padding bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=isMapSigned bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=scale bundle=BUS1
-	#pragma HLS INTERFACE s_axilite port=relu bundle=BUS1
+	#pragma HLS INTERFACE s_axilite port=ctrl bundle=BUS1
 
-
-	biasStreamDataType bias[(FilterMaxN-1/biasPerStream+1)];
+	ap_uint<2> kernelSize= (ctrl&0x03)>>0;
+	ap_uint<2> stride= (ctrl&0x0C)>>2;
+	ap_uint<3> padding = (ctrl&0x70)>>4;
+	bool isMapSigned=(ctrl&0x80);
+	ap_int<4> biasScale= (ctrl&0xF00)>>8;
+	ap_uint<3> scale= (ctrl&0x7000)>>12;
+	bool relu= ((ctrl&0x8000));
+	bool lastPixel= ((ctrl&0x10000));
+/*
+	printf("kernelSize %d\n", kernelSize.to_uint());
+	printf("stride %d\n", stride.to_uint());
+	printf("padding %d\n", padding.to_uint());
+	printf("isMapSigned %d\n", isMapSigned);
+	printf("biasScale %d\n", biasScale.to_int());
+	printf("scale %d\n", scale.to_uint());
+	printf("relu %d\n", relu);
+	printf("lastPixel %d\n", lastPixel);
+*/
+	biasStreamDataType bias[(BiasMaxN-1/biasPerStream+1)];
 	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=biasIterFactor dim=1);
-	filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*KernelMaxN];
+	filterDataType filter[numPEs][FilterMaxNPerPE*KernelMaxSize*KernelMaxSize*((KernelMaxN-1)/itersPerStream+1)];
 	PRAGMA_HLS(HLS array_partition variable=filter block factor=numPEs dim=1);
-	actDataType featureMap[MapMaxN*(MapMaxYSize+1)*MapMaxXSize];
+	actDataType featureMap[((MapMaxN-1)/itersPerStream+1)*(MapMaxYSize+1)*MapMaxXSize];
+
 
 	accDataType accum[numPEs];
 	#pragma HLS array_partition variable=accum complete
@@ -166,7 +177,7 @@ void conv(hls::stream<axisStream> &strm_in,
 	ap_int<64> featureMapPacked= 0, filterPacked= 0, outValues=0;
 	int filterAddressMax=kernelSize*kernelSize*(commonDiv+1);
 	int filterAddressMaxSuplement=0;
-	int yPadlowerBound=padding-3<0 ? 0 : padding-3;
+	int yPadlowerBound=(int)padding-3<0 ? 0 : (int)padding-3;
 	int xPadlowerBound=padding;
 	int xPadUpperBound=mapSizeX-padding;
 	int yPadUpperBound=mapSizeY-padding-3;
@@ -174,11 +185,11 @@ void conv(hls::stream<axisStream> &strm_in,
 
 
 	//printf("Reading %d values\n",filterN*kernelSize*kernelSize*(kernelN/weightsPerStream+1));
-	readBias(bias,filterN,strm_in); //meters varios bias por palavra de 64 bits
-
+	readBias(bias,((filterN-1)/biasPerStream+1),strm_in); //meters varios bias por palavra de 64 bits
+	//printf("Reading filter\n",filterN*kernelSize*kernelSize*(kernelN/weightsPerStream+1));
 	readInitialWeights(filter,filterN*kernelSize*kernelSize*(commonDiv+1),filterAddressMax,strm_in);
-
-	readInitialFeatureMap(featureMap,((mapSizeX)*(commonDiv+1)),padding*(commonDiv+1),padding,strm_in);
+	//printf("Reading fm\n",filterN*kernelSize*kernelSize*(kernelN/weightsPerStream+1));
+	readInitialFeatureMap(featureMap,((mapSizeX)*(commonDiv+1)),padding*(commonDiv+1),padding,mapSizeY,strm_in);
 
 
 
@@ -238,7 +249,7 @@ void conv(hls::stream<axisStream> &strm_in,
 										}
 										else{
 											filterAddressMaxSuplement+=filterAddressMax;
-											biasSupplement++;
+											biasSupplement+=biasJump;
 										}
 									}
 									filterAddress=filterAddressMaxSuplement;
@@ -293,9 +304,11 @@ void conv(hls::stream<axisStream> &strm_in,
 											j++;
 										}
 										accum[pes]=0;
-										if(kn+pes<kernelN ){
-											biasDataType biasVal=bias[kn+j].range((((biasPerStream-1)-i)+1)*BWidth-1,(((biasPerStream-1)-i)*BWidth));
+										if(f+pes<filterN ){
+											//printf(" bias addr is biasSupplement %d + j %d = %d for pe %d\n",biasSupplement,j,biasSupplement+j,pes);
+											biasDataType biasVal=bias[biasSupplement+j].range((((biasPerStream-1)-i)+1)*BWidth-1,(((biasPerStream-1)-i)*BWidth));
 											accum[pes]+=biasVal;
+											//printf("pes %d bias is %d from %ld from address %d\n",pes,accum[pes].to_int(),bias[biasSupplement+j],biasSupplement+j);
 											accum[pes]=accum[pes]<<biasScale;
 										}
 									}
@@ -329,7 +342,7 @@ void conv(hls::stream<axisStream> &strm_in,
 										short limit=0;
 
 										OutStreamLoop:for(short streamIters=0;streamIters<streamItersBound;streamIters++){
-											if(!(f+limit>=filterN)){
+											if(!(f+limit>=flimit)){
 												OutWordLOOP:for(short pes=0;pes<itersPerStream;pes++){
 													#pragma HLS unroll
 													//printf("\t\tpe %d out is %d from %d\n",peIndex,accum[peIndex].range(AWidth-1+scale,scale).to_int(),accum[peIndex].to_int());
@@ -341,13 +354,16 @@ void conv(hls::stream<axisStream> &strm_in,
 													tmpo.data = outValues<<ARemainder;
 													tmpo.keep = 0xFF;
 													tmpo.strb = 0xFF;
-													tmpo.last = (f+limit>=filterN); //At the end of each pixel z-wise
+													limit++;
+													if(lastPixel) tmpo.last = (f+limit>=flimit); //At the end of each pixel z-wise
+													else tmpo.last = !(y<outMapYSize-1-(stride-1)) && !(x<outMapXSize-1-(stride-1)) && (f+limit>=flimit) ;
+													//printf("last is %d f is %d limit is %d filterN is %d\n",tmpo.last,f,limit,flimit);
 													strm_out.write(tmpo);
 													//if(tmpo.last) return;
 
 
 												outValues=0;
-												limit+=actsPerStream;
+
 
 											}
 										}

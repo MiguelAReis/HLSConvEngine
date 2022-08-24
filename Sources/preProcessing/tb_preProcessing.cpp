@@ -8,8 +8,8 @@
 
 
 
-#define tbKernelN 3
-#define tbInputMapSize 7
+#define tbKernelN 32
+#define tbInputMapSize 6
 
 
 
@@ -99,8 +99,8 @@ void initVectors(){
 			for(int y=0;y<itersPerStream;y++){
 				//printf("k*itersPerStream+y %d\n",k*itersPerStream+y);
 				if(k*itersPerStream+y<tbKernelN){
-					value= (value<<AWidth)+(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i;
-					//printf("put %d into %lu\n",(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i,value);
+					value= (value<<AWidth)+(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF);
+					//printf("put %d into %lu\n",(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF),value);
 				}else{
 					value= (value<<AWidth);
 					//printf("shifted %d into %lu",AWidth,value);
@@ -128,7 +128,11 @@ int main()
 	initVectors();
 	printf("Input Map\n");
 	print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbKernelN,0);
-
+	tmp.data=0;
+	tmp.last=1;
+	str_in.write(tmp);
+	str_in.write(tmp);
+	tmp.last=1;
 
 	for (int y =0 ;y<tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1); y++) {
 		tmp.data=(ap_int<64>)inputMap[y];
@@ -142,15 +146,19 @@ int main()
 
 
 
-	preProcessing(str_in, str_out,1,tbInputMapSize*tbInputMapSize,((tbKernelN-1)/itersPerStream+1));
+	preProcessing(str_in, str_out,393,tbInputMapSize*tbInputMapSize,((tbKernelN-1)/itersPerStream+1));
+
 
 	printf("Receiving out Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
+
+	str_out.read();
+	str_out.read();
 
 	for (int i=0; i<1*1*((tbKernelN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
-		//printf("%lu\n",outputMap[i]);
-		//if(tmpa.last) printf("Received LAST\n");
+		printf("%lu\n",outputMap[i]);
+		if(tmpa.last) printf("Received LAST\n");
 	}
 
 	printf("Output is: \n");

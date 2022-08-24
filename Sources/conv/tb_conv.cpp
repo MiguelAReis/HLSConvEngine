@@ -6,37 +6,210 @@
 #include "ap_axi_sdata.h"
 #include "convParameters.h"
 
-#define tbFilterN 3
-#define tbKernelN 3
+#define tbFilterN 32
+#define tbKernelN 1
 #define tbFilterSize 3
 #define tbInputMapSize 5
-#define tbStride 2
-#define tbPadding 2
+#define tbStride 1
+#define tbPadding 0
 #define tbOutputMapSize ((tbInputMapSize - tbFilterSize+ 2*tbPadding)/tbStride + 1)
-
+#define tbScale 0
+#define tbBiasScale 0
+#define tbRelu 1
+#define tbIsMapSigned 0
+#define tbTlast 1
 
 
 typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-static  long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/itersPerStream+1)] = {1305675555542138880, -76357784014159872, 2044706798593638400, 4755801206503243776, -7017155776233865216, 5248406605002702848, 4917035790623571968, 5183362795638358016, -5392423936543686656, 2448170391382786048, -1082095363592028160, -5386323846032785408, 1732816031723814912, 344831035726364672, 6315116502387261440, -1578279672439898112, 3187672225410973696, 2231010247827259392, -3949982328645746688, 5747901543361806336, 4375052424432320512, 4025636425218129920, -3299907073839464448, 2172769116903964672, 7006088092188672000, -3186893771178508288, -3325892931650322432} ;
-static  long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)] = {-6917430071594582016, 2333753012373159936, 8254337254923698176, -1383319768160796672, -6302021318900449280, 5577578396126281728, 7459962094088093696, 6245865961535045632, 7364820253425008640, 7704701287803125760, -3898647230256513024, 3891670828978274304, 7393653846351806464, 828974592738459648, -5513140417668841472, 6005983310679900160, 941726211632005120, 3064960130681405440, 605379007625560064, 2992457234434228224, 2241888815872475136, 8146613702703972352, 8515008372125204480, -3199145629246816256, 6392601285819891712};
+static  long filter[tbFilterN*tbFilterSize*tbFilterSize*(tbKernelN/itersPerStream+1)];/*={6669831048135704576,
+		-5359283556570890240,
+		8944148859957805056,
+		-2490490593935884288,
+		2814749767106560000,
+		-810647932926689280,
+		-1603281467343896576,
+		9146810843189477376,
+		-3873095679538626560,
+		-7642608567647731712,
+		-7358881791123390464,
+		2296835809958952960,
+		-6381600671983992832,
+		-7363385390750760960,
+		-6210463886143913984,
+		144115188075855872,
+		1504202275541745664,
+		6935543426150563840,
+		4805340802404319232,
+		4998995586381250560,
+		1134907106097364992,
+		7475975381435023360,
+		-4278419646001971200,
+		-6390607871238733824,
+		8601875288277647360,
+		8583860889768165376,
+		1832965048339791872,
+		8174033323677450240,
+		-7525514977336098816,
+		-7899313746407849984,
+		-4652218415073722368,
+		-7561543774355062784};*/
+static  long inputMap[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];/*={2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		-153122387330596864,
+		1071856711314178048,
+		3301138526862573568,
+		3301138526862573568,
+		2152720621883097088,
+		4382002437431492608,
+		3305642126489944064,
+		2152720621883097088,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		1139410705724735488,
+		3368692521273131008,
+		2206763817411543040,
+		4589168020290535424,
+		4377498837804122112,
+		2287828610704211968,
+		999799117276250112,
+		2224778215921025024,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		-1242993497154256896,
+		2274317811822100480,
+		1193453901253181440,
+		977281119139397632,
+		-1031324314667843584,
+		1130403506469994496,
+		2359886204742139904,
+		2373397003624251392,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		-90071992547409920,
+		2283325011076841472,
+		1125899906842624000,
+		2422936599525326848,
+		2278821411449470976,
+		40532396646334464,
+		2440950998034808832,
+		1143914305352105984,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		-1098878309078401024,
+		2355382605114769408,
+		193654783976931328,
+		-1112389107960512512,
+		45035996273704960,
+		45035996273704960,
+		4589168020290535424,
+		2161727821137838080,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		-13510798882111488,
+		54043195528445952,
+		193654783976931328,
+		184647584722190336,
+		4647714815446351872,
+		2350879005487398912,
+		2296835809958952960,
+		2224778215921025024,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2292332210331582464,
+		1211468299762663424,
+		54043195528445952,
+		1342072688956407808,
+		-882705526964617216,
+		-954763121002545152,
+		1292533093055332352,
+		0,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		1071856711314178048,
+		2296835809958952960,
+		-1089871109823660032,
+		58546795155816448,
+		1143914305352105984,
+		0,
+		1288029493427961856,
+		1220475499017404416,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520,
+		2229281815548395520};*/
+
 long outputMap[((2*tbFilterN)/itersPerStream+1)*tbOutputMapSize*tbOutputMapSize];
 
 void conv(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
 		int filterN,
 		int kernelN,
-		int kernelSize,
 		int mapSizeX,
 		int mapSizeY,
-		int stride,
-		int padding,
-		int isMapSigned,
-		int biasScale,
-		int scale,
-		int relu);
+		int ctrl);
 
 
 void print_mat(int *x, int rows, int cols)
@@ -145,7 +318,7 @@ void initVectors(){
 			for(int y=0;y<itersPerStream;y++){
 				//printf("k*itersPerStream+y %d\n",k*itersPerStream+y);
 				if(k*itersPerStream+y<tbKernelN){
-					value= (value<<AWidth)+(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i;
+					value= (value<<AWidth)+(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF);
 					//printf("put %d into %lu\n",(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i,value);
 				}else{
 					value= (value<<AWidth);
@@ -164,7 +337,7 @@ void initVectors(){
 				for(int y=0;y<itersPerStream;y++){
 					//printf("k*itersPerStream+y %d\n",k*itersPerStream+y);
 					if(k*itersPerStream+y<tbKernelN){
-						value= (value<<WWidth)+(f*tbFilterSize*tbFilterSize*tbKernelN)+(tbFilterSize*tbFilterSize)*(k*itersPerStream+y)+i;
+						value= (value<<WWidth)+(((f*tbFilterSize*tbFilterSize*tbKernelN)+(tbFilterSize*tbFilterSize)*(k*itersPerStream+y)+i)&0xF);
 						//printf("put %d into %lu\n",(f*tbFilterSize*tbFilterSize*tbKernelN)+(tbFilterSize*tbFilterSize)*(k*itersPerStream+y)+i,value);
 					}else{
 						value= (value<<WWidth);
@@ -191,26 +364,36 @@ int main()
 
 	printf("Beginning testbench\n");
 
-	//initVectors();
+	initVectors();
 	printf("Input Map\n");
-	print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbKernelN,0);
+	print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbKernelN,tbIsMapSigned);
 	printf("Filter 0\n");
 	print_Filter(filter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 1\n");
 	int sizeOfFilter= tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1);
-	print_Filter(filter+sizeOfFilter, tbFilterSize, tbFilterSize,tbKernelN);
+	//print_Filter(filter+sizeOfFilter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 3\n");
-	print_Filter(filter+sizeOfFilter*2, tbFilterSize, tbFilterSize,tbKernelN);
-	long bias =((long)127<<(64-8))+((long)127<<(64-16))+((long)-128<<(64-24));
+	//print_Filter(filter+sizeOfFilter*2, tbFilterSize, tbFilterSize,tbKernelN);
+	long bias =0;//((long)127<<(64-8))+((long)127<<(64-16))+((long)-128<<(64-24));
 	tmp.data=bias;
 	str_in.write(tmp);
+	str_in.write(tmp);
+	str_in.write(tmp);
+	str_in.write(tmp);
+	//str_in.write(tmp);
+	/*tmp.data=-1432125677477567730;
+	str_in.write(tmp);
+	tmp.data=-4052052124341379355;
+	str_in.write(tmp);
+	tmp.data=-4917047876375809747;
+	str_in.write(tmp);*/
 
-	printf("Sent Bias N = %d \n",1);
+	printf("Sent Bias N = %d \n",((tbFilterN-1)/biasPerStream+1));
 
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
 		tmp.data=(ap_int<64>)filter[i];
 		str_in.write(tmp);
-		//printf("%d %lu\n",i,filter[i]);
+		printf("%d %lu\n",i,filter[i]);
 	}
 
 	printf("Sent whole Filter N = %d \n",(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)));
@@ -222,14 +405,14 @@ int main()
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
 		//else tmp.last=0;
 		str_in.write(tmp);
-		//printf("%lu\n",inputMap[y]);
+		printf("%lu\n",inputMap[y]);
 	}
 
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
-
-
-	conv(str_in, str_out,tbFilterN,tbKernelN,tbFilterSize,tbInputMapSize,tbInputMapSize,tbStride,tbPadding,0,0,9,1);
+	// 0-1: kernelSize //2-3: stride  4-6: padding 7:isMapSigned 8-11: biasScale 12-14: scale 15: relu 16:tlast
+	int ctrl=(tbFilterSize)+(tbStride<<2)+(tbPadding<<4)+(tbIsMapSigned<<7)+(tbBiasScale<<8)+(tbScale<<12)+(tbRelu<<15)+(tbTlast<<16);
+	conv(str_in, str_out,tbFilterN,tbKernelN,tbInputMapSize,tbInputMapSize,ctrl);
 
 	printf("Receiving out Map N = %d  \n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));
 
@@ -241,7 +424,7 @@ int main()
 	}
 
 	printf("Output is: \n");
-	print_Map(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN,1);
+	print_Map(outputMap, tbOutputMapSize, tbOutputMapSize,tbFilterN,0);
 
 	return 0;
 }

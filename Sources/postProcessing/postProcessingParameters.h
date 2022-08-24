@@ -25,14 +25,10 @@
 #endif
 #define biasIterFactor (itersPerStream/biasPerStream)
 
-#define FilterMaxN 64 //Highest number of Channels Used
-#define FilterMaxNPerPE ((FilterMaxN-1)/numPEs+1) //Highest number of Channels Used
-#define KernelMaxN 10//2048 //Highest number of Channels Used
-#define KernelMaxSize 3 // Highest Size of Kernel Used X & Y
+#define FilterMaxN 256 //Highest number of Channels Used
+
 
 #define MapMaxXSize 32 //Highest number of X stored until Bram increases
-#define MapMaxYSize KernelMaxSize //Number of Y Lines Stored == Size of Kernel Y
-#define MapMaxN KernelMaxN
 
 #define factorBits 25
 

@@ -6,8 +6,8 @@
 #include "ap_axi_sdata.h"
 #include "postProcessingParameters.h"
 
-#define tbKernelN 5
-#define tbInputMapSize 5
+#define tbKernelN 1
+#define tbInputMapSize 1
 
 
 
@@ -16,7 +16,7 @@ typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-static  long inputMap0[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];
+static  long inputMap0[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)]={9223372036854775807};
 static  long inputMap1[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];
 long outputMap[19*19*(tbKernelN/itersPerStream+1)];
 
@@ -111,7 +111,7 @@ void initVectors(){
 			for(int y=0;y<itersPerStream;y++){
 				//printf("k*itersPerStream+y %d\n",k*itersPerStream+y);
 				if(k*itersPerStream+y<tbKernelN){
-					value= (value<<AWidth)+((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)*2;
+					value= (value<<AWidth)+(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF);
 					//printf("put %d into %lu\n",(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i,value);
 				}else{
 					value= (value<<AWidth);
@@ -140,7 +140,7 @@ int main()
 
 	printf("Beginning testbench\n");
 
-	initVectors();
+	//initVectors();
 	printf("Input Map0\n");
 	print_Map(inputMap0, tbInputMapSize, tbInputMapSize,tbKernelN,0);
 	//printf("Input Map1\n");
@@ -148,32 +148,47 @@ int main()
 
 
 
-	for (int y =0 ;y<tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1); y++) {
+	for (int y =0 ,j=0;y<tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1); y++) {
 		tmp0.data=(ap_int<64>)inputMap0[y];
-		//tmp1.data=(ap_int<64>)inputMap1[y];
+		tmp1.data=(ap_int<64>)inputMap1[y];
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
-		//else tmp.last=0;
-		str_in0.write(tmp0);
+		tmp0.last=(j==1);
+		j++;
+		if(j==2) j=0;
 		//str_in1.write(tmp1);
-		//printf("sent %lu\n",inputMap0[y]);
+		str_in0.write(tmp0);
+
+		printf("sent %lu\n",inputMap0[y]);
+		//if(tmp1.last) printf("sent last\n");
 	}
 
 	printf("Sent whole Input Maps N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
-	int ctrl=(1<<5)+(5<<6)+(9<<16);//0: addMap 1: Map0Signed? 2: Map1Signed? 3-4: Scale 5:interpolate 6-15:size0 16-25:size1
+	int ctrl=327784;
 	printf("ctrl is %d\n",ctrl);
 	postProcessing(str_in0,str_in1,str_out,ctrl,tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
 
 	printf("Receiving out Map N = %d  \n",9*9*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
 
-	for (int i=0; i<9*9*((tbKernelN-1)/itersPerStream+1); i++) {
+	/*for (int i=0; i<5*5*((tbKernelN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
-		//printf("%lu\n",outputMap[i]);
-		//if(tmpa.last) printf("Received LAST\n");
+		printf("%lu\n",outputMap[i]);
+		if(tmpa.last && i<(5*5*((tbKernelN-1)/itersPerStream+1))-1){
+			printf("Received LAST\n");
+			postProcessing(str_in0,str_in1,str_out,ctrl,tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
+
+		}
+	}*/
+
+	for (int i=0; i<5*5*((tbKernelN-1)/itersPerStream+1); i++) {
+		tmpa = str_out.read();
+		outputMap[i] = ((unsigned long)tmpa.data);
+		printf("%lu \n",outputMap[i]);
+		if(tmpa.last)printf("LAST \n",outputMap[i]);
 	}
 
 	printf("Output is: \n");
-	print_Map(outputMap, 9, 9,tbKernelN,0);
+	print_Map(outputMap, 5, 5,tbKernelN,0);
 
 	return 0;
 }
