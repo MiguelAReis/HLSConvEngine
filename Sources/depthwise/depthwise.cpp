@@ -153,7 +153,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 		int kernelN,
 		int mapSizeX,
 		int mapSizeY,
-		int ctrl //0-1: stride  2-4: padding  5: isMapSigned 6-9:biasScale 10-12: scale 13:relu 14:tlast
+		int ctrl //0-1: stride  2-4: padding  5: isMapSigned 6-9:biasScale 10-12: scale 13:relu 14:tlast 15: loadWeights
 		){
 
 
@@ -173,6 +173,7 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	ap_uint<3> scale= (ctrl&0x1C00)>>10;
 	bool relu= ((ctrl&0x2000));
 	bool lastPixel= ((ctrl&0x4000));
+	bool loadWeights = ((ctrl&0x8000));
 /*
 	printf("stride %d\n", stride.to_uint());
 	printf("padding %d\n", padding.to_uint());
@@ -182,16 +183,19 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	printf("relu %d\n", relu);
 	printf("lastPixel %d\n", lastPixel);
 */
-	filterDataType filter[MaxBRAMValuesForKernelMaxN][KernelSizeSquared]; //9BRAM
+	//filterDataType filter[MaxBRAMValuesForKernelMaxN][KernelSizeSquared]; //9BRAM
+	filterDataType filter[96][KernelSizeSquared]; //9BRAM
 	PRAGMA_HLS(HLS array_partition variable=filter block factor=(KernelSizeSquared) dim=2);
 
 	//#pragma HLS array_partition variable=filter complete
-	actDataType featureMap[MaxBRAMValuesForKernelMaxN*MapMaxXSize][KernelSizeSquaredPlus]; //12BRAM
+	//actDataType featureMap[MaxBRAMValuesForKernelMaxN*MapMaxXSize][KernelSizeSquaredPlus]; //12BRAM
+	actDataType featureMap[591][KernelSizeSquaredPlus]; //12BRAM
 	PRAGMA_HLS(HLS array_partition variable=featureMap block factor=KernelSizeSquaredPlus dim=2);
 	actDataType featureMapPE[KernelSizeSquaredPlus];
 	PRAGMA_HLS(HLS array_partition variable=featureMapPE complete);
-	biasStreamDataType bias[(KernelMaxN-1/biasPerStream+1)]; //12BRAM
-	PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=biasIterFactor dim=1);
+	//biasStreamDataType bias[(KernelMaxN-1/biasPerStream+1)]; //12BRAM
+	biasStreamDataType bias[192]; //12BRAM
+	//PRAGMA_HLS(HLS array_partition variable=bias cyclic factor=biasIterFactor dim=1);
 	//#pragma HLS array_partition variable=featureMap complete
 	accDataType accum[numPEs];
 	#pragma HLS array_partition variable=accum complete
@@ -200,12 +204,16 @@ void depthwise(hls::stream<axisStream> &strm_in,
 	axisStream tmp,tmpo;
 	unsigned int commonDiv =((kernelN-1)/itersPerStream);
 	unsigned int totalWeights=0;
-
-	readBias(bias,((kernelN-1)/biasPerStream+1), strm_in);
-
 	for(int i=0;i<KernelSizeSquared;i++) totalWeights+=commonDiv+1;
+	if(loadWeights){
+		readBias(bias,((kernelN-1)/biasPerStream+1), strm_in);
+		readInitialWeights(filter,totalWeights,commonDiv+1,strm_in);
+	}
+
+
+
 	//printf("Reading Filter totalWeights is %d\n",totalWeights);
-	readInitialWeights(filter,totalWeights,commonDiv+1,strm_in);
+
 	mapSizeX+=2*padding;
 	mapSizeY+=2*padding;
 	unsigned int featureMapLimit=mapSizeX;

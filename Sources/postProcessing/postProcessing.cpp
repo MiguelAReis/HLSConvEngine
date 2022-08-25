@@ -70,7 +70,9 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 	#pragma HLS INTERFACE s_axilite port=valuesZWise bundle=BUS1
 
 
-	actDataType input[3][MapMaxXSize*((FilterMaxN-1)/itersPerStream+1)];
+	actDataType input[3][304];
+	//actDataType input[3][MapMaxXSize*((FilterMaxN-1)/itersPerStream+1)];
+
 	//PRAGMA_HLS(HLS array_partition variable=input cyclic factor=2);
 
 

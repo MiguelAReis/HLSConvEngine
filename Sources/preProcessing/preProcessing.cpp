@@ -17,7 +17,7 @@ typedef ap_axis<64, 0, 0, 0> axisStream;
 
 void preProcessing(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
-		int ctrl,//1:AvgPool 2
+		int ctrl,//1:AvgPool 2: LoadWeights
 		int mapSize,
 		int zWiseValues){
 
@@ -30,9 +30,16 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 	#pragma HLS INTERFACE s_axilite port=zWiseValues bundle=BUS1
 
 
-	actDataType0 featureMap[((KernelMaxN-1)/itersPerStream+1)];
+	//actDataType0 featureMap[((KernelMaxN-1)/itersPerStream+1)];
+	actDataType0 featureMap[128];
 
 	axisStream tmp,tmpo;
+
+	bool avg=(ctrl&0x01);
+	bool loadWeights= (ctrl&0x02);
+
+	//printf("avg is %d\n",avg);
+	//printf("loadWeights is %d\n",loadWeights);
 	act actValue=0;
 	act_ actValue_=0;
 	act_ actValueDiv=0;
@@ -45,18 +52,22 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 	act finalValue=0;
 	bool last=0;
 
-	if(ctrl){
+
+	if(avg){
 		factor = (1<<25)/mapSize;
-		for(int i=0;i<2;i++){
-			while(!last){ //bias
-				tmp = strm_in.read();
-				//printf("Received value %lu sending it back\n",tmp.data.to_long());
-				tmpo.data=tmp.data;
-				strm_out.write(tmpo);
-				last=tmp.last;
+		if(loadWeights){
+			for(int i=0;i<2;i++){
+				while(!last){ //bias
+					tmp = strm_in.read();
+					//printf("Received value %lu sending it back\n",tmp.data.to_long());
+					tmpo.data=tmp.data;
+					strm_out.write(tmpo);
+					last=tmp.last;
+				}
+				last=0;
 			}
-			last=0;
 		}
+
 
 		OutYLOOP:for(ap_uint<11> xy=0;xy<(ap_uint<11>)mapSize;xy++){
 			#pragma HLS loop_tripcount min=5 max=5
@@ -118,17 +129,20 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 
 
 	}else{
-		for(int i=0;i<2;i++){
 
-			while(!last){ //bias && filters
-				tmp = strm_in.read();
-				//printf("Received value %lu sending it back\n",tmp.data.to_long());
-				tmpo.data=tmp.data;
-				strm_out.write(tmpo);
-				last=tmp.last;
+		if(loadWeights){
+			for(int i=0;i<2;i++){
+				while(!last){ //bias && filters
+					tmp = strm_in.read();
+					//printf("Received value %lu sending it back\n",tmp.data.to_long());
+					tmpo.data=tmp.data;
+					strm_out.write(tmpo);
+					last=tmp.last;
+				}
+				last=0;
 			}
-			last=0;
 		}
+
 
 		for(int xy=0;xy<mapSize;xy++){
 			for(int z=0;z<zWiseValues;z++){

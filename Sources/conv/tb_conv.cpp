@@ -411,7 +411,7 @@ int main()
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
 	// 0-1: kernelSize //2-3: stride  4-6: padding 7:isMapSigned 8-11: biasScale 12-14: scale 15: relu 16:tlast
-	int ctrl=(tbFilterSize)+(tbStride<<2)+(tbPadding<<4)+(tbIsMapSigned<<7)+(tbBiasScale<<8)+(tbScale<<12)+(tbRelu<<15)+(tbTlast<<16);
+	int ctrl=(tbFilterSize)+(tbStride<<2)+(tbPadding<<4)+(tbIsMapSigned<<7)+(tbBiasScale<<8)+(tbScale<<12)+(tbRelu<<15)+(tbTlast<<16)+(1<<17);
 	conv(str_in, str_out,tbFilterN,tbKernelN,tbInputMapSize,tbInputMapSize,ctrl);
 
 	printf("Receiving out Map N = %d  \n",tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1));
