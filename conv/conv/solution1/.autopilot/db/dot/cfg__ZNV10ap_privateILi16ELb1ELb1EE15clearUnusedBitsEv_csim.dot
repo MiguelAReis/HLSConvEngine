@@ -1,7 +1,0 @@
-digraph "CFG for 'ap_private\<16, true, true\>::clearUnusedBits' function" {
-	label="CFG for 'ap_private\<16, true, true\>::clearUnusedBits' function";
-
-	Node0x46a6490 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x46a6490 -> Node0x47d9650[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/etc/ap_private.h" execusionnum="486"];
-	Node0x47d9650 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/etc/ap_private.h",linenumber="2204",label="{.succFake}"];
-}

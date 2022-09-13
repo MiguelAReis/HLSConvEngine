@@ -1,7 +1,0 @@
-digraph "CFG for 'hls::stream\<hls::axis\<ap_int\<32\>, 0ul, 0ul, 0ul\>, 0\>::stream' function" {
-	label="CFG for 'hls::stream\<hls::axis\<ap_int\<32\>, 0ul, 0ul, 0ul\>, 0\>::stream' function";
-
-	Node0x45e7d50 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x45e7d50 -> Node0x47b8320[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/hls_stream_thread_unsafe.h" execusionnum="2"];
-	Node0x47b8320 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/hls_stream_thread_unsafe.h",linenumber="170",label="{.succFake}"];
-}

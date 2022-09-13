@@ -1,7 +1,0 @@
-digraph "CFG for 'bool operator\<\<8, true\>' function" {
-	label="CFG for 'bool operator\<\<8, true\>' function";
-
-	Node0x4757f70 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x4757f70 -> Node0x48406b0[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_int_base.h" execusionnum="0"];
-	Node0x48406b0 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_int_base.h",linenumber="1616",label="{.succFake}"];
-}

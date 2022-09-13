@@ -1,7 +1,0 @@
-digraph "CFG for 'std::allocator_traits\<std::allocator\<std::array\<char, 12ul\>*\> \>::allocate' function" {
-	label="CFG for 'std::allocator_traits\<std::allocator\<std::array\<char, 12ul\>*\> \>::allocate' function";
-
-	Node0x46c7560 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x46c7560 -> Node0x47e3030[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/tps/lnx64/gcc-6.2.0/lib/gcc/x86_64-pc-linux-gnu/6.2.0/../../../../include/c++/6.2.0/bits/alloc_traits.h" execusionnum="2"];
-	Node0x47e3030 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/tps/lnx64/gcc-6.2.0/lib/gcc/x86_64-pc-linux-gnu/6.2.0/../../../../include/c++/6.2.0/bits/alloc_traits.h",linenumber="416",label="{.succFake}"];
-}

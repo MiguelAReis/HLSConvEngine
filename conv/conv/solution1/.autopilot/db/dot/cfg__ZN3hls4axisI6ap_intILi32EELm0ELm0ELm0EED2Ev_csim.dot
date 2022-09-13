@@ -1,7 +1,0 @@
-digraph "CFG for 'hls::axis\<ap_int\<32\>, 0ul, 0ul, 0ul\>::~axis' function" {
-	label="CFG for 'hls::axis\<ap_int\<32\>, 0ul, 0ul, 0ul\>::~axis' function";
-
-	Node0x4604960 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x4604960 -> Node0x47bb640[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_axi_sdata.h" execusionnum="0"];
-	Node0x47bb640 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_axi_sdata.h",linenumber="109",label="{.succFake}"];
-}

@@ -1,7 +1,0 @@
-digraph "CFG for 'ap_private\<4, false, true\>::ap_private' function" {
-	label="CFG for 'ap_private\<4, false, true\>::ap_private' function";
-
-	Node0x4725150 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x4725150 -> Node0x483f5d0[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/etc/ap_private.h" execusionnum="344"];
-	Node0x483f5d0 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/etc/ap_private.h",linenumber="1685",label="{.succFake}"];
-}

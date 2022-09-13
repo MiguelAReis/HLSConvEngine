@@ -1,7 +1,0 @@
-digraph "CFG for 'ap_uint\<4\>::~ap_uint' function" {
-	label="CFG for 'ap_uint\<4\>::~ap_uint' function";
-
-	Node0x46dc2d0 [shape=record,filename="",linenumber="",label="{.predFake}"];
-	Node0x46dc2d0 -> Node0x47e72f0[ callList="" memoryops="" filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_int.h" execusionnum="0"];
-	Node0x47e72f0 [shape=record,filename="/media/miguel/NewVolume/Linux/Xilinx/Vitis_HLS/2020.2/include/ap_int.h",linenumber="202",label="{.succFake}"];
-}
