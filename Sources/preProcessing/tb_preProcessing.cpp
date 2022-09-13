@@ -145,8 +145,8 @@ int main()
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
 
 
-
-	preProcessing(str_in, str_out,3,tbInputMapSize*tbInputMapSize,((tbKernelN-1)/itersPerStream+1));
+	int ctrl = (1<<0)+(1<<1)+(7<<2);
+	preProcessing(str_in, str_out,ctrl,tbInputMapSize*tbInputMapSize,((tbKernelN-1)/itersPerStream+1));
 
 
 	printf("Receiving out Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));

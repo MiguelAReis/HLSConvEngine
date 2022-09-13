@@ -17,7 +17,7 @@ typedef ap_axis<64, 0, 0, 0> axisStream;
 
 void preProcessing(hls::stream<axisStream> &strm_in,
 		hls::stream<axisStream> &strm_out,
-		int ctrl,//1:AvgPool 2: LoadWeights
+		int ctrl,//0:AvgPool 1: LoadWeights 2-4: scale
 		int mapSize,
 		int zWiseValues){
 
@@ -37,9 +37,11 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 
 	bool avg=(ctrl&0x01);
 	bool loadWeights= (ctrl&0x02);
+	ap_int<3> scale = (ctrl&0x1C)>>2;
 
 	//printf("avg is %d\n",avg);
 	//printf("loadWeights is %d\n",loadWeights);
+	//printf("scale is %d\n",scale.to_int());
 	act actValue=0;
 	act_ actValue_=0;
 	act_ actValueDiv=0;
@@ -54,7 +56,7 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 
 
 	if(avg){
-		factor = (1<<25)/mapSize;
+		factor = ((1<<25)/mapSize)+1;
 		if(loadWeights){
 			for(int i=0;i<2;i++){
 				while(!last){ //bias
@@ -115,7 +117,11 @@ void preProcessing(hls::stream<axisStream> &strm_in,
 				actValue_=values.range((((itersPerStream-1)-w)+1)*(accumBitWidth)-1,(((itersPerStream-1)-w)*(accumBitWidth)));
 				//printf("Got Value %d to send out\n",actValue_.to_int());
 				result=(actValue_*factor);
-				actValue=(result>>25);
+				result=(result>>(25+scale));
+				if(result>=(1<<AWidth)-1) actValue = (1<<AWidth)-1;
+				else actValue=result;
+
+
 				//if(result.range(24,24))actValue++;
 				//printf("Result %d to send out\n",actValue.to_int());
 				values_=(values_<<(AWidth))+actValue;

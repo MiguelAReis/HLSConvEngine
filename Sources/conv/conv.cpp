@@ -341,6 +341,14 @@ void conv(hls::stream<axisStream> &strm_in,
 											#pragma HLS unroll
 											if(relu && (accum[pes]< 0)) accum[pes] =0;
 											else accum[pes] =accum[pes]>>scale;
+											if(relu){
+												if(accum[pes]>=(1<<AWidth)-1) accum[pes] = (1<<AWidth)-1;
+											}else{
+												if(accum[pes]>=(1<<(AWidth-1))-1) accum[pes] = (1<<(AWidth-1))-1;
+												else if (accum[pes]<=-(1<<(AWidth-1)) ) accum[pes] = -(1<<(AWidth-1));
+											}
+
+
 											//printf("relu is %d and accum is %d for pe %d\n",relu,accum[pes].to_int(),pes);
 										}
 										short peIndex=0;

@@ -6,10 +6,10 @@
 #include "ap_axi_sdata.h"
 #include "convParameters.h"
 
-#define tbFilterN 32
-#define tbKernelN 1
-#define tbFilterSize 3
-#define tbInputMapSize 5
+#define tbFilterN 256
+#define tbKernelN 2048
+#define tbFilterSize 1
+#define tbInputMapSize 1
 #define tbStride 1
 #define tbPadding 0
 #define tbOutputMapSize ((tbInputMapSize - tbFilterSize+ 2*tbPadding)/tbStride + 1)
@@ -318,7 +318,7 @@ void initVectors(){
 			for(int y=0;y<itersPerStream;y++){
 				//printf("k*itersPerStream+y %d\n",k*itersPerStream+y);
 				if(k*itersPerStream+y<tbKernelN){
-					value= (value<<AWidth)+(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF);
+					value= (value<<AWidth)+(((tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i)&0xF)+1;
 					//printf("put %d into %lu\n",(tbInputMapSize*tbInputMapSize)*(k*itersPerStream+y)+i,value);
 				}else{
 					value= (value<<AWidth);
@@ -366,21 +366,20 @@ int main()
 
 	initVectors();
 	printf("Input Map\n");
-	print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbKernelN,tbIsMapSigned);
+	//print_Map(inputMap, tbInputMapSize, tbInputMapSize,tbKernelN,tbIsMapSigned);
 	printf("Filter 0\n");
-	print_Filter(filter, tbFilterSize, tbFilterSize,tbKernelN);
+	//print_Filter(filter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 1\n");
 	int sizeOfFilter= tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1);
 	//print_Filter(filter+sizeOfFilter, tbFilterSize, tbFilterSize,tbKernelN);
 	printf("Filter 3\n");
 	//print_Filter(filter+sizeOfFilter*2, tbFilterSize, tbFilterSize,tbKernelN);
+	//print_Filter(filter+sizeOfFilter*3, tbFilterSize, tbFilterSize,tbKernelN);
+	//print_Filter(filter+sizeOfFilter*4, tbFilterSize, tbFilterSize,tbKernelN);
 	long bias =0;//((long)127<<(64-8))+((long)127<<(64-16))+((long)-128<<(64-24));
 	tmp.data=bias;
-	str_in.write(tmp);
-	str_in.write(tmp);
-	str_in.write(tmp);
-	str_in.write(tmp);
-	//str_in.write(tmp);
+	for(int i=0;i<32;i++)str_in.write(tmp);
+
 	/*tmp.data=-1432125677477567730;
 	str_in.write(tmp);
 	tmp.data=-4052052124341379355;
@@ -393,7 +392,7 @@ int main()
 	for (int i=0; i<(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)); i++) {
 		tmp.data=(ap_int<64>)filter[i];
 		str_in.write(tmp);
-		printf("%d %lu\n",i,filter[i]);
+		//printf("%d %lu\n",i,filter[i]);
 	}
 
 	printf("Sent whole Filter N = %d \n",(tbFilterN*tbFilterSize*tbFilterSize*((tbKernelN-1)/itersPerStream+1)));
@@ -405,7 +404,7 @@ int main()
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
 		//else tmp.last=0;
 		str_in.write(tmp);
-		printf("%lu\n",inputMap[y]);
+		//printf("%lu\n",inputMap[y]);
 	}
 
 	printf("Sent whole Input Map N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
@@ -419,7 +418,7 @@ int main()
 	for (int i=0; i<tbOutputMapSize*tbOutputMapSize*((tbFilterN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
-		printf("%lu\n",outputMap[i]);
+		//printf("%lu\n",outputMap[i]);
 		if(tmpa.last) printf("Received LAST\n");
 	}
 

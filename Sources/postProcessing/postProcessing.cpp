@@ -18,7 +18,7 @@ typedef ap_int<WWidth+AWidth> PEWAccum;
 typedef ap_int<AWidth+2> addAct;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType q21, actDataType q22, ap_int<20> x2x1y2y1,  ap_int<20> first, ap_int<10> second, ap_int<20> third, ap_uint<20> fourth,ap_uint<25> factor,int scale,bool map0Signed)
+actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType q21, actDataType q22, ap_int<20> x2x1y2y1,  ap_int<20> first, ap_int<20> second, ap_int<20> third, ap_uint<20> fourth,ap_uint<25> factor,ap_int<2> scale,bool map0Signed)
 {
 //#pragma HLS INLINE
     actDataType outValues=0,result=0;
@@ -40,12 +40,23 @@ actDataType BilinearInterpolation(actDataType q11, actDataType q12, actDataType 
 		if(map0Signed && q22Value.test(AWidth-1)) q22Value.set(AWidth);
 
     	//if(!w) printf("q11 %d q12 %d q21 %d q22 %d\n",q11Value.to_int(),q12Value.to_int(),q21Value.to_int(),q22Value.to_int());
-    	//printf("factor is %d\n",factor.to_int());
-    	//printf("x2x1y2y1 is %d\n",x2x1y2y1.to_int());
+    	//if(!w)printf("first %d second %d third %d fourth %d\n",first,second,third,fourth);
+    	//if(!w)printf("factor is %d\n",factor.to_int());
+    	//if(!w)printf("x2x1y2y1 is %d\n",x2x1y2y1.to_int());
+		result=  ((first*q11Value+second*q21Value+third*q12Value+fourth*q22Value));
+		//if(!w)printf("result is %d\n",result.to_int());
+		result= (result*factor);
+		//if(!w)printf("result is %d\n",result.to_int());
+		result= result>>(factorBits+scale);
 
-		result=  (((x2x1y2y1+(first*q11Value+second*q21Value+third*q12Value+fourth*q22Value))*factor>>factorBits))-1;
+		if(!map0Signed){
+			if(result>=(1<<AWidth)-1) result = (1<<AWidth)-1;
+		}else{
+			if(result>=(1<<(AWidth-1))-1) result = (1<<(AWidth-1))-1;
+			else if (result<=-(1<<(AWidth-1)) ) result = -(1<<(AWidth-1));
+		}
 		//if(!w) printf("result is %ld\n",result.to_long());
-		outValues=(outValues<<AWidth)+result.range(AWidth-1+scale,scale);
+		outValues=(outValues<<AWidth)+result.range(AWidth-1,0);
     }
 
     return outValues;
@@ -81,20 +92,21 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 	bool addMap = ctrl&0x01;
 	bool map0Signed = (ctrl&0x02);
 	bool map1Signed = (ctrl&0x04);
-	unsigned short scale=(ctrl&0x18)>>3;
+	ap_int<2> scale=(ctrl&0x18)>>3;
 	bool interpolate=(ctrl&0x20);
 	unsigned short size0=(ctrl&0xFFC0)>>6;//initial size
 	unsigned short size1=(ctrl&0x3FF0000)>>16;//final size
-	bool lastPixel = (ctrl&0x200000);
-
-	//printf("addMap %d\n",addMap);
-	//printf("map0Signed %d\n",map0Signed);
-	//printf("map1Signed %d\n",map1Signed);
-	//printf("scale %d\n",scale);
-	//printf("interpolate %d\n",interpolate);
-	//printf("size0 %d\n",size0);
-	//printf("size1 %d\n",size1);
-
+	bool lastPixel = (ctrl&0x4000000);
+/*
+	printf("addMap %d\n",addMap);
+	printf("map0Signed %d\n",map0Signed);
+	printf("map1Signed %d\n",map1Signed);
+	printf("scale %d\n",scale.to_int());
+	printf("interpolate %d\n",interpolate);
+	printf("size0 %d\n",size0);
+	printf("size1 %d\n",size1);
+	printf("lastPixel %d\n",lastPixel);
+*/
 	PESignedAct map0Value=0;
 	PESignedAct map1Value=0;
 	addAct result=0;
@@ -109,8 +121,8 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 	unsigned int factor=0;
 	for(int i=0;i<factor1;i++) factor+=factor1;
 	//printf("factor is %d\n",factor);
-	factor=(1<<factorBits)/factor;
-	//printf("factor is %d\n",factor);
+	factor=((unsigned long)1<<factorBits)/factor;
+	factor++;
 	int x2x1=0, y2y1=0, x2x=0, y2y=0, yy1=0, xx1=0, x2x1y2y1=0;
 	int x1=0,x1_=0,x2=factor1,x2_=1,y1=0 ,y1_=0,y2=factor1 ,y2_=1;
 	unsigned short bramIndex0=0,bramIndex1=1,bramIndex2=2;
@@ -144,7 +156,14 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 				if(map1Signed && map1Value.test(AWidth-1)) map1Value.set(AWidth);
 				//printf("map0Value is %d map1Value is%d\n",map0Value.to_int(),map1Value.to_int());
 				result=map0Value+map1Value;
-				outValues=(outValues<<AWidth)+result.range(AWidth-1+scale,scale);
+				result=result>>scale;
+				if(!map0Signed && !map1Signed){
+					if(result>=(1<<AWidth)-1) result = (1<<AWidth)-1;
+				}else{
+					if(result>=(1<<(AWidth-1))-1) result = (1<<(AWidth-1))-1;
+					else if (result<=-(1<<(AWidth-1)) ) result = -(1<<(AWidth-1));
+				}
+				outValues=(outValues<<AWidth)+result.range(AWidth-1,0);
 			}
 
 			outValues=outValues<<ARemainder;
@@ -238,8 +257,9 @@ void postProcessing(hls::stream<axisStream> &strm_in0,
 					    third =  (ap_int<10>)x2x * (ap_int<10>)yy1;
 					    fourth = (ap_int<10>)xx1 * (ap_int<10>)yy1;
 
-					   //printf("x2x %d y2y %d yy1 %d xx1 %d\n",x2x,y2y,yy1,xx1);
-					   //printf("first %d second %d third %d fourth %d\n",first,second,third,fourth);
+					    //printf("x2 %d x1 %d xx %d y2 %d y1 %d yy %d\n",x2,x1,xx,y2,y1,yy);
+					    //printf("x2x %d y2y %d yy1 %d xx1 %d\n",x2x,y2y,yy1,xx1);
+					    //printf("first %d second %d third %d fourth %d\n",first,second,third,fourth);
 					}
 					q11=input[bramIndex0][x1_+outZ];
 					q12=input[bramIndex1][x1_+outZ];

@@ -5,11 +5,11 @@
 #include "ap_axi_sdata.h"
 #include "depthwiseParameters.h"
 
-#define tbFilterN 3
+#define tbFilterN 64
 #define tbFilterSize 3
-#define tbInputMapSize 6
-#define tbStride 2
-#define tbPadding 4
+#define tbInputMapSize 150
+#define tbStride 1
+#define tbPadding 1
 #define tbOutputMapSize ((tbInputMapSize - tbFilterSize+ 2*tbPadding)/tbStride + 1)
 #define tbScale 6
 #define tbBiasScale 0
@@ -188,13 +188,15 @@ int main()
 	printf("Sent whole Bias N =%d\n",tbFilterN);
 
 	for (int i=0; i<(tbFilterSize*tbFilterSize*((tbFilterN-1)/itersPerStream+1)); i++) {
-		tmp.data=(ap_int<64>)filter[i];
+		//tmp.data=(ap_int<64>)filter[i];
+		tmp.data=(ap_int<64>)4;
 		str_in.write(tmp);
 		//printf("%d %lu\n",i,filter[i]);
 	}
 	printf("Sent whole Filter N =%d\n",(tbFilterSize*tbFilterSize*((tbFilterN-1)/itersPerStream+1)));
 	for (int y =0 ;y<tbInputMapSize*tbInputMapSize*((tbFilterN-1)/itersPerStream+1); y++) {
-		tmp.data=(ap_int<64>)inputMap[y];
+		//tmp.data=(ap_int<64>)inputMap[y];
+		tmp.data=(ap_int<64>)5;
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
 		//else tmp.last=0;
 		str_in.write(tmp);
@@ -204,7 +206,7 @@ int main()
 
 	printf("Sent whole Input Map N =%d\n",tbInputMapSize*tbInputMapSize*((tbFilterN-1)/itersPerStream+1));
 	//0-1: stride  2-4: padding  5: isMapSigned 6-9:biasScale 10-12: scale 13:relu 14:tlast
-	int ctrl=(tbStride)+(tbPadding<<2)+(tbIsMapSigned<<5)+(tbBiasScale<<6)+(tbScale<<10)+(tbRelu<<13)+(tbTlast<<14);
+	int ctrl=(tbStride)+(tbPadding<<2)+(tbIsMapSigned<<5)+(tbBiasScale<<6)+(tbScale<<10)+(tbRelu<<13)+(tbTlast<<14)+(1<<15);
 	//ctrl=6162;
 	printf("ctr is %d\n",ctrl);
 	depthwise(str_in, str_out,tbFilterN,tbInputMapSize,tbInputMapSize,ctrl);

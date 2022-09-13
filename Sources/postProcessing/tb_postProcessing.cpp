@@ -7,7 +7,7 @@
 #include "postProcessingParameters.h"
 
 #define tbKernelN 1
-#define tbInputMapSize 1
+#define tbInputMapSize 19
 
 
 
@@ -16,9 +16,27 @@ typedef ap_int<WWidth> filterDataType;
 typedef ap_int<AWidth> actDataType;
 typedef ap_axis<64, 0, 0, 0> axisStream;
 
-static  long inputMap0[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)]={9223372036854775807};
+static  long inputMap0[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)]={4,3,3,3,3,4,4,3,3,3,3,3,3,3,2,2,2,3,2,
+																					2,1,1,2,2,1,2,2,1,1,1,2,1,2,1,1,1,2,1,
+																					1,1,1,0,1,1,2,0,0,1,1,1,1,1,0,1,0,1,1,
+																					1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+																					0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static  long inputMap1[tbInputMapSize*tbInputMapSize*(tbKernelN/itersPerStream+1)];
-long outputMap[19*19*(tbKernelN/itersPerStream+1)];
+long outputMap[75*75*(tbKernelN/itersPerStream+1)];
 
 void postProcessing(hls::stream<axisStream> &strm_in0,
 		hls::stream<axisStream> &strm_in1,
@@ -119,7 +137,7 @@ void initVectors(){
 				}
 			} //arranjar shifts quando width n e potencia 2
 			inputMap0[i*((tbKernelN-1)/itersPerStream+1)+k] = value<<ARemainder;
-			inputMap1[i*((tbKernelN-1)/itersPerStream+1)+k] = value<<ARemainder;
+			//inputMap1[i*((tbKernelN-1)/itersPerStream+1)+k] = value<<ARemainder;
 			//printf("%lu \n",inputMap[i*((tbKernelN-1)/itersPerStream+1)+k]);
 		}
 
@@ -142,15 +160,15 @@ int main()
 
 	//initVectors();
 	printf("Input Map0\n");
-	print_Map(inputMap0, tbInputMapSize, tbInputMapSize,tbKernelN,0);
+	//print_Map(inputMap0, tbInputMapSize, tbInputMapSize,tbKernelN,0);
 	//printf("Input Map1\n");
 	//print_Map(inputMap1, tbInputMapSize, tbInputMapSize,tbKernelN,0);
 
 
 
 	for (int y =0 ,j=0;y<tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1); y++) {
-		tmp0.data=(ap_int<64>)inputMap0[y];
-		tmp1.data=(ap_int<64>)inputMap1[y];
+		tmp0.data=(ap_int<64>)inputMap0[y]<<60;
+		//tmp1.data=(ap_int<64>)inputMap1[y];
 		//if(y == tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1)-1) tmp.last=1;
 		tmp0.last=(j==1);
 		j++;
@@ -158,16 +176,16 @@ int main()
 		//str_in1.write(tmp1);
 		str_in0.write(tmp0);
 
-		printf("sent %lu\n",inputMap0[y]);
+		//printf("sent %lu\n",inputMap0[y]);
 		//if(tmp1.last) printf("sent last\n");
 	}
 
 	printf("Sent whole Input Maps N = %d  \n",tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1));
-	int ctrl=327784;
+	int ctrl=(0<<0)+(0<<1)+(0<<2)+(1<<3)+(1<<5)+(19<<6)+(75<<16)+(1<<26);
 	printf("ctrl is %d\n",ctrl);
 	postProcessing(str_in0,str_in1,str_out,ctrl,tbInputMapSize*tbInputMapSize*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
 
-	printf("Receiving out Map N = %d  \n",9*9*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
+	printf("Receiving out Map N = %d  \n",5*5*((tbKernelN-1)/itersPerStream+1),((tbKernelN-1)/itersPerStream+1));
 
 	/*for (int i=0; i<5*5*((tbKernelN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
@@ -180,15 +198,15 @@ int main()
 		}
 	}*/
 
-	for (int i=0; i<5*5*((tbKernelN-1)/itersPerStream+1); i++) {
+	for (int i=0; i<75*75*((tbKernelN-1)/itersPerStream+1); i++) {
 		tmpa = str_out.read();
 		outputMap[i] = ((unsigned long)tmpa.data);
-		printf("%lu \n",outputMap[i]);
-		if(tmpa.last)printf("LAST \n",outputMap[i]);
+		//printf("%lu \n",outputMap[i]);
+		//if(tmpa.last)printf("LAST \n",outputMap[i]);
 	}
 
 	printf("Output is: \n");
-	print_Map(outputMap, 5, 5,tbKernelN,0);
+	print_Map(outputMap, 75, 75,tbKernelN,0);
 
 	return 0;
 }
